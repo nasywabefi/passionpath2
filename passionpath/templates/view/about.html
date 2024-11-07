@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About PassionPath</title>
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="../img/logo_Square_passionpath.png"
+    />
+
+    <!-- Link Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style/style_about.css" />
+    <link rel="stylesheet" href="../style/style_nav-footer.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="navbar-custom">
+        <div class="rata-kiri">
+          <div class="logo">
+            <a href="../index.html"><img src="../img/logo_long_passionpath.png" alt="PassionPath Logo" /></a>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="../view/about.html">About</a></li>
+              <li><a href="../view/product.html">Product</a></li>
+              <li><a href="../view/contact.html">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+  
+        <div class="auth-buttons">
+          <a href="../view/login.html">
+            <button class="login-btn">Login</button>
+          </a>
+          <a href="../view/register.html">
+            <button class="register-btn">Register</button>
+          </a>
+        </div>
+        <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="highlight-bg">
+          <h1>Mengapa Harus PassionPath?</h1>
+        </div>
+
+        <div class="d-flex flex-column-reverse flex-md-row flex-column flex-md-row align-items-center">
+          <div class="flex-fill">
+            <h4 class="highlight">Taukah kamu?</h4>
+            <blockquote>
+              “87% mahasiswa di Indonesia merasa salah jurusan dengan berbagai alasan”
+            </blockquote>
+            <h4 clas ="isi">
+              Dengan fenomena tersebut, PassionPath hadir untuk meminimalisir
+              permasalahan tersebut. PassionPath merupakan platform belajar untuk
+              mencari minat bakat pada siswa SMP dan SMA untuk ke jenjang lebih lanjut.
+            </h4>
+            <blockquote>
+              <span>
+                Ahli Educational Psychologist dari Integrity Development Flexibility
+                (IDF), Irene Guntur.
+              </span>
+            </blockquote>
+          </div>
+
+          <div class="d-flex justify-content-center mt-4">
+            <img
+              src="../img/map.png"
+              alt="Peta"
+              class="img-fluid"
+              width="1300"
+            />
+            
+          </div>
+        </div>
+
+        <div class="d-flex flex-column flex-md-row align-items-center mt-4">
+          <div class="flex-fill">
+            <img src="../img/ideaFit.png" alt="Idea" class="img-fluid"/>
+          </div>
+          <div class="benefits flex-fill">
+            <h2>Dengan PassionPath kamu akan...</h2>
+            <ul>
+              <li>Menambah wawasan terkait pekerjaan yang kamu minati</li>
+              <li>Belajar dari pengalaman para Expert</li>
+              <li>Mendapatkan hasil psikotes yang terpersonalisasi</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4 class="penutup">
+          Tentukan dan jelajahi jalur karir yang kamu minati bersama PassionPath!
+        </h4>
+        <div class="text-center">
+          <a href="../view/product.html">
+            <button class="join-btn btn">Join Now</button>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-about">
+          <h3>Tentang Kami</h3>
+          <p>
+            PassionPath membantu pengguna mengenali potensi dan minat melalui
+            tes psikologis ilmiah. Platform ini memberikan rekomendasi karir dan
+            pendidikan yang sesuai, serta laporan hasil tes untuk pengembangan
+            diri dan perencanaan masa depan.
+          </p>
+        </div>
+
+        <div class="kekanan">
+          <div class="contact-us">
+            <h3>Contact Us</h3>
+            <ul>
+              <li>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a>
+              </li>
+              <li>
+                <a href="#courses"
+                  ><i class="fa-solid fa-envelope"></i> Email</a
+                >
+              </li>
+              <li>
+                <a href="#about"
+                  ><i class="fa-solid fa-location-dot"></i> Cawang PGC, Lt.4</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="information">
+
+            <h3>information</h3>
+            <ul>
+              <li>
+                <a href="#"
+                  ><i class="fa-solid fa-hand-holding-dollar"></i> Jumlah
+                  Donasi</a
+                >
+              </li>
+              <li>
+                <a href="#"><i class="fa-solid fa-images"></i> Dokumentasi</a>
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fa-solid fa-pen-to-square"></i> Program &
+                  Rencana</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    
+
+    <!-- jQuery untuk Interaksi -->
+    <script>
+      // Smooth scrolling untuk anchor link
+      $('a').click(function (event) {
+        if (this.hash !== '') {
+          event.preventDefault();
+          const hash = this.hash;
+          $('html, body').animate(
+            {
+              scrollTop: $(hash).offset().top,
+            },
+            800
+          );
+        }
+      });
+
+      // Fade in pada konten footer saat halaman di-scroll
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+          $('footer').fadeIn();
+        } else {
+          $('footer').fadeOut();
+        }
+      });
+
+      // Hover effect pada tombol Join Now
+      $('.join-btn').hover(
+        function () {
+          $(this).css('background-color', '#5a5a5a');
+        },
+        function () {
+          $(this).css('background-color', '#8968F6');
+        }
+      );
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../style/navbar.js"></script>
+  </body>
+</html>

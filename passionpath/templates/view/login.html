@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PassionPath Login</title>
+
+    <!-- Import Google Fonts Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="../style/style_nav-footer.css" />
+    <link rel="stylesheet" href="../style/style_register_login.css" />
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+    <header>
+        <div class="navbar-custom">
+            <div class="rata-kiri">
+                <div class="logo">
+                    <a href="../index.html" img><img src="../img/logo_long_passionpath.png" alt="PassionPath Logo" /></a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../view/about.html">About</a></li>
+                        <li><a href="../view/product.html">Products</a></li>
+                        <li><a href="../view/contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="auth-buttons">
+                <a href="../view/login.html">
+                    <button class="login-btn">Login</button>
+                </a>
+                <a href="../view/register.html">
+                    <button class="register-btn">Register</button>
+                </a>
+            </div>
+            <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
+        </div>
+    </header>
+    
+    
+
+    <div class="container">
+        <div class="card">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <img alt="" class="img-fluid" height="600" src="../img/bglogin.png" />
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h4 class="text-center mb-4">LOGIN</h4>
+                        <form>
+                            <input class="form-control" placeholder="E-Mail" type="email" required />
+                            <div class="input-group">
+                                <input id="password" class="form-control" placeholder="Enter your password"
+                                    type="password" required />
+                                <span class="input-group-text" id="toggle-password">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                            <button class="btn btn-primary w-100" type="submit">
+                                Login
+                            </button>
+                        </form>
+                        <div class="text-center login-link mt-3">
+                            Do you have an account?
+                            <a href="../view/register.html">Daftar!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>Tentang Kami</h3>
+                <p>
+                    PassionPath membantu pengguna mengenali potensi dan minat melalui
+                    tes psikologis ilmiah. Platform ini memberikan rekomendasi karir dan
+                    pendidikan yang sesuai, serta laporan hasil tes untuk pengembangan
+                    diri dan perencanaan masa depan.
+                </p>
+            </div>
+            <div class="kekanan">
+                <div class="contact-us">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a>
+                        </li>
+                        <li>
+                            <a href="#courses"><i class="fa-solid fa-envelope"></i> Email</a>
+                        </li>
+                        <li>
+                            <a href="#about"><i class="fa-solid fa-location-dot"></i> Cawang PGC, Lt.4</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="information">
+                    <h3>Information</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fa-solid fa-hand-holding-dollar"></i> Jumlah
+                                Donasi</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa-solid fa-images"></i> Dokumentasi</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa-solid fa-pen-to-square"></i> Program &
+                                Rencana</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="../style/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PassionPath</title>
+    <link rel="shotcut icon" type="n-icon" href="{% static 'img/logo_Square_passionpath.png'%}">
+    <link rel="stylesheet" href="{% static 'css/style_index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_nav-footer.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <script>
+
+        let klikFaq = document.getElementById("bulet")
+        document.addEventListener('DOMContentLoaded', function () {
+            let klikFaq1 = document.getElementById("bulet1")
+            let klikFaq2 = document.getElementById("bulet2")
+            let klikFaq3 = document.getElementById("bulet3")
+            let klikFaq4 = document.getElementById("bulet4")
+            let klikFaq5 = document.getElementById("bulet5")
+            let klikFaq6 = document.getElementById("bulet6")
+
+
+            klikFaq1.addEventListener("click", function () {
+                document.querySelector(".question1 p").classList.toggle('ada')
+                document.querySelector(".bulet1 div:nth-child(2)").classList.toggle('ada')
+                document.querySelector(".bulet1 div:nth-child(1)").classList.toggle('kaga-ada')
+
+            })
+            klikFaq2.addEventListener("click", function () {
+                document.querySelector(".question2 p").classList.toggle('ada')
+                document.querySelector(".bulet2 div:nth-child(2)").classList.toggle('ada')
+                document.querySelector(".bulet2 div:nth-child(1)").classList.toggle('kaga-ada')
+            })
+            klikFaq3.addEventListener("click", function () {
+                document.querySelector(".question3 p").classList.toggle('ada')
+                document.querySelector(".bulet3 div:nth-child(2)").classList.toggle('ada')
+                document.querySelector(".bulet3 div:nth-child(1)").classList.toggle('kaga-ada')
+            })
+            klikFaq4.addEventListener("click", function () {
+                document.querySelector(".question4 p").classList.toggle('ada')
+                document.querySelector(".bulet4 div:nth-child(2)").classList.toggle('ada')
+                document.querySelector(".bulet4 div:nth-child(1)").classList.toggle('kaga-ada')
+            })
+            klikFaq5.addEventListener("click", function () {
+                document.querySelector(".question5 p").classList.toggle('ada')
+                document.querySelector(".bulet5 div:nth-child(2)").classList.toggle('ada')
+                document.querySelector(".bulet5 div:nth-child(1)").classList.toggle('kaga-ada')
+            })
+            klikFaq6.addEventListener("click", function () {
+                document.querySelector(".question6 p").classList.toggle('ada')
+                document.querySelector(".bulet6 div:nth-child(2)").classList.toggle('ada')
+                document.querySelector(".bulet6 div:nth-child(1)").classList.toggle('kaga-ada')
+            })
+
+        })
+
+
+
+        setTimeout(function () {
+            document.getElementById("ilang1").style.display = 'block';
+            document.getElementById("ilang2").style.display = 'block';
+            document.getElementById("ilang3").style.display = 'block';
+            document.querySelector('section').style.dispay = 'none';
+            document.querySelector(".page").style.display = 'none';
+            document.getElementById("donut-spinner").style.display = 'none';
+        }, 1000);
+    </script>
+
+    <style>
+        .page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        @keyframes donut-spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #donut-spinner {
+            display: block;
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #d45a14;
+            border-radius: 50%;
+            animation: donut-spin 1.2s linear infinite;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <section class="page">
+        <div id="donut-spinner"></div>
+    </section>
+
+    <header class="ilang" id="ilang1">
+        <div class="navbar-custom animate__animated animate__fadeInDown">
+            <div class="rata-kiri">
+                <div class="logo">
+                    <a href=""><img src="{% static 'img/logo_long_passionpath.png'%}" alt="PassionPath Logo" /></a>
+                    
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="view/about.html">About</a></li>
+                        <li><a href="view/product.html">Products</a></li>
+                        <li><a href="view/contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="auth-buttons">
+                <a href="view/login.html">
+                    <button class="login-btn">Login</button>
+                </a>
+                <a href="view/register.html">
+                    <button class="register-btn">Register</button>
+                </a>
+            </div>
+            <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
+        </div>
+    </header>
+
+    
+    <main class="ilang" id="ilang2">
+        <div class="jumbotron">
+            <div class="jumbotron-content">
+                <img src="{% static 'img/pict_jumbotron.png' %}" alt="Gambar" class="jumbotron-image"/>
+                    
+                <div class="jumbotron-text">
+                    <h2 class="animate__animated animate__fadeInUp
+                        animate__delay-1s">
+                        Passion Path
+                        <br>
+                        Education Platform
+                    </h2>
+                    <p class="animate__animated animate__fadeInUp
+                    animate__delay-1s">
+                    Pembelajaran minat bakat pada siswa
+                        <br>
+                        SMP/MTS/MA/SMA/SMK Sederajat
+                    </p>
+                    <p>
+                        <a href="view/product.html">
+                            <button class="button-product animate__animated animate__fadeInUp
+                            animate__delay-1s">Get Started</button>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        
+            <div class="button-container">
+                <!-- Container untuk kedua button -->
+                <button class="button-class">
+                    <h3><i class="fa-solid fa-chalkboard-user"></i>110 Class</h3>
+                </button>
+                <button class="button-class button-siswa">
+                    <h3><i class="fa-solid fa-graduation-cap"></i>200 Siswa</h3>
+                </button>
+            </div>
+        </div>
+        
+
+        <br>
+        <br>
+        <br>
+
+        <div class="button-container2"> <!-- Container untuk kedua button -->
+            <a href="view/courses/bussines.html"><button class="button-business"><i
+                        class="fa-solid fa-briefcase fa-2x"></i>Business</button></a>
+            <a href="view/courses/development.html"><button class="button-development"><i
+                        class="fa-solid fa-file-code fa-2x"></i>Development</button></a>
+            <a href="view/courses/language.html"><button class="button-language"><i
+                        class="fa-solid fa-language fa-2x"></i>Language</button></a>
+            <a href="view/courses/design.html"><button class="button-design"><i
+                        class="fa-solid fa-pen-ruler fa-2x"></i>Design</button></a>
+            <a href="view/courses/accounting.html"><button class="button-office"><i
+                        class="fa-solid fa-calculator fa-2x"></i></i>Accounting</button></a>
+        </div>
+
+        <div class="mbakudung" style="display: flex; justify-content: center; align-items: center;">
+            <div class="text-benefit">
+                <h2 class="animate__animated animate__fadeInUp
+                    animate__delay-1s"> 
+                    Kamu Harus Mengikuti Kelas di PassionPath?</h2>
+                <p class="animate__animated animate__bounceIn animate__delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Mempermudah menuju jurusan impian</p>
+                <p class="animate__animated animate__bounceIn animate__delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Prospek karir yang sesuai</p>
+                <p class="animate__animated animate__bounceIn animate__delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Memaksimalkan Potensi Diri</p>
+                <p class="animate__animated animate__bounceIn animate__delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Menambah Wawasan</p>
+                <p class="animate__animated animate__bounceIn animate__delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Koneksi dan Networking yang luas </p>
+            </div>
+            <div class="pict_mbakudung">
+                <img src="{% static 'img/pict_mbamba_kudung.png' %}" alt="Gambar" class="image-mba">
+            </div>
+        </div>
+
+        <div class="faq">
+            <h1> Frequently asked Questions </h1>
+            <div class="card-faq" id="bulet1">
+                <div class="question1">
+                    <h3>Bagaimana cara mendaftar di PassionPath?</h3>
+                    <p class="kaga-ada">Silahkan untuk klik daftar disini <a href="view/register.html">Disini!</a>
+                </div>
+
+                <div>
+                    <div class="bulet1">
+                        <div>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="kaga-ada">
+                            <i class="fa-solid fa-chevron-up"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-faq" id="bulet2">
+                <div class="question2">
+                    <h3>Apa itu PassionPath?</h3>
+                    <p class="kaga-ada"> PassionPath adalah sebuah platform pendidikan teknologi yang
+                        dirancang untuk membantu pengguna, dalam hal mengenali potensi minat bakat dan pengembangan
+                        diri.
+                        Dengan PassionPath kamu dapat mengakses berbagai video interaktif dan diskusi dengan ahli
+                        dibidangnya,
+                        dan mengenali potensi diri lebih dalam melalui tes psikologis yang ada. PassionPath juga
+                        memberikan rekomendasi karir dan pendidikan yang sesuai dengan hasil tes
+                        dan memberikan laporan untuk pengembangan diri dan perencanaan masa depan.</p>
+                    </p>
+                </div>
+
+                <div>
+                    <div class="bulet2">
+                        <div>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="kaga-ada">
+                            <i class="fa-solid fa-chevron-up"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-faq" id="bulet3">
+                <div class="question3">
+                    <h3>Apakah ada biaya untuk menggunakan PassionPath?</h3>
+                    <p class="kaga-ada">Untuk mengakses PassionPath dikenakan biaya mulai dari 0 Rupiah Alias
+                        Gratis!
+                        untuk fitur-fitur premium dan akses yang lebih luas ke seluruh konten kamu bisa mengecek
+                        detailnya <a href="view/product.html">Disini</a></p>
+                </div>
+                <div>
+                    <div class="bulet3">
+                        <div>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="kaga-ada">
+                            <i class="fa-solid fa-chevron-up"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-faq" id="bulet4">
+                <div class="question4">
+                    <h3>Bagaimana PassionPath menjaga privasi dan keamanan data saya?</h3>
+                    <p class="kaga-ada">Tenang aja di PassionPath, privasi dan keamanan data kamu adalah prioritas
+                        utama.
+                        Kami selalu menggunakan teknologi enkripsi terbaru buat jaga semua informasi kamu tetap
+                        aman.
+                        Selain itu, tim kami juga selalu memantau dan memperbarui sistem keamanan secara rutin biar
+                        kamu nggak perlu khawatir soal kebocoran data. Jadi, kamu bisa fokus belajar dan berkembang
+                        tanpa takut soal privasi!</p>
+                </div>
+                <div>
+                    <div class="bulet4">
+                        <div>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="kaga-ada">
+                            <i class="fa-solid fa-chevron-up"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-faq" id="bulet5">
+                <div class="question5">
+                    <h3>Apakah PassionPath bisa diakses secara offline?</h3>
+                    <p class="kaga-ada">Bisa! kamu dapat mengunduh video-video yang ada di PassionPath agar bisa
+                        kamu
+                        dapat
+                        menonton video PassionPath dimana pun kapan pun!</p>
+                </div>
+                <div>
+                    <div class="bulet5">
+                        <div>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="kaga-ada">
+                            <i class="fa-solid fa-chevron-up"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-faq" id="bulet6">
+                <div class="question6">
+                    <h3>Bagaimana cara membayar untuk yang berbayar?</h3>
+                    <p class="kaga-ada">Untuk berlangganan di PassionPath, kamu bisa bayar dengan mudah lewat
+                        transfer bank atau dompet digital yang kamu punya. Kami paham betapa pentingnya
+                        kenyamanan pembayaran dan berlangganan, jadi kami sediakan berbagai pilihan pembayaran
+                        yang fleksibel. Dengan akses ke video dan materi premium, kamu bisa belajar dengan
+                        lebih efektif dan meraih impian kariermu lebih cepat. Yuk, mulai sekarang dan nikmati
+                        semua fitur keren yang bisa bikin perjalanan belajarmu makin seru!</p>
+                </div>
+                <div>
+                    <div class="bulet6">
+                        <div>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="kaga-ada">
+                            <i class="fa-solid fa-chevron-up"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+       <div class="container mt-5">
+            <h2 class="text-center mb-4">Partnership</h2>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-2 mb-3">
+                    <div class="card" onclick="window.location.href='https://www.hcl-software.com/'">
+                        <div class="card-body text-center">
+                            <img src="{% static 'img/hcl.png' %}" alt="hcl" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="card" onclick="window.location.href='https://www.santanderbank.com/'">
+                        <div class="card-body text-center">
+                            <img src="{% static 'img/santander.png' %}"" alt="santander" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="card" onclick="window.location.href='https://www.pertamina.com/'">
+                        <div class="card-body text-center">
+                            <img src="{% static 'img/pertamina.jpeg' %}" alt="pertamina" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="card" onclick="window.location.href='https://www.telkomsel.com/halo/info'">
+                        <div class="card-body text-center">
+                            <img src="{% static 'img/telkomsel.png' %}" alt="telkomselhalo" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center"></div>
+                <div class="col-md-2 mb-3">
+                    <div class="card" onclick="window.location.href='https://www.ntu.edu.sg/'">
+                        <div class="card-body text-center">
+                            <img src="{% static 'img/ntu.png' %}" alt="ntu" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="card" onclick="window.location.href='https://www.astra.co.id/'">
+                        <div class="card-body text-center">
+                            <img src="{% static 'img/astra.jpeg' %}" alt="astra" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="card" onclick="window.location.href='https://www.aws.amazon.com/'">
+                        <div class="card-body text-center">
+                            <img src="{% static 'img/aws.png' %}" alt="aws" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="card" onclick="window.location.href='https://www.ets.org/'">
+                        <div class="card-body text-center">
+                            <img src="{% static 'img/ets.png' %}" alt="ets" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    </main>
+
+
+
+    <footer class="ilang" id="ilang3">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>Tentang Kami</h3>
+                <p>PassionPath membantu pengguna mengenali potensi dan minat melalui tes psikologis ilmiah. Platform ini
+                    memberikan rekomendasi karir dan pendidikan yang sesuai, serta laporan hasil tes untuk pengembangan
+                    diri dan perencanaan masa depan.</p>
+            </div>
+
+            <div class="kekanan">
+                <div class="contact-us">
+                    <!-- <div class="footer-links"> -->
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><a href="#"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a></li>
+                        <li><a href="#courses"><i class="fa-solid fa-envelope"></i> Email</a></li>
+                        <li><a href="#about"><i class="fa-solid fa-location-dot"></i> Cawang PGC, Lt.4</a></li>
+                    </ul>
+                </div>
+
+                <div class="information">
+                    <!-- <div class="footer-contact"> -->
+                    <h3>information</h3>
+                    <ul>
+                        <li><a href="#"><i class="fa-solid fa-hand-holding-dollar"></i> Jumlah Donasi</a></li>
+                        <li><a href="#"><i class="fa-solid fa-images"></i> Dokumentasi</a></li>
+                        <li><a href="#"><i class="fa-solid fa-pen-to-square"></i> Program & Rencana</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <!-- javascript -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/navbar.js' %}"></script>
+
+
+</body>
+
+</html>

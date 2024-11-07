@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+
+
+/* Main Section */
+.main-section {
+    background-color: #DCF529;
+    text-align: left;
+    padding: 20px;
+    padding-top: 20px;
+}
+
+.main-section h2 {
+    font-size: 30px;
+    color: #333;
+    margin: 0;
+    text-align: left;
+    padding-top: 25px;
+    padding-left: 80px;
+}
+
+.main-section p{
+    color: #333;
+    margin: 0;
+    text-align: left;
+    padding-top: 25px;
+    padding-left: 80px;
+}
+
+/* Program Cards */
+.program-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.program-card {
+    background-color: white;
+    border-radius: 46px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid transparent;
+    transition: transform 0.3s ease;
+    flex-basis: calc(33.333% - 20px);
+}
+
+.program-card:hover {
+    transform: scale(1.05);
+}
+
+.program-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 41px;
+    align-items: center;
+}
+
+/* Aligning image center */
+.card-image {
+    display: block;
+    margin: 0 auto;
+    align-items: center;
+}
+
+
+.program-card h3 {
+    font-size: 20px;
+    margin: 15px 0;
+    color: #333;
+}
+
+.program-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.program-card .price {
+    font-size: 18px;
+    color: #000;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style for Join Now button */
+.program-card .btn-primary {
+    background-color: #8968F6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for buttons */
+.program-card .btn-primary:hover {
+    background-color: #4192f0;
+    color: white;
+}
+
+/* Specific for the first card */
+.program-card:nth-child(1) .btn-primary {
+    background-color: #8968F6;
+}
+
+.program-card:nth-child(1) .btn-primary:hover {
+    background-color: #4192f0;
+    color: white;
+}
+
+/* Specific for the third card */
+.program-card:nth-child(3) .btn-primary {
+    background-color: #8968F6;
+}
+
+.program-card:nth-child(3) .btn-primary:hover {
+    background-color: #4192f0;
+    color: white;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 900px) {
+    .program-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .program-card {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+}
