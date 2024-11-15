@@ -9,5 +9,9 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),  # Halaman dashboard
     path('login/', views.login, name='login'),              # Halaman login
     path('register/', views.register, name='register'),     # Halaman register
-
+    path('accounting/', views.accounting, name='accounting'),
+    path('bussines/', views.bussines, name='bussines'),
+    path('design/', views.design, name='design'),
+    path('development/', views.development, name='development'),
+    path('language/', views.language, name='language'),
 ]

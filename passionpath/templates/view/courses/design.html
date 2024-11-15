@@ -1,31 +1,21 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PassionPath</title>
-  <link rel="shotcut icon" type="n-icon" href="../img/logo_Square_passionpath.png" />
-  <link rel="stylesheet" href="../../style/courses/style_design.css" />
-  <link rel="stylesheet" href="../../style/style_nav-footer.css" />
+  <link rel="shotcut icon" type="n-icon" href="{% static 'img/logo_Square_passionpath.png'%}" />
+  <link rel="stylesheet" href="{% static 'css/courses/style_courses.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style_nav-footer.css'%}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
   <!-- Import Google Fonts Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-  <!-- Link to external CSS -->
-  <link rel="stylesheet" href="../../style/courses/style_bussines.css" />
-  <link rel="stylesheet" href="../../style/courses/style_courses.css" />
-  <link rel="stylesheet" href="../../style/style_nav-footer.css" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <!-- Import Google Fonts Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-  <!-- Link to external CSS -->
-  <link rel="stylesheet" href="../../style/courses/style_courses.css" />
-  <link rel="stylesheet" href="../../style/style_nav-footer.css" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 
 <body>
@@ -33,23 +23,23 @@
     <div class="navbar-custom">
       <div class="rata-kiri">
         <div class="logo">
-          <a href="../../index.html"><img src="../../img/logo_long_passionpath.png" alt="PassionPath Logo" /></a>
+          <a href="{% url 'index' %}"><img src="{% static 'img/logo_long_passionpath.png'%}" alt="PassionPath Logo" /></a>
         </div>
         <nav>
           <ul>
-            <li><a href="../../index.html">Home</a></li>
-            <li><a href="../../view/about.html">About</a></li>
-            <li><a href="../../view/product.html">Product</a></li>
-            <li><a href="../view/contact.html">Contact</a></li>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'product' %}">Product</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
           </ul>
         </nav>
       </div>
 
       <div class="auth-buttons">
-        <a href="../../view/login.html">
+        <a href="{% url 'login' %}">
           <button class="login-btn">Login</button>
         </a>
-        <a href="../../view/register.html">
+        <a href="{% url 'register' %}">
           <button class="register-btn">Register</button>
         </a>
       </div>
@@ -73,7 +63,7 @@
   <section class="program-container">
     <!-- Program 1 -->
     <div class="program-card">
-      <img src="../../img/pict_design1.jpg" alt="Video Interaktif" />
+      <img src="{% static 'img/pict_design1.jpg'%}" alt="Video Interaktif" />
       <h3 style="text-align: center">Eps 1: Basic Design Introduction</h3>
       <p style="text-align: justify">
         Di episode ini, kita akan memulai perjalanan mengenal dunia desain dan
@@ -84,13 +74,13 @@
       </p>
       <p class="price">
         <strong class="free">Free</strong>
-        <a href="../../view/product.html"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
       </p>
     </div>
 
     <!-- Program 2 -->
     <div class="program-card">
-      <img src="../../img/pict_design2.jpg" alt="Video Interaktif" />
+      <img src="{% static 'img/pict_design2.jpg'%}" alt="Video Interaktif" />
       <h3 style="text-align: center">Eps 2: Mandatory Materials</h3>
       <p style="text-align: justify">
         Di episode kedua ini, kita akan membahas alat dan bahan yang kamu
@@ -101,13 +91,13 @@
       </p>
       <p class="price">
         <strong class="free">Free</strong>
-        <a href="../../view/product.html"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
       </p>
     </div>
 
     <!-- Program 3 -->
     <div class="program-card">
-      <img src="../../img/pict_design3.jpg" alt="Video Interaktif" />
+      <img src="{% static 'img/pict_design3.jpg' %}" alt="Video Interaktif" />
       <h3 style="text-align: center">Eps 3: Carreer Exploration</h3>
       <p style="text-align: justify">
         Peluang karir dalam dunia desain sangat luas, mulai dari desain
@@ -117,13 +107,13 @@
       </p>
       <p class="price">
         <strong class="free">Free</strong>
-        <a href="../../view/product.html"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
       </p>
     </div>
 
     <!-- Program 4 -->
     <div class="program-card">
-      <img src="../../img/pict_design4.jpg" alt="Video Interaktif" />
+      <img src="{% static 'img/pict_design4.jpg '%}" alt="Video Interaktif" />
       <h3 style="text-align: center">Eps 4: Brainstorming</h3>
       <p style="text-align: justify">
         Brainstorming adalah langkah awal dalam menciptakan desain yang
@@ -134,13 +124,13 @@
       </p>
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="../../view/product.html"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
       </p>
     </div>
 
     <!-- Program 5 -->
     <div class="program-card">
-      <img src="../../img/pict_design5.jpg" alt="Video Interaktif" />
+      <img src="{% static 'img/pict_design5.jpg'%}" alt="Video Interaktif" />
       <h3 style="text-align: center">Eps 5 : Design Branding</h3>
       <p style="text-align: justify">
         Konsep desain yang kuat dapat membentuk identitas sebuah brand. Mulai
@@ -150,13 +140,13 @@
       </p>
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="../../view/product.html"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
       </p>
     </div>
 
     <!-- Program 6 -->
     <div class="program-card">
-      <img src="../../img/pict_design6.jpg" alt="Video Interaktif" />
+      <img src="{% static 'img/pict_design6.jpg' %}" alt="Video Interaktif" />
       <h3 style="text-align: center">Eps 6: Portfolio Improvement</h3>
       <p style="text-align: justify">
         Kunci penting untuk menunjukkan keterampilan dan karya mereka kepada
@@ -167,7 +157,7 @@
       </p>
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="../../view/product.html"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
       </p>
     </div>
   </section>
@@ -226,7 +216,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     crossorigin="anonymous"></script>
-  <script src="../../style/navbar.js"></script>
+  <script src="{% static 'js/navbar.js' %}"></script>
 </body>
 
 </html>

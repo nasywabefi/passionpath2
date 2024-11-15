@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
@@ -10,9 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
 
     <!-- Link to external CSS -->
-    <link rel="stylesheet" href="../style/style_nav-footer.css" />
-    <link rel="stylesheet" href="../style/style_register_login.css" />
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/style_nav-footer.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/style_register_login.css' %}" />
+    <link href="{% static '/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 
@@ -21,7 +22,7 @@
         <div class="navbar-custom">
             <div class="rata-kiri">
                 <div class="logo">
-                    <a href="../index.html" img><img src="../img/logo_long_passionpath.png" alt="PassionPath Logo" /></a>
+                    <a href="{% url 'index' %}" img><img src="{% static 'img/logo_long_passionpath.png'%}" alt="PassionPath Logo" /></a>
                 </div>
                 <nav>
                     <ul>
@@ -50,7 +51,7 @@
         <div class="card">
             <div class="row g-0">
                 <div class="col-md-6">
-                    <img alt="" class="img-fluid" height="600" src="../img/bglogin.png" />
+                    <img alt="" class="img-fluid" height="600" src="{% static 'img/bglogin.png'%}" />
                 </div>
                 <div class="col-md-6">
                     <div class="card-body">
@@ -70,7 +71,7 @@
                         </form>
                         <div class="text-center login-link mt-3">
                             Do you have an account?
-                            <a href="../view/register.html">Daftar!</a>
+                            <a href="{% url 'register' %}">Daftar!</a>
                         </div>
                     </div>
                 </div>
@@ -127,7 +128,7 @@
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="../style/app.js"></script>
+    <script src="{% static 'style/app.js' %}"></script>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -11,9 +12,9 @@
     />
 
     <!-- Link to external CSS -->
-    <link rel="stylesheet" href="../style/style_nav-footer.css" />
-    <link rel="stylesheet" href="../style/style_register_login.css" />
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/style_nav-footer.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/style_register_login.css' %}" />
+    <link href="{% static '/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -25,7 +26,7 @@
       <div class="navbar-custom">
           <div class="rata-kiri">
               <div class="logo">
-                     <a href="../index.html"><img src="../img/logo_long_passionpath.png" alt="PassionPath Logo" /></a>
+                     <a href="{% url 'index' %}"><img src="{% static 'img/logo_long_passionpath.png'%}" alt="PassionPath Logo" /></a>
               </div>
               <nav>
                   <ul>
@@ -52,7 +53,7 @@
       <div class="card">
           <div class="row g-0">
               <div class="col-md-6">
-                  <img alt="Background Image" class="img-fluid" src="../img/bgregister.png" />
+                  <img alt="Background Image" class="img-fluid" src="{% static 'img/bgregister.png'%}" />
               </div>
               <div class="col-md-6">
                   <div class="card-body">
@@ -82,7 +83,7 @@
                     </div>
                     
                       <div class="text-center login-link mt-3">
-                          Already have an Account? <a href="../view/login.html">Login!</a>
+                          Already have an Account? <a href="{% url 'login' %}">Login!</a>
                       </div>
                   </div>
               </div>
@@ -149,5 +150,5 @@
     <!-- Panggil file JS Bootstrap  -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="../style/app.js"></script>
+    <script src="{% static 'style/app.js' %}"></script>
 </html>

@@ -28,3 +28,14 @@ def login(request):
 # View untuk halaman contact
 def register(request):
     return render(request, 'view/register.html')
+
+def accounting(request):
+    return render(request, 'view/courses/accounting.html')
+def bussines(request):
+    return render(request, 'view/courses/bussines.html')
+def design(request):
+    return render(request, 'view/courses/design.html')
+def development(request):
+    return render(request, 'view/courses/development.html')
+def language(request):
+    return render(request, 'view/courses/language.html')
