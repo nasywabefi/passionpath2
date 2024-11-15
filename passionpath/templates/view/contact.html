@@ -25,18 +25,18 @@
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="../index.html">Home</a></li>
-                        <li><a href="../view/about.html">About</a></li>
-                        <li><a href="../view/product.html">Products</a></li>
-                        <li><a href="../view/contact.html">Contact</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'product' %}">Products</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="auth-buttons">
-                <a href="../view/login.html">
+                <a href="{% url 'login' %}">
                     <button class="login-btn">Login</button>
-                </a>
-                <a href="../view/register.html">
+                  </a>
+                  <a href="{% url 'register' %}">
                     <button class="register-btn">Register</button>
                 </a>
             </div>

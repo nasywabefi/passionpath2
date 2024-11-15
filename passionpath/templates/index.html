@@ -110,7 +110,7 @@
     </section>
 
     <header class="ilang" id="ilang1">
-        <div class="navbar-custom animate__animated animate__fadeInDown">
+        <div class="navbar-custom animate_animated animate_fadeInDown">
             <div class="rata-kiri">
                 <div class="logo">
                     <a href=""><img src="{% static 'img/logo_long_passionpath.png'%}" alt="PassionPath Logo" /></a>
@@ -118,19 +118,19 @@
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="view/about.html">About</a></li>
-                        <li><a href="view/product.html">Products</a></li>
-                        <li><a href="view/contact.html">Contact</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'product' %}">Products</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="auth-buttons">
-                <a href="view/login.html">
-                    <button class="login-btn">Login</button>
-                </a>
-                <a href="view/register.html">
-                    <button class="register-btn">Register</button>
+                    <a href="{% url 'login' %}">
+                        <button class="login-btn">Login</button>
+                      </a>
+                      <a href="{% url 'register' %}">
+                        <button class="register-btn">Register</button>
                 </a>
             </div>
             <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
@@ -144,13 +144,13 @@
                 <img src="{% static 'img/pict_jumbotron.png' %}" alt="Gambar" class="jumbotron-image"/>
                     
                 <div class="jumbotron-text">
-                    <h2 class="animate__animated animate__fadeInUp
+                    <h2 class="animate_animated animate_fadeInUp
                         animate__delay-1s">
                         Passion Path
                         <br>
                         Education Platform
                     </h2>
-                    <p class="animate__animated animate__fadeInUp
+                    <p class="animate_animated animate_fadeInUp
                     animate__delay-1s">
                     Pembelajaran minat bakat pada siswa
                         <br>
@@ -158,7 +158,7 @@
                     </p>
                     <p>
                         <a href="view/product.html">
-                            <button class="button-product animate__animated animate__fadeInUp
+                            <button class="button-product animate_animated animate_fadeInUp
                             animate__delay-1s">Get Started</button>
                         </a>
                     </p>
@@ -196,14 +196,14 @@
 
         <div class="mbakudung" style="display: flex; justify-content: center; align-items: center;">
             <div class="text-benefit">
-                <h2 class="animate__animated animate__fadeInUp
+                <h2 class="animate_animated animate_fadeInUp
                     animate__delay-1s"> 
                     Kamu Harus Mengikuti Kelas di PassionPath?</h2>
-                <p class="animate__animated animate__bounceIn animate__delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Mempermudah menuju jurusan impian</p>
-                <p class="animate__animated animate__bounceIn animate__delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Prospek karir yang sesuai</p>
-                <p class="animate__animated animate__bounceIn animate__delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Memaksimalkan Potensi Diri</p>
-                <p class="animate__animated animate__bounceIn animate__delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Menambah Wawasan</p>
-                <p class="animate__animated animate__bounceIn animate__delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Koneksi dan Networking yang luas </p>
+                <p class="animate_animated animatebounceIn animate_delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Mempermudah menuju jurusan impian</p>
+                <p class="animate_animated animatebounceIn animate_delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Prospek karir yang sesuai</p>
+                <p class="animate_animated animatebounceIn animate_delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Memaksimalkan Potensi Diri</p>
+                <p class="animate_animated animatebounceIn animate_delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Menambah Wawasan</p>
+                <p class="animate_animated animatebounceIn animate_delay-5s"><i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>Koneksi dan Networking yang luas </p>
             </div>
             <div class="pict_mbakudung">
                 <img src="{% static 'img/pict_mbamba_kudung.png' %}" alt="Gambar" class="image-mba">
