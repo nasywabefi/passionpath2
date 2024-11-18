@@ -21,6 +21,9 @@ def contact(request):
 def dashboard(request):
     return render(request, 'view/dashboard.html')
 
+def dashboard_siswa(request):
+    return render(request, 'view/dashboard_siswa.html')
+
 # View untuk halaman login
 def login(request):
     return render(request, 'view/login.html')
