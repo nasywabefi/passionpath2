@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PassionPath Login</title>
+    <title>PassionPath Login </title>
 
     <!-- Import Google Fonts Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{% static 'css/style_nav-footer.css'%}" />
     <link rel="stylesheet" href="{% static 'css/style_register_login.css' %}" />
     <link href="{% static '/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <!-- Link ke Bootstrap 5 dari CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ3Q7n4Jg6l4r9A4TYi8zL7qz85q/ZYyDsqJwH7FvqzZ7DQ2IKqZ6yK7V0w0" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 
@@ -56,11 +58,27 @@
                 <div class="col-md-6">
                     <div class="card-body">
                         <h4 class="text-center mb-4">LOGIN</h4>
-                        <form>
-                            <input class="form-control" placeholder="E-Mail" type="email" required />
+                        
+                        <!-- alert -->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert 
+                                    {% if message.tags == 'error' %}alert-danger
+                                    {% else %}alert-{{ message.tags|default:'info' }}
+                                    {% endif %} 
+                                    alert-dismissible fade show" role="alert">
+                                    <strong>Error</strong> {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <!-- form -->
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <input class="form-control" placeholder="username" name="username" type="text" required />
                             <div class="input-group">
-                                <input id="password" class="form-control" placeholder="Enter your password"
-                                    type="password" required />
+                                <input id="password" class="form-control" name="password" placeholder="Enter your password" type="password" required />
                                 <span class="input-group-text" id="toggle-password">
                                     <i class="fas fa-eye"></i>
                                 </span>
@@ -69,6 +87,7 @@
                                 Login
                             </button>
                         </form>
+                        
                         <div class="text-center login-link mt-3">
                             Do you have an account?
                             <a href="{% url 'register' %}">Daftar!</a>
@@ -128,7 +147,10 @@
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="{% static 'style/app.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

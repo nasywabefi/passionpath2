@@ -11,7 +11,7 @@
 <body>
     <div class="sidebar">
         <div class="logo">
-            <img src="{% static 'img/logo_long_passionpath.png'%}" alt="PassionPath Logo">
+          <a href="{% url 'index' %}"><img src="{% static 'img/logo_long_passionpath.png'%}" alt="PassionPath Logo"></a>
         </div>
         <div class="divider"></div>
         <ul class="menu">
@@ -24,6 +24,9 @@
         <div class="divider divider-bottom"></div>
         <div class="menu-bottom">
             <li>Pengaturan</li>
+            <a href="{% url 'logout' %}">
+                <li>Logout</li>
+            </a>
         </div>
     </div>
 
@@ -33,7 +36,7 @@
             <div class="user-info">
                 <div class="user-info-text">
                     <span>Siswa account</span>
-                    <span>Siswa123@gmail.com</span>
+                    <span>Hello, {{ user.first_name }} {{ user.last_name }}!</span>
                 </div>
                 <div class="user-icon">👤</div> 
             </div>
