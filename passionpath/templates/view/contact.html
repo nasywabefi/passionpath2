@@ -34,13 +34,29 @@
                 </nav>
             </div>
             <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                <div class="btn-group">
+                    <button type="button" class="btn dropdown-toggle" style="border: none;" data-bs-toggle="dropdown"
+                        data-bs-display="static" aria-expanded="false">
+                       <strong>Halo,{{ user.first_name }}!</strong>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                        <li><a class="dropdown-item" href="{% url 'dashboard_admin' %}">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <!-- Jika pengguna belum login, tampilkan tombol login dan register -->
                 <a href="{% url 'login' %}">
                     <button class="login-btn">Login</button>
-                  </a>
-                  <a href="{% url 'register' %}">
+                </a>
+                <a href="{% url 'register' %}">
                     <button class="register-btn">Register</button>
                 </a>
+                {% endif %}
             </div>
+            
             <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
         </div>
     </header>
@@ -129,10 +145,11 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
-     <script src="{% static 'js/navbar.js' %}"></script>
+ <!-- JavaScript -->
+ <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+ <script src="{% static 'js/navbar.js' %}"></script>
 </body>
 
 </html>

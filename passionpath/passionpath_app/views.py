@@ -10,34 +10,26 @@ from django.contrib.auth.decorators import login_required
 # View untuk halaman utama (index)
 def index(request):
     return render(request, 'index.html')
-
 # View untuk halaman about
 def about(request):
     return render(request, 'view/about.html')
-
 # View untuk halaman product
 def product(request):
     return render(request, 'view/product.html')
-
 # View untuk halaman contact
 def contact(request):
     return render(request, 'view/contact.html')
-
 # View untuk halaman dashboard
 def dashboard(request):
     return render(request, 'view/dashboard.html')
-
 def dashboard_siswa(request):
     return render(request, 'view/dashboard_siswa.html')
-
 # View untuk halaman login
 def login(request):
     return render(request, 'view/login.html')
-
 # View untuk halaman contact
 def register(request):
     return render(request, 'view/register.html')
-
 def accounting(request):
     return render(request, 'view/courses/accounting.html')
 def bussines(request):
@@ -52,6 +44,10 @@ def language(request):
 
 # register
 def register(request):
+
+    if request.user.is_authenticated:
+        return redirect(request.META.get('HTTP_REFERER', '/')) 
+
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -71,6 +67,16 @@ def register(request):
         if User.objects.filter(username=username).exists():
             messages.error(request, 'Username sudah digunakan.')
             return redirect('register')
+        
+         # Validasi username harus mengandung angka
+        if not any(char.isdigit() for char in username):
+            messages.error(request, 'Username harus mengandung angka.')
+            return redirect('register')
+
+        # Validasi password minimal 8 karakter
+        if len(password) < 8:
+            messages.error(request, 'Password harus terdiri dari minimal 8 karakter.')
+            return redirect('register')
 
         user = User.objects.create_user(
             first_name=first_name,
@@ -88,33 +94,38 @@ def register(request):
 
 # login
 def user_login(request):
+   
     if request.user.is_authenticated:
-       return redirect(request.META.get('HTTP_REFERER', '/'))
+        return redirect(request.META.get('HTTP_REFERER', '/')) 
 
+   
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-
-      
+        next_url = request.GET.get('next')  
+        
+        # Autentikasi pengguna
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
             auth_login(request, user)  
-          
             if user.is_superuser:
-                return redirect('dashboard_admin') 
-            else:
-                return redirect('index') 
+                return redirect('dashboard_admin')  
+            else:  
+                return redirect(next_url if next_url else 'index')
         else:
-            messages.error(request, 'Password atau Username Anda Salah!!!')
-            return redirect('login') 
-    return render(request, 'view/login.html')  
+            messages.error(request, 'Username atau Password Anda Salah!!!')  
+            return redirect('login')  
+        
+    return render(request, 'view/login.html')
 
+# logout
 def user_logout(request):
     logout(request)
     return redirect('index')
 
 
-
+# dahsborad siswa/pengguna
 @login_required
 def dashboard_siswa(request):
     if request.user.is_superuser:
@@ -127,7 +138,8 @@ def dashboard(request):
         return render(request, 'view/dashboard_admin.html', {'user': request.user})
     else:
         return render(request, 'view/dashboard_siswa.html', {'user': request.user})
-
+    
+# dashboard admin
 @login_required
 def dashboard_admin(request):
     if not request.user.is_superuser:

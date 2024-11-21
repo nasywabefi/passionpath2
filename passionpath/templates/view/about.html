@@ -1,5 +1,5 @@
-{% load static %}
 <html lang="id">
+  {% load static %}
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -42,13 +42,29 @@
         </div>
   
         <div class="auth-buttons">
+          {% if user.is_authenticated %}
+          <div class="btn-group">
+              <button type="button" class="btn dropdown-toggle" style="border: none;" data-bs-toggle="dropdown"
+                  data-bs-display="static" aria-expanded="false">
+                 <strong>Halo,{{ user.first_name }}!</strong>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-lg-end">
+                  <li><a class="dropdown-item" href="{% url 'dashboard_admin' %}">Dashboard</a></li>
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+          </div>
+          {% else %}
+          <!-- Jika pengguna belum login, tampilkan tombol login dan register -->
           <a href="{% url 'login' %}">
-            <button class="login-btn">Login</button>
+              <button class="login-btn">Login</button>
           </a>
           <a href="{% url 'register' %}">
-            <button class="register-btn">Register</button>
+              <button class="register-btn">Register</button>
           </a>
+          {% endif %}
         </div>
+
         <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
       </div>
     </header>
