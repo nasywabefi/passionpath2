@@ -4,8 +4,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.timezone import localdate
+from django.db import models
+from django.db.models import Sum
 
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Absensi
+import json
+from datetime import datetime
 
 # View untuk halaman utama (index)
 def index(request):
@@ -23,7 +30,7 @@ def contact(request):
 def dashboard(request):
     return render(request, 'view/dashboard.html')
 def dashboard_siswa(request):
-    return render(request, 'view/dashboard_siswa.html')
+    return render(request, 'view/dashboard_siswa/dashboard_siswa.html')
 # View untuk halaman login
 def login(request):
     return render(request, 'view/login.html')
@@ -41,6 +48,32 @@ def development(request):
 def language(request):
     return render(request, 'view/courses/language.html')
 
+# dashboard siswa
+def profile_siswa(request):
+    return render(request, 'view/dashboard_siswa/profile_siswa.html')
+
+# Absesnsi
+@csrf_exempt
+@login_required
+def absen(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        user = request.user
+        day = data.get('day')
+        points = data.get('points')
+        
+        # Pastikan user belum absen hari ini
+        if not Absensi.objects.filter(user=user, date=datetime.today().date()).exists():
+            # Simpan absensi dan poin
+            absensi = Absensi(user=user, points=points, date=datetime.today().date())
+            absensi.save()
+            
+            # Ambil total poin terbaru
+            total_points = Absensi.objects.filter(user=user).aggregate(total=Sum('points'))['total'] or 0
+            
+            return JsonResponse({'success': True, 'total_points': total_points})
+        else:
+            return JsonResponse({'success': False, 'message': 'Sudah absen hari ini'})
 
 # register
 def register(request):
@@ -125,23 +158,56 @@ def user_logout(request):
     return redirect('index')
 
 
-# dahsborad siswa/pengguna
+# dahsboard siswa/pengguna
+
 @login_required
 def dashboard_siswa(request):
     if request.user.is_superuser:
         return redirect('dashboard_admin')
-    return render(request, 'view/dashboard_siswa.html')
+
+    # Tentukan hari-hari dalam seminggu dengan nama lengkap dalam bahasa Indonesia
+    days = [
+        {"name": "S", "day": "Monday"},    # Senin
+        {"name": "S", "day": "Tuesday"},  # Selasa
+        {"name": "R", "day": "Wednesday"},  # Rabu
+        {"name": "K", "day": "Thursday"},  # Kamis
+        {"name": "J", "day": "Friday"},    # Jumat
+        {"name": "S", "day": "Saturday"},  # Sabtu
+        {"name": "M", "day": "Sunday"},   # Minggu
+    ]
+
+    # Ambil hari ini
+    today_name = datetime.today().strftime("%A")
+
+    # Cek apakah user sudah absen hari ini
+    user = request.user
+    total_points = Absensi.objects.filter(user=user).aggregate(total=Sum('points'))['total'] or 0
+
+    # Cek apakah user sudah absen hari ini
+    attendance_today = Absensi.objects.filter(user=user, date=datetime.today().date()).first()
+    if attendance_today:
+        absen_status = "Sudah absen"
+    else:
+        absen_status = "Belum absen"
+
+    return render(request, 'view/dashboard_siswa/dashboard_siswa.html', {
+        'days': days,
+        'today_name': today_name,
+        'total_points': total_points,
+        'absen_status': absen_status,
+    })
+
 
 @login_required
 def dashboard(request):
     if request.user.is_superuser:
         return render(request, 'view/dashboard_admin.html', {'user': request.user})
     else:
-        return render(request, 'view/dashboard_siswa.html', {'user': request.user})
+        return render(request, 'view/dashboard_siswa/dashboard_siswa.html', {'user': request.user})
     
 # dashboard admin
 @login_required
 def dashboard_admin(request):
     if not request.user.is_superuser:
         return redirect('dashboard_siswa') 
-    return render(request, 'view/dashboard_admin.html')
+    return render(request, 'view/dashboard_admin/dashboard_admin.html')

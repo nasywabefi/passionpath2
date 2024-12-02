@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style_dashboard_siswa.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<style>
+    .required::after {
+        content: " *";
+        color: red;
+    }
+    .img-preview {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #ddd;
+        display: block;
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+    <div class="sidebar">
+        <a href="{% url 'index' %}">
+            <img alt="Logo" height="50" src="{% static 'img/logo_long_passionpath.png'%}" width="80%" />
+        </a>
+        <hr style="border: 1px solid #ccc; margin: 10px 0;" />
+        <a href="#"><i class="fa-solid fa-house"></i> <b>Homepage</b></a>
+        <a href="{% url  'dashboard_siswa' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
+        <a href="#"><i class="fa-solid fa-chalkboard-user"></i> <b>Belajar</b></a>
+        <a class="active" href="#"><i class="fa-solid fa-user"></i> <b>Profile</b></a>
+        <a href="#"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
+        <a href="#"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
+        <div class="logout-line"></div>
+        <a class="logout" href="{% url 'logout' %}">Keluar</a>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="user-info">
+                <div>
+                    <p>{{ request.user.username }}</p>
+                    <p class="email">{{ request.user.email }}</p>
+                </div>
+                <img alt="User Avatar" height="40"
+                    src="https://storage.googleapis.com/a1aa/image/OQdX2I0GLWIjGV9aeMWb3CfHrisXT7P3TEySNUjkov1dvz0TA.jpg"
+                    width="40" />
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <h2>Profile</h2>
+            <form id="profileForm">
+                <div class="mb-3">
+                    <label for="fotoProfil" class="form-label">Foto Profil</label>
+                  
+                    <img id="imgPreview" class="img-preview mt-2" alt="Preview" 
+                        src="https://img.icons8.com/?size=100&id=14736&format=png&color=000000" />
+                    <input type="file" class="form-control" id="fileInput" accept="image/*" />
+                </div>
+                <div class="mb-3">
+                    <label for="nama" class="form-label">Nama <span class="required"></span></label>
+                    <input type="text" class="form-control" id="nama" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email <span class="required"></span></label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nomorHp" class="form-label">Nomor Handphone <span class="required"></span></label>
+                    <input type="tel" class="form-control" id="nomorHp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nomorHpOrangTua" class="form-label">Nomor Handphone Orang Tua <span class="required"></span></label>
+                    <input type="tel" class="form-control" id="nomorHpOrangTua" required>
+                </div>
+                <div class="mb-3">
+                    <label for="tanggalLahir" class="form-label">Tanggal Lahir <span class="required"></span></label>
+                    <input type="date" class="form-control" id="tanggalLahir" required>
+                </div>
+                <div class="mb-3">
+                    <label for="namaSekolah" class="form-label">Nama Sekolah</label>
+                    <input type="text" class="form-control" id="namaSekolah">
+                </div>
+                <div class="mb-3">
+                    <label for="alamat" class="form-label">Alamat <span class="required"></span></label>
+                    <textarea class="form-control" id="alamat" rows="3" required></textarea>
+                </div>
+        
+                <button type="submit" class="save-button btn btn-primary">Save</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const imgPreview = document.getElementById('imgPreview');
+
+            if (file) {
+                const reader = new FileReader(); 
+                reader.onload = function (e) {
+                    imgPreview.src = e.target.result; 
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+
+</html>

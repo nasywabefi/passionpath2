@@ -15,7 +15,9 @@ urlpatterns = [
     path('design/', views.design, name='design'),
     path('development/', views.development, name='development'),
     path('language/', views.language, name='language'),
+    path('profile/', views.profile_siswa, name='profile_siswa'),
 
     path("logout/", views.user_logout, name='logout'),
 
+    path('absen/', views.absen, name='absen'),  # Menambahkan endpoint absensi
 ]
