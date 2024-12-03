@@ -16,6 +16,7 @@ urlpatterns = [
     path('development/', views.development, name='development'),
     path('language/', views.language, name='language'),
     path('profile/', views.profile_siswa, name='profile_siswa'),
+    path('pengaturan/', views.pengaturan, name='pengaturan'),
 
     path("logout/", views.user_logout, name='logout'),
 

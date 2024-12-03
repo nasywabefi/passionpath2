@@ -51,6 +51,8 @@ def language(request):
 # dashboard siswa
 def profile_siswa(request):
     return render(request, 'view/dashboard_siswa/profile_siswa.html')
+def pengaturan(request):
+    return render(request, 'view/dashboard_siswa/pengaturan.html')
 
 # Absesnsi
 @csrf_exempt
