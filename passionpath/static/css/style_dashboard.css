@@ -1,176 +1,13 @@
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background-color: #f5f5f5;
-}
-
-.sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #ffffff;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    padding-top: 20px;
-    border-right: 1px solid #e0e0e0;
-    transition: transform 0.3s ease;
-}
-
-.sidebar a {
-    color: black;
-    padding: 15px 20px;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-.sidebar a:hover {
-    background-color: #f0f0f0;
-}
-
-.sidebar a.active {
-    background-color: #DCF529;
-    color: black;
-    margin-bottom: 10px;
-}
-
-.sidebar .logout-line {
-    border-top: 1px solid #e0e0e0;
-    margin-top: 250px; 
-    margin-bottom: 2px;
-}
-
-.sidebar a.logout {
-    color: red;
-    margin-top: auto; 
-    margin-bottom: 20px; 
-}
-
-.main-content {
-    margin-left: 250px;
-    padding: 20px;
-    transition: margin-left 0.3s ease;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    background-color: #DCF529;
-    padding: 20px 30px;
-    position: fixed;
-    top: 0;
-    z-index: 1;
-    height: 70px;
-    width: 100%; 
-    transition: width 0.3s ease, left 0.3s ease; 
-}
-
-/* Responsivitas saat sidebar terbuka */
-.header .user-info {
-    display: flex;
-    align-items: center;
-    text-align: right;
-    margin-left: auto;
-    margin-right: 280px;
-    transition: margin-right 0.3s ease;
-}
-
-/* Responsivitas saat sidebar tertutup */
-.header .user-info.sidebar-closed {
-    display: flex;
-    align-items: center;
-    text-align: right;
-    margin-left: auto;
-    margin-right: 40px;
-    transition: margin-right 0.3s ease;
-}
-
-.header .user-info div {
-    margin-right: 10px;
-}
-
-.header .user-info img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
-
-.header .user-info p {
-    margin: 0;
-}
-
-.header .user-info .email {
-    margin-top: 5px;
-}
-
-/* Dashboard Overview */
-.dashboard-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 80px;
-}
-
-.dashboard-content h1 {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.dashboard-content p {
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
+/* General Overview Layout */
 .overview {
-    display: flex;
-    justify-content: space-between; 
-    gap: 20px; 
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    z-index: 1; 
+    margin: 20px;
 }
 
-.card {
-    flex: 1 1 22%;
-    box-sizing: border-box;
-    padding: 20px;
-    border-radius: 10px;
-    color: white;
-    text-align: center;
-}
-
-.card.red {
-    background-color: #FFB5AF;
-    color: black;
-}
-
-.card.blue {
-    background-color: #BCBFFF;
-    color: black;
-}
-
-.card.green {
-    background-color: #B2F79F;
-    color: black;
-}
-
-.card.purple {
-    background-color: #E3AFFF;
-    color: black;
-}
-
-.card h2 {
-    font-size: 32px;
-    margin-bottom: 5px;
-}
-
-.card p {
-    font-size: 16px;
-}
-
-/* Tambahkan efek zoom pada kartu saat di-hover */
+/* Cards Styling */
 .card {
     padding: 20px;
     border-radius: 8px;
@@ -181,74 +18,97 @@ body {
     transition: transform 0.3s ease;
 }
 
+/* Title and Description */
+.card h2 {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.card p {
+    font-size: 16px;
+}
+
+/* Hover Effect */
 .card:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Zoom effect */
 }
 
-/* Responsivitas untuk mobile */
+/* Responsif untuk tablet dan perangkat lebih kecil */
 @media (max-width: 768px) {
-    .sidebar {
-        width: 250px;
-    }
-
-    .sidebar.closed {
-        transform: translateX(-250px);
-    }
-
-    .header {
-        width: 100%;
-        left: 0;
-    }
-
-    .main-content {
-        margin-left: 0;
-    }
-
-    .dashboard-content {
-        margin-top: 70px; 
-    }
-
-    .sidebar a.logout {
-        font-size: 14px; 
-        margin-bottom: 10px; 
-    }
-
-    /* Garis pemisah logout */
-    .sidebar .logout-line {
-        margin-top: 100px; 
-    }
-}
-
-/* Responsivitas untuk perangkat lebih kecil (tablet dan sejenisnya) */
-@media (max-width: 768px) {
-    .program-activities .activity, .recommended-programs .program {
-        min-width: calc(50% - 10px); 
-    }
-}
-
-/* Responsivitas untuk perangkat ponsel (lebih kecil dari 480px) */
-@media (max-width: 480px) {
-    .program-activities .activity, .recommended-programs .program {
-        min-width: calc(50% - 10px); 
-    }
-
-    .dashboard-content {
-        padding: 10px;
-    }
-
-    /* Menyesuaikan ukuran gambar dalam user info */
-    .header .user-info img {
-        width: 30px;
-        height: 30px;
-    }
-
     .overview {
-        display: block; /* Menjadikan card saling bertumpuk pada layar ponsel */
+        display: flex;
+        flex-wrap: wrap;
     }
 
     .card {
-        flex: 1 1 100%; /* Menjadikan card mengambil 100% lebar pada ponsel */
-        margin-bottom: 10px; /* Menambahkan jarak antar card */
+        flex: 1 1 45%; 
+        margin-bottom: 15px; 
+    }
+
+    /* Mengurangi ukuran font untuk tampilan lebih kecil */
+    .card h2 {
+        font-size: 28px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+
+    /* Sidebar pada perangkat lebih kecil */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px; /* Sidebar tersembunyi di kiri */
+        width: 250px;
+        height: 100%;
+        background-color: #333;
+        transition: left 0.3s ease; /* Animasi sidebar */
+        z-index: 9; /* Agar sidebar tetap di bawah header */
+    }
+
+    /* Sidebar terbuka */
+    .sidebar.open {
+        left: 0; /* Sidebar muncul saat kelas 'open' ditambahkan */
+    }
+
+    /* Konten utama bergerak ke kanan saat sidebar terbuka */
+    .main-content.sidebar-open {
+        margin-left: 250px; /* Geser konten utama */
+    }
+
+    .header {
+        z-index: 10; /* Header tetap di atas sidebar */
     }
 }
 
+/* Responsif untuk perangkat ponsel (di bawah 480px) */
+@media (max-width: 480px) {
+    .overview {
+        display: flex;
+        flex-direction: column; /* Stack cards secara vertikal */
+    }
+
+    .card {
+        width: 100%; /* Ambil 100% lebar pada ponsel */
+        margin-bottom: 10px;
+    }
+
+    /* Ukuran font lebih kecil untuk ponsel */
+    .card h2 {
+        font-size: 24px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+
+    /* Sidebar untuk ponsel */
+    .sidebar {
+        z-index: 10; /* Sidebar di atas konten utama */
+        width: 200px; /* Lebar sidebar lebih kecil pada ponsel */
+    }
+
+    .main-content.sidebar-open {
+        margin-left: 200px; /* Geser konten utama sesuai lebar sidebar */
+    }
+}

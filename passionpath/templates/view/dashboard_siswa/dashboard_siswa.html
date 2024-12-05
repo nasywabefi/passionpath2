@@ -24,7 +24,7 @@
         <a class="active" href="#"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
         <a href="#"><i class="fa-solid fa-chalkboard-user"></i> <b>Belajar</b></a>
         <a href="{% url 'profile_siswa' %}"><i class="fa-solid fa-user"></i> <b>Profile</b></a>
-        <a href="#"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
+        <a href="{% url 'pembayaran' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
         <a href="{% url 'pengaturan' %}"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
         <div class="logout-line"></div>
         <a class="logout" href="{% url 'logout' %}">Keluar</a>
@@ -42,9 +42,9 @@
                     <p>{{ request.user.username }}</p>
                     <p class="email">{{ request.user.email }}</p>
                 </div>
-                <img alt="User  Avatar" height="40"
-                    src="https://storage.googleapis.com/a1aa/image/OQdX2I0GLWIjGV9aeMWb3CfHrisXT7P3TEySNUjkov1dvz0TA.jpg"
-                    width="40" />
+                <img alt="User Avatar" height="40"
+                src="{% if profile.foto_profil %}{{ profile.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}"
+                width="40" />
             </div>
         </div>
         <div class="dashboard-content">

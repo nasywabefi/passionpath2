@@ -7,12 +7,22 @@ from django.contrib.auth.decorators import login_required
 from django.utils.timezone import localdate
 from django.db import models
 from django.db.models import Sum
-
+import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Absensi
 import json
 from datetime import datetime
+from .models import Students
+from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.hashers import check_password
+
+from .models import Contact
+from django.conf import settings
+from django.core.mail import send_mail
+from django.utils import timezone
+
+
 
 # View untuk halaman utama (index)
 def index(request):
@@ -25,18 +35,52 @@ def product(request):
     return render(request, 'view/product.html')
 # View untuk halaman contact
 def contact(request):
-    return render(request, 'view/contact.html')
-# View untuk halaman dashboard
-def dashboard(request):
-    return render(request, 'view/dashboard.html')
-def dashboard_siswa(request):
-    return render(request, 'view/dashboard_siswa/dashboard_siswa.html')
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+        recaptcha_response = request.POST.get("g-recaptcha-response")
+        
+        # Verifikasi reCAPTCHA
+        data = {
+            'secret': settings.RECAPTCHA_PRIVATE_KEY, 
+            'response': recaptcha_response,
+        }
+        
+        # Kirim permintaan POST ke Google untuk verifikasi
+        verification_response = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = verification_response.json()
+        
+        if not result.get('success'):
+            messages.error(request, "Harap verifikasi bahwa Anda bukan robot.",extra_tags='warning')
+            return redirect('contact') 
+        
+       
+        contact = Contact.objects.create(name=name, email=email, message=message)
+
+        # Kirim email ke admin atau email tujuan
+        send_mail(
+            subject=f"New Contact Message from {name}",
+            message=message,
+            from_email=email,
+            recipient_list=[settings.CONTACT_EMAIL],  
+            fail_silently=False,
+        )
+
+        # Tampilkan pesan sukses
+        messages.success(request, "Terima Kasih Pesan Anda Sudah DiTerima.",extra_tags='success')
+        return redirect('contact')  
+
+    return render(request, 'view/contact.html', {
+        'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY,
+    })
+
+
+
 # View untuk halaman login
 def login(request):
     return render(request, 'view/login.html')
-# View untuk halaman contact
-def register(request):
-    return render(request, 'view/register.html')
+# course
 def accounting(request):
     return render(request, 'view/courses/accounting.html')
 def bussines(request):
@@ -48,11 +92,122 @@ def development(request):
 def language(request):
     return render(request, 'view/courses/language.html')
 
-# dashboard siswa
-def profile_siswa(request):
-    return render(request, 'view/dashboard_siswa/profile_siswa.html')
+def pembayaran(request):
+    return render(request, 'view/dashboard_siswa/pembayaran.html')
+
+def detail_pembayaran(request):
+    return render(request, 'view/dashboard_siswa/detail_pembayaran.html')
+
+
+
+# pengaturan siswa
+@login_required
 def pengaturan(request):
-    return render(request, 'view/dashboard_siswa/pengaturan.html')
+    user = request.user 
+   
+    # untuk foto profile
+    try:
+        profile = Students.objects.get(username=request.user.username)
+    except Students.DoesNotExist:
+        profile = None 
+
+    context = {
+        'profile': profile
+    }
+
+    if request.method == "POST":
+        old_password = request.POST.get("old_password")
+        new_password = request.POST.get("new_password")
+        confirm_password = request.POST.get("confirm_password")
+
+        # Validasi password lama
+        if not user.check_password(old_password):
+            messages.error(request, "Password lama salah.")
+            return redirect('pengaturan')
+
+        # Validasi panjang password baru
+        if len(new_password) < 8:
+            messages.error(request, "Password baru harus memiliki minimal 8 karakter.")
+            return redirect('pengaturan')
+
+        # Validasi konfirmasi password
+        if new_password != confirm_password:
+            messages.error(request, "Konfirmasi password tidak cocok.")
+            return redirect('pengaturan')
+
+        # Update password
+        user.set_password(new_password)
+        user.save()
+
+        # Autentikasi ulang dengan password baru
+        user = authenticate(username=user.username, password=new_password)
+        if user is not None:
+           
+            auth_login(request, user)
+            messages.success(request, "Password berhasil diubah.")
+        else:
+            messages.error(request, "Gagal login setelah perubahan password.")
+            return redirect('pengaturan')
+
+        return redirect('pengaturan')  
+
+    return render(request, "view/dashboard_siswa/pengaturan.html",context)
+
+# profile siswa
+@login_required
+def profile_siswa(request):
+    user = request.user
+
+    # Ambil profil pengguna
+    try:
+        profile = Students.objects.get(username=user.username)
+    except Students.DoesNotExist:
+        profile = Students.objects.create(
+            username=user.username,
+            name=f"{user.first_name} {user.last_name}",
+            email=user.email
+        )
+
+    if request.method == "POST":
+        # Update data profil (semua kecuali username)
+        profile.phone = request.POST.get('phone')
+        profile.name_ortu = request.POST.get('name_ortu')
+        profile.phone_ortu = request.POST.get('phone_ortu')
+        
+        # Periksa dan tangani input date
+        date_input = request.POST.get('date')
+        if date_input:
+            profile.date = date_input  
+        else:
+            profile.date = None  
+
+        profile.address = request.POST.get('address')
+        profile.school = request.POST.get('school')
+
+        # Update foto profil jika ada
+        if 'foto_profil' in request.FILES:
+            foto_profil = request.FILES['foto_profil']
+            fs = FileSystemStorage(location='static/img/profile')
+            filename = fs.save(foto_profil.name, foto_profil)
+            profile.foto_profil = f'img/profile/{filename}'
+
+        # Update nama berdasarkan first_name dan last_name
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        profile.name = f"{user.first_name} {user.last_name}"
+
+        # Simpan perubahan di model User dan Students
+        user.save()
+        profile.save()
+
+        return redirect('profile_siswa')
+
+    context = {
+        'profile': profile,
+        'user': user
+    }
+    return render(request, 'view/dashboard_siswa/profile_siswa.html', context)
+
 
 # Absesnsi
 @csrf_exempt
@@ -161,13 +316,12 @@ def user_logout(request):
 
 
 # dahsboard siswa/pengguna
-
 @login_required
 def dashboard_siswa(request):
+    
     if request.user.is_superuser:
         return redirect('dashboard_admin')
 
-    # Tentukan hari-hari dalam seminggu dengan nama lengkap dalam bahasa Indonesia
     days = [
         {"name": "S", "day": "Monday"},    # Senin
         {"name": "S", "day": "Tuesday"},  # Selasa
@@ -192,14 +346,20 @@ def dashboard_siswa(request):
     else:
         absen_status = "Belum absen"
 
+    try:
+        profile = Students.objects.get(username=user.username)
+    except Students.DoesNotExist:
+        profile = None 
+
     return render(request, 'view/dashboard_siswa/dashboard_siswa.html', {
         'days': days,
         'today_name': today_name,
         'total_points': total_points,
         'absen_status': absen_status,
+        'profile': profile,
     })
 
-
+# validasi login
 @login_required
 def dashboard(request):
     if request.user.is_superuser:
@@ -213,3 +373,4 @@ def dashboard_admin(request):
     if not request.user.is_superuser:
         return redirect('dashboard_siswa') 
     return render(request, 'view/dashboard_admin/dashboard_admin.html')
+
