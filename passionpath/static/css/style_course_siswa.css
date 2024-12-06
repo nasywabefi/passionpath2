@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.main-section {
+    background-color: #DCF529;
+    text-align: left;
+    padding: 20px;
+    padding-top: 20px;
+}
+
+
+
+/* Reset dasar */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background: #f4f4f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 2px solid #ddd;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+header .auth-buttons button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: 1px solid #333;
+    background-color: white;
+    cursor: pointer;
+}
+
+header .auth-buttons button:hover {
+    background-color: #ddd;
+}
+
+.content-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    gap: 20px;
+}
+
+/* (Video) */
+.video-container {
+    padding-top: 30px;
+    width: 90%; 
+    max-width: 100%; 
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+  .video-container video {
+    width: 100%; /* Video memenuhi container */
+    display: block; /* Hapus spasi default di sekitar elemen inline */
+    border-bottom: 4px solid #ddd; /* Tambahkan garis bawah untuk pembatas */
+    height: auto;
+    border-radius: 10px;
+  }
+  
+/* Episode List Buttons */
+.episode-list ul li a {
+    display: flex;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #333;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    font-weight: bold;
+}
+
+.episode-list ul li a:hover {
+    display: flex;
+    background-color: #ddd;
+    color: #000;
+}
+
+.episode-list ul li a.active {
+    display: flex;
+    background-color: #ccc; /* Warna lebih gelap untuk episode aktif */
+    color: #000;
+    border-color: #bbb;
+}
+
+
+
+/* Container utama untuk deskripsi dan episode */
+.text-container {
+    display: flex;
+    justify-content: space-between; /* Mengatur posisi kanan kiri */
+    margin: 20px auto;
+    padding: 0 20px; /* Tambahkan padding di kiri dan kanan */
+    gap: 20px; /* Jarak antara deskripsi dan episode */
+}
+
+/* Kolom kiri untuk deskripsi */
+.text-container .description {
+    padding-left: 40px;
+    flex: 1; /* Membuat kolom mengambil 50% ruang */
+    max-width: 50%;
+    text-align: justify;
+    font-size: 16spx;
+    color: #555;
+}
+
+/* Kolom kanan untuk episode */
+.text-container .episode-list {
+    padding-right: 40px;
+    flex: 1; /* Membuat kolom mengambil 50% ruang */
+    max-width: 50%;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Header episode */
+.episode-list h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Daftar episode */
+.episode-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.episode-list ul li {
+    margin-bottom: 10px;
+}
+
+/* Tautan episode */
+.episode-list ul li a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+.episode-list ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Atur video */
+.video-container {
+    width: 90%; /* Video memenuhi lebar penuh */
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.video-container video {
+    width: 100%; /* Video menyesuaikan lebar container */
+    display: block;
+    border-radius: 10px;
+    border-bottom: 4px solid #ddd;
+}
+
+
+/* Previous/Next Navigation */
+/* Styling for the navigation links */
+.text-navigation {
+    display: flex;
+    justify-content: flex-end; /* Posisi teks ke kanan */
+    gap: 15px; /* Jarak antara Previous dan Next */
+    margin-top: 15px;
+    padding-right: 20px; /* Tambahkan jarak dengan dinding kanan */
+    font-family: 'Poppins', sans-serif;
+}
+
+.text-navigation a {
+    text-decoration: none; /* Hilangkan garis bawah */
+    font-size: 18px; /* Ukuran teks */
+    font-weight: bold;
+    color: #007BFF; /* Warna teks biru seperti link */
+    transition: color 0.3s ease; /* Efek hover */
+}
+
+.text-navigation a:hover {
+    color: #0056b3; /* Warna lebih gelap saat hover */
+}
+
+

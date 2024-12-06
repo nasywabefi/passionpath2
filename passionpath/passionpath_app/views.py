@@ -53,6 +53,8 @@ def profile_siswa(request):
     return render(request, 'view/dashboard_siswa/profile_siswa.html')
 def pengaturan(request):
     return render(request, 'view/dashboard_siswa/pengaturan.html')
+def course_siswa(request):
+    return render(request, 'view/dashboard_siswa/course_siswa.html')
 
 # Absesnsi
 @csrf_exempt
