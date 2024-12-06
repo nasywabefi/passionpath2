@@ -1,0 +1,77 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* Container untuk grid layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Membuat 2 kolom (kiri dan kanan) */
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Styling untuk setiap box */
+
+.box {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 135px;
+    width: 440px;
+    margin-top: 20px;
+    gap: 15px;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+.box:hover {
+    transform: scale(1.05);
+}
+
+.box img {
+    width: 20%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.box-text {
+    display: flex;
+    flex-direction: column; /* Menyusun teks secara vertikal */
+    gap: 10px;
+}
+
+.box h4 {
+    font-size: 20px;
+    margin: 0; /* Menghilangkan margin default */
+}
+
+.box h6 {
+    color: grey;
+}
+
+/* Membuat layout responsif */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr; /* 2 kolom pada layar kecil */
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 1 kolom pada layar sangat kecil */
+    }
+}

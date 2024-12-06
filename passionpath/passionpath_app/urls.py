@@ -24,6 +24,7 @@ urlpatterns = [
     path('profile/', views.profile_siswa, name='profile_siswa'),
     path('pengaturan/', views.pengaturan, name='pengaturan'),
     path('course_siswa/', views.course_siswa, name='course_siswa'),
+     path('belajar/', views.belajar, name='belajar'),
 
     path("logout/", views.user_logout, name='logout'),
     path("pembayaran/", views.pembayaran, name='pembayaran'),

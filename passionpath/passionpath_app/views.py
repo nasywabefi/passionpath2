@@ -103,6 +103,10 @@ def pembayaran(request):
 def detail_pembayaran(request):
     return render(request, 'view/dashboard_siswa/detail_pembayaran.html')
 
+# View untuk halaman belajar
+def belajar(request):
+    return render(request, 'view/dashboard_siswa/belajar.html')
+
 
 
 # pengaturan siswa
