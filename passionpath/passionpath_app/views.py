@@ -33,6 +33,11 @@ def about(request):
 # View untuk halaman product
 def product(request):
     return render(request, 'view/product.html')
+def video_iteraktif(request):
+    return render(request, 'view/dashboard_admin/video_interaktif.html')
+def pengaturan_admin(request):
+    return render(request, 'view/dashboard_admin/pengaturan_admin.html')
+
 # View untuk halaman contact
 def contact(request):
     if request.method == "POST":
