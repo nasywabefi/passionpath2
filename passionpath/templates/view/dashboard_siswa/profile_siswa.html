@@ -19,6 +19,7 @@
         content: " *";
         color: red;
     }
+
     .img-preview {
         width: 150px;
         height: 150px;
@@ -29,6 +30,7 @@
         margin-bottom: 10px;
     }
 </style>
+
 <body>
     <div class="sidebar">
         <a href="{% url 'index' %}">
@@ -39,13 +41,19 @@
         <a href="{% url  'dashboard_siswa' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
         <a href="#"><i class="fa-solid fa-chalkboard-user"></i> <b>Belajar</b></a>
         <a class="active" href="#"><i class="fa-solid fa-user"></i> <b>Profile</b></a>
-        <a href="{% url 'payment_siswa' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
-        <a href="#"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
+        <a href="{% url 'pembayaran' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
+        <a href="{% url 'pengaturan' %}"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
         <div class="logout-line"></div>
         <a class="logout" href="{% url 'logout' %}">Keluar</a>
     </div>
     <div class="main-content">
         <div class="header">
+            <div>
+                <a href="#" class="menu-toggle">
+                    <img src="https://img.icons8.com/?size=100&id=8113&format=png&color=000000" width="28%"
+                        alt="Menu Icon">
+                </a>
+            </div>
             <div class="user-info">
                 <div>
                     <p>{{ request.user.username }}</p>
@@ -62,84 +70,141 @@
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="fotoProfil" class="form-label">Foto Profil</label>
-
+                    <!-- Preview gambar yang sudah diunggah sebelumnya -->
                     <img id="imgPreview" class="img-preview mt-2" alt="Preview"
-                        src="https://img.icons8.com/?size=100&id=14736&format=png&color=000000" />
-                    <input type="file" class="form-control" id="fileInput" accept="image/*" />
+                        src="{% if profile.foto_profil %}{{ profile.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}" />
+                    <!-- Input file untuk gambar -->
+                    <input type="file" class="form-control" id="foto_profil" name="foto_profil" accept="image/*" onchange="previewImage(event)" />
+                </div>
+                <div class="mb-3">
+                    <label for="id_siswa" class="form-label">ID Siswa</label>
+                    <input type="text" class="form-control" id="id_siswa" name="id_siswa" disabled
+                        value="{{ profile.id_siswa }}" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" value="{{ profile.username }}" disabled readonly>
+                    <input type="text" class="form-control" id="username" name="username" value="{{ profile.username }}"
+                        disabled readonly>
                 </div>
-            
+
                 <div class="mb-3">
                     <label for="first_name" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+                    <input type="text" class="form-control" id="first_name" name="first_name"
+                        value="{{ user.first_name }}">
                 </div>
-            
+
                 <div class="mb-3">
                     <label for="last_name" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+                    <input type="text" class="form-control" id="last_name" name="last_name"
+                        value="{{ user.last_name }}">
                 </div>
-            
+
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ profile.email }}" readonly>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ profile.email }}"
+                        readonly>
                 </div>
-            
+
                 <div class="mb-3">
                     <label for="phone" class="form-label">No Hp</label>
                     <input type="text" class="form-control" id="phone" name="phone" value="{{ profile.phone }}">
                 </div>
-            
+
                 <div class="mb-3">
-                    <label for="phone_ortu" class="form-label">Nama Orangtua</label>
-                    <input type="text" class="form-control" id="phone_ortu" name="name_ortu" value="{{ profile.name_ortu }}">
+                    <label for="name_ortu" class="form-label">Nama Orangtua</label>
+                    <input type="text" class="form-control" id="name_ortu" name="name_ortu"
+                        value="{{ profile.name_ortu|default:'' }}">
                 </div>
 
                 <div class="mb-3">
-                    <label for="nomorHpOrangTua" class="form-label">Nomor Handphone Orang Tua <span
-                            class="required"></span></label>
-                    <input type="tel" class="form-control" id="nomorHpOrangTua" required>
+                    <label for="phone_ortu" class="form-label">Nomor Handphone Orang Tua</label>
+                    <!-- Pastikan `name` disesuaikan dengan nama yang ada di view -->
+                    <input type="text" class="form-control" id="phone_ortu" name="phone_ortu"
+                        value="{{ profile.phone_ortu|default:'' }}">
                 </div>
-            
+
                 <div class="mb-3">
                     <label for="date" class="form-label">Tanggal Lahir</label>
-                    <input type="date" class="form-control" id="date" name="date" value="{{ profile.date|date:'Y-m-d' }}">
+                    <input type="date" class="form-control" id="date" name="date"
+                        value="{{ profile.date|date:'Y-m-d' }}">
                 </div>
-            
+
                 <div class="mb-3">
                     <label for="address" class="form-label">Alamat</label>
                     <textarea class="form-control" id="address" name="address" rows="3">{{ profile.address }}</textarea>
                 </div>
-            
+
                 <div class="mb-3">
                     <label for="school" class="form-label">Asal Sekolah</label>
-                    <input type="text" class="form-control" id="school" name="school" value="{{ profile.school|default:''  }}">
+                    <input type="text" class="form-control" id="school" name="school"
+                        value="{{ profile.school|default:'' }}">
                 </div>
 
                 <button type="submit" class="save-button btn btn-success">Save</button>
-                <button type="submit" class="save-button btn btn-primary">Edit</button>
             </form>
-            
-            
-            
+
+
+
         </div>
     </div>
 
+    <!-- js foto profile -->
     <script>
-        document.getElementById('fileInput').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            const imgPreview = document.getElementById('imgPreview');
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('imgPreview');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+    <!-- js sidebar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector('.sidebar');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainContent = document.querySelector('.main-content');
+            const userInfo = document.querySelector('.header .user-info');
+            const mediaQuery = window.matchMedia("(max-width: 768px)");
 
-            if (file) {
-                const reader = new FileReader(); 
-                reader.onload = function (e) {
-                    imgPreview.src = e.target.result; 
-                };
-                reader.readAsDataURL(file);
+            function updateLayout() {
+                if (mediaQuery.matches) {
+
+                    sidebar.classList.add('closed');
+                    mainContent.style.marginLeft = '0';
+                    userInfo.style.marginRight = '40px';
+                } else {
+
+                    sidebar.classList.remove('closed');
+                    mainContent.style.marginLeft = '250px';
+                    userInfo.style.marginRight = '280px';
+                }
             }
+
+            menuToggle.addEventListener('click', function (event) {
+                event.preventDefault();
+
+
+                sidebar.classList.toggle('closed');
+
+
+                if (sidebar.classList.contains('closed')) {
+                    mainContent.style.marginLeft = '0';
+                    userInfo.style.marginRight = '40px';
+                } else {
+                    mainContent.style.marginLeft = mediaQuery.matches ? '0' : '250px';
+                    userInfo.style.marginRight = mediaQuery.matches ? '40px' : '280px';
+                }
+            });
+
+
+            mediaQuery.addEventListener('change', updateLayout);
+
+
+            updateLayout();
         });
+
     </script>
 </body>
 

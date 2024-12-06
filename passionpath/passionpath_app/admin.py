@@ -17,9 +17,9 @@ class ContactAdmin(admin.ModelAdmin):
 
 @admin.register(Students)
 class StudentsAdmin(admin.ModelAdmin):
-    list_display = ('username', 'name', 'email', 'phone','name_ortu','phone_ortu', 'school', 'date', 'address', 'foto_profil')
+    list_display = ('id_siswa', 'username', 'name', 'email', 'phone', 'name_ortu', 'phone_ortu', 'school', 'date', 'address', 'foto_profil')  # Kolom yang ditampilkan di halaman admin
     
-    # Untuk menampilkan gambar profil di halaman daftar admin
+    # Fungsi untuk menampilkan gambar profil di halaman daftar admin
     def foto_profil(self, obj):
         if obj.foto_profil:
             return format_html('<img src="{}" width="50" height="50" />'.format(obj.foto_profil.url))

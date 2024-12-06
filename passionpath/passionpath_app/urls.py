@@ -33,6 +33,7 @@ urlpatterns = [
     # admin
     path("video_interaktif/", views.video_iteraktif, name='video_interaktif'),
     path('pengaturan_admin/', views.pengaturan_admin, name='pengaturan_admin'),
+    path('pembayaran_admin/', views.pembayaran_admin, name='pembayaran_admin'),
 
 
     path('absen/', views.absen, name='absen'),  # Menambahkan endpoint absensi
