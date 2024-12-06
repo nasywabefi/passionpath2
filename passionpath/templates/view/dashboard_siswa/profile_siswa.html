@@ -52,52 +52,78 @@
                     <p class="email">{{ request.user.email }}</p>
                 </div>
                 <img alt="User Avatar" height="40"
-                    src="https://storage.googleapis.com/a1aa/image/OQdX2I0GLWIjGV9aeMWb3CfHrisXT7P3TEySNUjkov1dvz0TA.jpg"
+                    src="{% if profile.foto_profil %}{{ profile.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}"
                     width="40" />
             </div>
         </div>
         <div class="dashboard-content">
             <h2>Profile</h2>
-            <form id="profileForm">
+            <form id="profileForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
                 <div class="mb-3">
                     <label for="fotoProfil" class="form-label">Foto Profil</label>
-                  
-                    <img id="imgPreview" class="img-preview mt-2" alt="Preview" 
+
+                    <img id="imgPreview" class="img-preview mt-2" alt="Preview"
                         src="https://img.icons8.com/?size=100&id=14736&format=png&color=000000" />
                     <input type="file" class="form-control" id="fileInput" accept="image/*" />
                 </div>
                 <div class="mb-3">
-                    <label for="nama" class="form-label">Nama <span class="required"></span></label>
-                    <input type="text" class="form-control" id="nama" required>
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{ profile.username }}" disabled readonly>
                 </div>
+            
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email <span class="required"></span></label>
-                    <input type="email" class="form-control" id="email" required>
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
                 </div>
+            
                 <div class="mb-3">
-                    <label for="nomorHp" class="form-label">Nomor Handphone <span class="required"></span></label>
-                    <input type="tel" class="form-control" id="nomorHp" required>
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
                 </div>
+            
                 <div class="mb-3">
-                    <label for="nomorHpOrangTua" class="form-label">Nomor Handphone Orang Tua <span class="required"></span></label>
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ profile.email }}" readonly>
+                </div>
+            
+                <div class="mb-3">
+                    <label for="phone" class="form-label">No Hp</label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="{{ profile.phone }}">
+                </div>
+            
+                <div class="mb-3">
+                    <label for="phone_ortu" class="form-label">Nama Orangtua</label>
+                    <input type="text" class="form-control" id="phone_ortu" name="name_ortu" value="{{ profile.name_ortu }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="nomorHpOrangTua" class="form-label">Nomor Handphone Orang Tua <span
+                            class="required"></span></label>
                     <input type="tel" class="form-control" id="nomorHpOrangTua" required>
                 </div>
+            
                 <div class="mb-3">
-                    <label for="tanggalLahir" class="form-label">Tanggal Lahir <span class="required"></span></label>
-                    <input type="date" class="form-control" id="tanggalLahir" required>
+                    <label for="date" class="form-label">Tanggal Lahir</label>
+                    <input type="date" class="form-control" id="date" name="date" value="{{ profile.date|date:'Y-m-d' }}">
                 </div>
+            
                 <div class="mb-3">
-                    <label for="namaSekolah" class="form-label">Nama Sekolah</label>
-                    <input type="text" class="form-control" id="namaSekolah">
+                    <label for="address" class="form-label">Alamat</label>
+                    <textarea class="form-control" id="address" name="address" rows="3">{{ profile.address }}</textarea>
                 </div>
+            
                 <div class="mb-3">
-                    <label for="alamat" class="form-label">Alamat <span class="required"></span></label>
-                    <textarea class="form-control" id="alamat" rows="3" required></textarea>
+                    <label for="school" class="form-label">Asal Sekolah</label>
+                    <input type="text" class="form-control" id="school" name="school" value="{{ profile.school|default:''  }}">
                 </div>
-        
-                <button type="submit" class="save-button btn btn-primary">Save</button>
-            </form>
 
+                <button type="submit" class="save-button btn btn-success">Save</button>
+                <button type="submit" class="save-button btn btn-primary">Edit</button>
+            </form>
+            
+            
+            
         </div>
     </div>
 
