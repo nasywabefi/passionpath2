@@ -30,6 +30,10 @@ def index(request):
 # View untuk halaman about
 def about(request):
     return render(request, 'view/about.html')
+
+def program_input(request):
+    return render(request, 'view/dashboard_admin/program_input.html')
+
 # View untuk halaman product
 def product(request):
     return render(request, 'view/product.html')
