@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <!-- Panggil file CSS Bootstrap  -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="{% static 'css/style_nav-footer.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/style_course_siswa.css' %}" />
+    <link href="{% static '/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+    <header>
+        <div class="navbar-custom">
+            <div class="rata-kiri">
+                <div class="logo">
+                    <a href="{% url 'index' %}"><img src="{% static 'img/logo_long_passionpath.png'%}"
+                            alt="PassionPath Logo" /></a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'product' %}">Products</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                <div class="btn-group">
+                    <button type="button" class="btn dropdown-toggle" style="border: none;" data-bs-toggle="dropdown"
+                        data-bs-display="static" aria-expanded="false">
+                       <strong>Halo,{{ user.first_name }}!</strong>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                        <li><a class="dropdown-item" href="{% url 'dashboard_admin' %}">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="{% url 'profile_siswa' %}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <!-- Jika pengguna belum login, tampilkan tombol login dan register -->
+                <a href="{% url 'login' %}">
+                    <button class="login-btn">Login</button>
+                </a>
+                <a href="{% url 'register' %}">
+                    <button class="register-btn">Register</button>
+                </a>
+                {% endif %}
+              </div>
+            <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
+        </div>
+    </header>
+
+    <section class="main-section">
+        <h2>Business</h2>
+      </section>
+
+    <main>
+        <div class="video-container">
+            <!-- Video -->
+            <iframe 
+                width="560" 
+                height="315" 
+                src="https://www.youtube.com/embed/vQ4N4ufKV2g?si=bMc-CGy61CnRk16C" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+        
+            <!-- Navigation buttons -->
+            <div class="text-navigation">
+                <a href="#" class="prev-text">&lt; PREVIOUS</a>
+                <a href="#" class="next-text">NEXT &gt;</a>
+            </div>
+        </div>
+        
+
+        <div class="text-container">
+            <div class="description">
+                <h2>Episode 1: Intro to Business</h2>
+                <p>
+                    Pernah nggak sih, kamu ngelihat produk baru yang keren banget dan kepikiran,
+                    "Kok bisa ya orang bikin produk sekeren ini?" Atau, pernah melihat iklan di TV,
+                    atau situs belanja online? Semua itu nggak lepas dari peran orang-orang yang
+                    berkecimpung di dunia bisnis. Mulai dari yang bikin produknya, yang ngiklanin,
+                    sampai yang ngurus keuangannya. Nah, kalau kamu tertarik jadi bagian dari dunia
+                    yang seru ini, jurusan bisnis adalah pilihan yang tepat. Di materi kali ini,
+                    kita akan bahas lebih lanjut tentang apa aja yang bisa kamu lakukan dengan gelar sarjana bisnis.
+                </p>
+            </div>
+
+            <div class="episode-list">
+                <h2>EPISODE</h2>
+                <ul>
+                    <li><a href="#" class="episode-link active">Intro To Business</a></li>
+                    <li><a href="#" class="episode-link">History of Business Development</a></li>
+                    <li><a href="#" class="episode-link">Management: The Art and Science of Managing</a></li>
+                    <li><a href="#" class="episode-link">Company Resources</a></li>
+                    <li><a href="#" class="episode-link">Micro and Macro Environment</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>Tentang Kami</h3>
+                <p>
+                    PassionPath membantu pengguna mengenali potensi dan minat melalui
+                    tes psikologis ilmiah. Platform ini memberikan rekomendasi karir dan
+                    pendidikan yang sesuai, serta laporan hasil tes untuk pengembangan
+                    diri dan perencanaan masa depan.
+                </p>
+            </div>
+
+            <div class="kekanan">
+                <div class="contact-us">
+                    <!-- <div class="footer-links"> -->
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa-solid fa-envelope"></i> Email</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa-solid fa-location-dot"></i> Cawang PGC, Lt.4</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="information">
+                    <!-- <div class="footer-contact"> -->
+                    <h3>information</h3>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fa-solid fa-hand-holding-dollar"></i> Jumlah
+                                Donasi</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa-solid fa-images"></i> Dokumentasi</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa-solid fa-pen-to-square"></i> Program &
+                                Rencana</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Panggil file JS Bootstrap  -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</html>

@@ -28,6 +28,7 @@
 
   <body>
     <div class="sidebar">
+<<<<<<< HEAD
       <a href="{% url 'index' %}">
         <img
           alt="Logo"
@@ -51,6 +52,20 @@
       <a href=""><i class="fa-solid fa-gear"></i> <b>Laporan & Analisis</b></a>
       <div class="logout-line"></div>
       <a class="logout" href="{% url 'logout' %}">Keluar</a>
+=======
+        <a href="{% url 'index' %}">
+            <img alt="Logo" height="50" src="{% static 'img/logo_long_passionpath.png'%}" width="80%" />
+        </a>
+        <hr style="border: 1px solid #ccc; margin: 10px 0;" />
+        <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> <b>Homepage</b></a>
+        <a class="active" href="#"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
+        <a href="#"><i class="fa-solid fa-chalkboard-user"></i> <b>Program</b></a>
+        <a href="{% url 'pengaturan_admin' %}"><i class="fa-solid fa-user"></i> <b>Pengaturan Admin</b></a>
+        <a href="{% url 'pembayaran_admin' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
+        <a href=""><i class="fa-solid fa-gear"></i> <b>Laporan & Analisis</b></a>
+        <div class="logout-line"></div>
+        <a class="logout" href="{% url 'logout' %}">Keluar</a>
+>>>>>>> bc62504a86ae262c13280d1dea63dd832d28cd75
     </div>
     <div class="main-content">
       <div class="header">

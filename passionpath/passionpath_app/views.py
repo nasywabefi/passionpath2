@@ -37,6 +37,15 @@ def program_input(request):
 # View untuk halaman product
 def product(request):
     return render(request, 'view/product.html')
+
+# admin
+def video_iteraktif(request):
+    return render(request, 'view/dashboard_admin/video_interaktif.html')
+def pengaturan_admin(request):
+    return render(request, 'view/dashboard_admin/pengaturan_admin.html')
+def pembayaran_admin(request):
+    return render(request, 'view/dashboard_admin/pembayaran_admin.html')
+
 # View untuk halaman contact
 def contact(request):
     if request.method == "POST":
@@ -96,19 +105,33 @@ def development(request):
 def language(request):
     return render(request, 'view/courses/language.html')
 
+# dashboard siswa
+
 def pembayaran(request):
     return render(request, 'view/dashboard_siswa/pembayaran.html')
 
 def detail_pembayaran(request):
     return render(request, 'view/dashboard_siswa/detail_pembayaran.html')
 
+# View untuk halaman belajar
+def belajar(request):
+    return render(request, 'view/dashboard_siswa/belajar.html')
 
+
+    
+# course untuk siswa
+def course_siswa(request):
+    return render(request, 'view/dashboard_siswa/course_siswa.html')
 
 # pengaturan siswa
 @login_required
 def pengaturan(request):
     user = request.user 
    
+  # Cek jika user sudah terautentikasi
+    if request.user.is_authenticated:
+        return redirect(request.META.get('HTTP_REFERER', '/')) 
+
     # untuk foto profile
     try:
         profile = Students.objects.get(username=request.user.username)
@@ -157,34 +180,30 @@ def pengaturan(request):
 
     return render(request, "view/dashboard_siswa/pengaturan.html",context)
 
+
 # profile siswa
 @login_required
 def profile_siswa(request):
     user = request.user
 
-    # Ambil profil pengguna
-    try:
-        profile = Students.objects.get(username=user.username)
-    except Students.DoesNotExist:
-        profile = Students.objects.create(
-            username=user.username,
-            name=f"{user.first_name} {user.last_name}",
-            email=user.email
-        )
+    # Redirect jika superuser
+    if user.is_superuser:
+        return render(request, 'view/dashboard_admin/pengaturan_admin.html')
+
+    # Ambil atau buat profil siswa
+    profile, created = Students.objects.get_or_create(
+        username=user.username,
+        defaults={
+            'email': user.email,
+            'name': f"{user.first_name} {user.last_name}"
+        }
+    )
 
     if request.method == "POST":
-        # Update data profil (semua kecuali username)
         profile.phone = request.POST.get('phone')
         profile.name_ortu = request.POST.get('name_ortu')
         profile.phone_ortu = request.POST.get('phone_ortu')
-        
-        # Periksa dan tangani input date
-        date_input = request.POST.get('date')
-        if date_input:
-            profile.date = date_input  
-        else:
-            profile.date = None  
-
+        profile.date = request.POST.get('date') or None
         profile.address = request.POST.get('address')
         profile.school = request.POST.get('school')
 
@@ -195,23 +214,20 @@ def profile_siswa(request):
             filename = fs.save(foto_profil.name, foto_profil)
             profile.foto_profil = f'img/profile/{filename}'
 
-        # Update nama berdasarkan first_name dan last_name
+        # Update nama pengguna
         user.first_name = request.POST.get('first_name')
         user.last_name = request.POST.get('last_name')
         profile.name = f"{user.first_name} {user.last_name}"
 
-        # Simpan perubahan di model User dan Students
         user.save()
         profile.save()
 
         return redirect('profile_siswa')
 
-    context = {
+    return render(request, 'view/dashboard_siswa/profile_siswa.html', {
         'profile': profile,
-        'user': user
-    }
-    return render(request, 'view/dashboard_siswa/profile_siswa.html', context)
-
+        'user': user,
+    })
 
 # Absesnsi
 @csrf_exempt
@@ -238,7 +254,7 @@ def absen(request):
 
 # register
 def register(request):
-
+    # Cek jika user sudah terautentikasi
     if request.user.is_authenticated:
         return redirect(request.META.get('HTTP_REFERER', '/')) 
 
@@ -249,7 +265,7 @@ def register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-      
+        # Validasi input
         if not first_name or not last_name or not email or not password:
             messages.error(request, 'Semua bidang wajib diisi.')
             return redirect('register')
@@ -262,7 +278,7 @@ def register(request):
             messages.error(request, 'Username sudah digunakan.')
             return redirect('register')
         
-         # Validasi username harus mengandung angka
+        # Validasi username harus mengandung angka
         if not any(char.isdigit() for char in username):
             messages.error(request, 'Username harus mengandung angka.')
             return redirect('register')
@@ -272,6 +288,7 @@ def register(request):
             messages.error(request, 'Password harus terdiri dari minimal 8 karakter.')
             return redirect('register')
 
+        # Membuat User baru
         user = User.objects.create_user(
             first_name=first_name,
             last_name=last_name,
@@ -281,8 +298,18 @@ def register(request):
         )
         user.save()
 
+        # Membuat entri di model Students
+        id_siswa = f"S{Students.objects.count() + 1:05d}"  # ID otomatis
+        student = Students.objects.create(
+            username=user.username,
+            email=user.email,
+            name=f"{user.first_name} {user.last_name}",
+            id_siswa=id_siswa  # Menggunakan ID yang terurut
+        )
+        student.save()
+
         messages.success(request, 'Registrasi berhasil! Silakan login.')
-        return redirect('register')  
+        return redirect('login')  # Arahkan ke halaman login setelah registrasi sukses
 
     return render(request, 'view/register.html')
 
@@ -321,8 +348,7 @@ def user_logout(request):
 
 # dahsboard siswa/pengguna
 @login_required
-def dashboard_siswa(request):
-    
+def dashboard_siswa(request):    
     if request.user.is_superuser:
         return redirect('dashboard_admin')
 

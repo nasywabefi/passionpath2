@@ -46,27 +46,31 @@
                     <p>{{ request.user.username }}</p>
                     <p class="email">{{ request.user.email }}</p>
                 </div>
-                <img alt="User Avatar" height="40" 
-             src="{% if profile.foto_profil %}{{ profile.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}" 
-             width="40" />
-           
+                <img alt="User Avatar" height="40"
+                    src="{% if profile.foto_profil %}{{ profile.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}"
+                    width="40" />
+
             </div>
         </div>
         <div class="dashboard-content">
             <h2>Reset Password</h2>
             <div class="form-container">
+
                 {% if messages %}
                 {% for message in messages %}
                 <div class="alert 
-                        {% if message.tags == 'error' %}alert-danger
-                        {% elif message.tags == 'success' %}alert-success
-                        {% elif message.tags == 'warning' %}alert-warning
-                        {% else %}alert-info
-                        {% endif %} 
-                        alert-dismissible fade show" role="alert">
+                {% if 'error' in message.tags %}alert-danger
+                {% elif 'success' in message.tags %}alert-success
+                {% elif 'warning' in message.tags %}alert-warning
+                {% else %}alert-info
+                {% endif %} 
+                alert-dismissible fade show" role="alert">
                     <strong>
-                        {% if message.tags == 'error' %}Error{% elif message.tags == 'success' %}Success{% elif
-                        message.tags == 'warning' %}Peringatan{% else %}Info{% endif %}
+                        {% if 'error' in message.tags %}Error
+                        {% elif 'success' in message.tags %}Success
+                        {% elif 'warning' in message.tags %}Peringatan
+                        {% else %}Info
+                        {% endif %}
                     </strong>: {{ message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>

@@ -23,11 +23,19 @@ urlpatterns = [
     path('language/', views.language, name='language'),
     path('profile/', views.profile_siswa, name='profile_siswa'),
     path('pengaturan/', views.pengaturan, name='pengaturan'),
+    path('course_siswa/', views.course_siswa, name='course_siswa'),
+     path('belajar/', views.belajar, name='belajar'),
 
     path("logout/", views.user_logout, name='logout'),
     path("pembayaran/", views.pembayaran, name='pembayaran'),
     path("detail_pembayaran/", views.detail_pembayaran, name='detail_pembayaran'),
     path("program_input/", views.program_input, name='program_input'),
+
+    # admin
+    path("video_interaktif/", views.video_iteraktif, name='video_interaktif'),
+    path('pengaturan_admin/', views.pengaturan_admin, name='pengaturan_admin'),
+    path('pembayaran_admin/', views.pembayaran_admin, name='pembayaran_admin'),
+
 
     path('absen/', views.absen, name='absen'),  # Menambahkan endpoint absensi
 ]
