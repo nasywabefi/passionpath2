@@ -1,0 +1,85 @@
+.container {
+    width: 90%;
+    margin: 20px auto;
+}
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+.detail-program {
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+}
+.detail-program i {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    color: #4CAF50;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #d1c4e9;
+    color: black;
+}
+.actions i {
+    font-size: 18px;
+    margin-right: 10px;
+}
+.actions .edit {
+    color: #4CAF50;
+}
+.actions .delete {
+    color: #f44336;
+}
+.add-episode a.button {
+    background-color: #3f51b5;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.add-episode a.button i {
+    margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    h1 {
+        font-size: 20px;
+    }
+    .detail-program {
+        padding: 10px;
+    }
+    .detail-program i {
+        font-size: 16px;
+    }
+    th, td {
+        font-size: 14px;
+        padding: 6px;
+    }
+    .actions i {
+        font-size: 16px;
+    }
+    .add-episode button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}

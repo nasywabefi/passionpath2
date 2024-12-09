@@ -37,12 +37,12 @@
             <img alt="Logo" height="50" src="{% static 'img/logo_long_passionpath.png'%}" width="80%" />
         </a>
         <hr style="border: 1px solid #ccc; margin: 10px 0;" />
-        <a href="#"><i class="fa-solid fa-house"></i> <b>Homepage</b></a>
+        <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> <b>Homepage</b></a>
         <a href="{% url  'dashboard_siswa' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
-        <a href="#"><i class="fa-solid fa-chalkboard-user"></i> <b>Belajar</b></a>
+        <a href="{% url 'belajar' %}"><i class="fa-solid fa-chalkboard-user"></i> <b>Belajar</b></a>
         <a class="active" href="#"><i class="fa-solid fa-user"></i> <b>Profile</b></a>
         <a href="{% url 'pembayaran' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
-        <a href="{% url 'pengaturan' %}"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
+        <a href="{% url 'pengaturan_siswa' %}"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
         <div class="logout-line"></div>
         <a class="logout" href="{% url 'logout' %}">Keluar</a>
     </div>

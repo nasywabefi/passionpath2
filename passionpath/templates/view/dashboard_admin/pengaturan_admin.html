@@ -23,7 +23,7 @@
         <hr style="border: 1px solid #ccc; margin: 10px 0;" />
         <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> <b>Homepage</b></a>
         <a href="{% url 'dashboard_admin' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
-        <a href="#"><i class="fa-solid fa-chalkboard-user"></i> <b>Program</b></a>
+        <a href="{% url 'program_admin' %}"><i class="fa-solid fa-chalkboard-user"></i> <b>Program</b></a>
         <a class="active" href=""><i class="fa-solid fa-user"></i> <b>Pengaturan Admin</b></a>
         <a href="{% url 'pembayaran_admin' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
         <a href=""><i class="fa-solid fa-gear"></i> <b>Laporan & Analisis</b></a>
@@ -44,111 +44,142 @@
                     <p>{{ request.user.username }}</p>
                     <p class="email">{{ request.user.email }}</p>
                 </div>
-                <img alt="User  Avatar" height="40"
-                    src="https://storage.googleapis.com/a1aa/image/OQdX2I0GLWIjGV9aeMWb3CfHrisXT7P3TEySNUjkov1dvz0TA.jpg"
-                    width="40" />
+                <img alt="User Avatar" height="40"
+                src="{% if profile_admin.foto_profil %}{{ profile_admin.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}"
+                width="40" />
             </div>
         </div>
 
         <div class="dashboard-content">
             <h2>Pengaturan Admin</h2>
-            <form id="profileForm" method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" action="{% url 'pengaturan_admin' %}">
                 {% csrf_token %}
-                
                 <div class="form-layout">
-                    <!-- Form Info (kiri) -->
+                    <!-- Info Kiri -->
                     <div class="form-info">
                         <div class="form-group">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="styled-input" id="username" name="username" value="">
+                            <label for="id_admin" class="form-label">ID Admin</label>
+                            <input type="text" class="styled-input" id="id_admin" name="id_admin"
+                                value="{{ profile_admin.id_admin }}" readonly>
                         </div>
-                        
+
+                        <div class="form-group">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="styled-input" id="username" name="username"
+                                value="{{ profile_admin.username.username }}" readonly>
+                        </div>
+
                         <div class="form-group">
                             <label for="first_name" class="form-label">Nama</label>
-                            <input type="text" class="styled-input" id="first_name" name="first_name" value="">
+                            <input type="text" class="styled-input" id="first_name" name="first_name"
+                                value="{{ profile_admin.username.first_name }}">
                         </div>
-        
+
                         <div class="form-group">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="styled-input" id="email" name="email" value="" readonly>
+                            <input type="email" class="styled-input" id="email" name="email"
+                                value="{{ profile_admin.username.email }}" readonly>
                         </div>
-        
+
                         <div class="form-group">
                             <label for="phone" class="form-label">No Handphone</label>
-                            <input type="text" class="styled-input" id="phone" name="phone" value="">
+                            <input type="number" class="styled-input" id="phone" name="phone"
+                                value="{{ profile_admin.phone }}">
                         </div>
-        
+
                         <div class="form-group">
                             <label for="date" class="form-label">Tanggal Lahir</label>
-                            <input type="date" class="styled-input" id="date" name="date" value="">
+                            <input type="date" class="styled-input" id="date" name="date"
+                                value="{{ profile_admin.date_of_birth|date:'Y-m-d' }}">
                         </div>
-        
+
                         <div class="form-group">
                             <label for="address" class="form-label">Alamat</label>
-                            <textarea class="styled-input" id="address" name="address" rows="3"></textarea>
+                            <textarea class="styled-input" id="address" name="address"
+                                rows="3">{{ profile_admin.address }}</textarea>
                         </div>
                     </div>
-        
-                    <!-- Foto Profil (kanan) -->
+
+                    <!-- Foto Profil -->
                     <div class="form-photo">
-                        <label for="foto_profil" class="form-label">Foto Profile</label>
-                        <img id="imgPreview" class="img-preview mt-2" alt="Preview" src="{% if profile.foto_profil %}{{ profile.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}" />
-                        <input type="file" class="styled-input" id="fileInput" name="foto_profil" accept="image/*">
+                        <label for="foto_profil" class="form-label">Foto Profil</label>
+                        <img id="imgPreview" class="img-preview mt-2" alt="Preview"
+                            src="{% if profile_admin.foto_profil %}{{ profile_admin.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}" />
+                        <input type="file" class="styled-input" id="foto_profil" name="foto_profil" accept="image/*"
+                            onchange="previewFile()">
                     </div>
                 </div>
-        
+
                 <button type="submit" class="save-button btn btn-success">Save</button>
             </form>
+
+
+
         </div>
-        
-        
-        
-        
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const sidebar = document.querySelector('.sidebar');
-            const menuToggle = document.querySelector('.menu-toggle');
-            const mainContent = document.querySelector('.main-content');
-            const userInfo = document.querySelector('.header .user-info');
-            const mediaQuery = window.matchMedia("(max-width: 768px)");
 
-            function updateLayout() {
-                if (mediaQuery.matches) {
+        <!-- untuk foto -->
+        <script>
+            function previewFile() {
+                const fileInput = document.getElementById('foto_profil');
+                const imgPreview = document.getElementById('imgPreview');
+                const file = fileInput.files[0];
+                const reader = new FileReader();
 
-                    sidebar.classList.add('closed');
-                    mainContent.style.marginLeft = '0';
-                    userInfo.style.marginRight = '40px';
-                } else {
+                reader.onload = function (e) {
+                    imgPreview.src = e.target.result;
+                };
 
-                    sidebar.classList.remove('closed');
-                    mainContent.style.marginLeft = '250px';
-                    userInfo.style.marginRight = '280px';
+                if (file) {
+                    reader.readAsDataURL(file);
                 }
             }
-
-            menuToggle.addEventListener('click', function (event) {
-                event.preventDefault();
+        </script>
 
 
-                sidebar.classList.toggle('closed');
+        <!-- untuk sidebar -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const sidebar = document.querySelector('.sidebar');
+                const menuToggle = document.querySelector('.menu-toggle');
+                const mainContent = document.querySelector('.main-content');
+                const userInfo = document.querySelector('.header .user-info');
+                const mediaQuery = window.matchMedia("(max-width: 768px)");
 
+                function updateLayout() {
+                    if (mediaQuery.matches) {
 
-                if (sidebar.classList.contains('closed')) {
-                    mainContent.style.marginLeft = '0';
-                    userInfo.style.marginRight = '40px';
-                } else {
-                    mainContent.style.marginLeft = mediaQuery.matches ? '0' : '250px';
-                    userInfo.style.marginRight = mediaQuery.matches ? '40px' : '280px';
+                        sidebar.classList.add('closed');
+                        mainContent.style.marginLeft = '0';
+                        userInfo.style.marginRight = '40px';
+                    } else {
+
+                        sidebar.classList.remove('closed');
+                        mainContent.style.marginLeft = '250px';
+                        userInfo.style.marginRight = '280px';
+                    }
                 }
+
+                menuToggle.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+
+                    sidebar.classList.toggle('closed');
+
+
+                    if (sidebar.classList.contains('closed')) {
+                        mainContent.style.marginLeft = '0';
+                        userInfo.style.marginRight = '40px';
+                    } else {
+                        mainContent.style.marginLeft = mediaQuery.matches ? '0' : '250px';
+                        userInfo.style.marginRight = mediaQuery.matches ? '40px' : '280px';
+                    }
+                });
+
+                mediaQuery.addEventListener('change', updateLayout);
+
+                updateLayout();
             });
-
-            mediaQuery.addEventListener('change', updateLayout);
-
-            updateLayout();
-        });
-
-    </script>
+        </script>
 </body>
-
 </html>

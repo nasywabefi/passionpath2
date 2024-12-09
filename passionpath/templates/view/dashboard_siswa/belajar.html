@@ -26,7 +26,7 @@
         <a class="active" href="#"><i class="fa-solid fa-user"></i> <b>Belajar</b></a>
         <a href="{% url 'profile_siswa' %}"><i class="fa-solid fa-user"></i> <b>Profile</b></a>
         <a href="{% url 'pembayaran' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
-        <a href="{% url 'pengaturan' %}"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
+        <a href="{% url 'pengaturan_siswa' %}"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
         <div class="logout-line"></div>
         <a class="logout" href="{% url 'logout' %}">Keluar</a>
     </div>
@@ -50,114 +50,116 @@
         </div>
         <div class="dashboard-content">
 
-            <div class="header2">
-               <h3> Program</h3>
+            <div>
+                <h3> Program</h3>
             </div>
 
             <div class="grid-container">
                 <!-- Kolom Kiri -->
-                <div class="left-boxes">
-                    <div class="box">
-                        <img alt="Business" src="{% static 'img/imgprogram1.png'%}">
-                        <div class="box-text">
-                            <h4>Business</h4>
-                            <h6>VIDEO INTERAKTIF</h6>
-                            <h7>Eps 7: Become an Entrepreneur</h7>
-                        </div>
+                <a href="link1.html" class="box">
+                    <img alt="Business" src="{% static 'img/imgprogram1.png' %}">
+                    <div class="box-text">
+                        <h4>Business</h4>
+                        <h6>VIDEO INTERAKTIF</h6>
+                        <h7>Eps 7: Become an Entrepreneur</h7>
                     </div>
-                    <div class="box">
-                        <img alt="Business" src="{% static 'img/imgprogram2.png'%}">
-                        <div class="box-text">
-                            <h4>Business</h4>
-                            <h6>VIDEO INTERAKTIF</h6>
-                            <h7>Eps 6: Business Etiquette</h7>
-                        </div>
+                </a>
+            
+                <a href="link2.html" class="box">
+                    <img alt="Business" src="{% static 'img/imgprogram2.png' %}">
+                    <div class="box-text">
+                        <h4>Business</h4>
+                        <h6>VIDEO INTERAKTIF</h6>
+                        <h7>Eps 6: Business Etiquette</h7>
                     </div>
-                    <div class="box">
-                        <img alt="Title" src="{% static 'img/imgprogram3.png'%}">
-                        <div class="box-text">
-                            <h4>Title</h4>
-                            <h6>Description</h6>
-                        </div>
+                </a>
+            
+                <a href="link3.html" class="box">
+                    <img alt="Title" src="{% static 'img/imgprogram3.png' %}">
+                    <div class="box-text">
+                        <h4>Title</h4>
+                        <h6>Description</h6>
                     </div>
-                </div>
+                </a>
             
                 <!-- Kolom Kanan -->
-                <div class="right-boxes">
-                    <div class="box">
-                        <img alt="Title" src="{% static 'img/imgprogram3.png'%}">
-                        <div class="box-text">
-                            <h4>Title</h4>
-                            <h6>Description</h6>
-                        </div>
+                <a href="link4.html" class="box">
+                    <img alt="Business" src="{% static 'img/imgprogram1.png' %}">
+                    <div class="box-text">
+                        <h4>Business</h4>
+                        <h6>VIDEO INTERAKTIF</h6>
+                        <h7>Eps 7: Become an Entrepreneur</h7>
                     </div>
-                    <div class="box">
-                        <img alt="Title" src="{% static 'img/imgprogram3.png'%}">
-                        <div class="box-text">
-                            <h4>Title</h4>
-                            <h6>Description</h6>
-                        </div>
+                </a>
+            
+                <a href="link5.html" class="box">
+                    <img alt="Business" src="{% static 'img/imgprogram2.png' %}">
+                    <div class="box-text">
+                        <h4>Business</h4>
+                        <h6>VIDEO INTERAKTIF</h6>
+                        <h7>Eps 6: Business Etiquette</h7>
                     </div>
-                    <div class="box">
-                        <img alt="Title" src="{% static 'img/imgprogram3.png'%}">
-                        <div class="box-text">
-                            <h4>Title</h4>
-                            <h6>Description</h6>
-                        </div>
+                </a>
+            
+                <a href="link6.html" class="box">
+                    <img alt="Title" src="{% static 'img/imgprogram3.png' %}">
+                    <div class="box-text">
+                        <h4>Title</h4>
+                        <h6>Description</h6>
                     </div>
-                </div>
+                </a>
             </div>
             
+        </div>
 
-<!-- sidebar js -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const sidebar = document.querySelector('.sidebar');
-            const menuToggle = document.querySelector('.menu-toggle');
-            const mainContent = document.querySelector('.main-content');
-            const userInfo = document.querySelector('.header .user-info');
-            const mediaQuery = window.matchMedia("(max-width: 768px)");
 
-            function updateLayout() {
-                if (mediaQuery.matches) {
+        <!-- sidebar js -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const sidebar = document.querySelector('.sidebar');
+                const menuToggle = document.querySelector('.menu-toggle');
+                const mainContent = document.querySelector('.main-content');
+                const userInfo = document.querySelector('.header .user-info');
+                const mediaQuery = window.matchMedia("(max-width: 768px)");
 
-                    sidebar.classList.add('closed');
-                    mainContent.style.marginLeft = '0';
-                    userInfo.style.marginRight = '40px';
-                } else {
+                function updateLayout() {
+                    if (mediaQuery.matches) {
 
-                    sidebar.classList.remove('closed');
-                    mainContent.style.marginLeft = '250px';
-                    userInfo.style.marginRight = '280px';
+                        sidebar.classList.add('closed');
+                        mainContent.style.marginLeft = '0';
+                        userInfo.style.marginRight = '40px';
+                    } else {
+
+                        sidebar.classList.remove('closed');
+                        mainContent.style.marginLeft = '250px';
+                        userInfo.style.marginRight = '280px';
+                    }
                 }
-            }
 
-            menuToggle.addEventListener('click', function (event) {
-                event.preventDefault();
-
-
-                sidebar.classList.toggle('closed');
+                menuToggle.addEventListener('click', function (event) {
+                    event.preventDefault();
 
 
-                if (sidebar.classList.contains('closed')) {
-                    mainContent.style.marginLeft = '0';
-                    userInfo.style.marginRight = '40px';
-                } else {
-                    mainContent.style.marginLeft = mediaQuery.matches ? '0' : '250px';
-                    userInfo.style.marginRight = mediaQuery.matches ? '40px' : '280px';
-                }
+                    sidebar.classList.toggle('closed');
+
+
+                    if (sidebar.classList.contains('closed')) {
+                        mainContent.style.marginLeft = '0';
+                        userInfo.style.marginRight = '40px';
+                    } else {
+                        mainContent.style.marginLeft = mediaQuery.matches ? '0' : '250px';
+                        userInfo.style.marginRight = mediaQuery.matches ? '40px' : '280px';
+                    }
+                });
+
+
+                mediaQuery.addEventListener('change', updateLayout);
+
+
+                updateLayout();
             });
 
-
-            mediaQuery.addEventListener('change', updateLayout);
-
-
-            updateLayout();
-        });
-
-    </script>
+        </script>
 </body>
 
 </html>
-
-        

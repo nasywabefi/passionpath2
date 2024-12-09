@@ -156,3 +156,24 @@ td a {
         padding: 5px; /* Kurangi padding lebih jauh */
     }
 }
+
+.search-container {
+    display: flex;
+    justify-content: flex-start; /* Posisi awal */
+    align-items: center; /* Rata vertikal */
+    gap: 10px; /* Jarak antar elemen */
+    width: 100%; /* Mengisi ruang yang tersedia */
+  }
+  
+  .search-container input {
+    width: 100%; /* Melebar sesuai kontainer */
+    max-width: 300px; /* Membatasi lebar maksimum */
+  }
+  
+  /* Responsivitas untuk layar kecil */
+  @media (max-width: 576px) {
+    .search-container input {
+      width: 100%; /* Input melebar penuh pada layar kecil */
+    }
+  }
+  

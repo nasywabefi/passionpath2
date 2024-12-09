@@ -58,5 +58,47 @@ class Students(models.Model):
     def __str__(self):
         return self.id_siswa
 
+class ProfileAdmin(models.Model):
+    username = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile_admin")
+    id_admin = models.CharField(max_length=10, unique=True, editable=False)  
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    foto_profil = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id_admin:
+            # Generate ID otomatis
+            last_profile = ProfileAdmin.objects.filter(id_admin__startswith="A").order_by('-id_admin').first()
+            if last_profile:
+                last_number = int(last_profile.id_admin[1:]) 
+                new_number = last_number + 1
+            else:
+                new_number = 1  
+            self.id_admin = f"A{new_number:05d}" 
+        super(ProfileAdmin, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.username.username} - {self.id_admin}"
 
 
+class Kelas(models.Model):
+    id_kelas = models.AutoField(primary_key=True)
+    nama_kelas = models.CharField(max_length=100)
+    deskripsi = models.TextField(blank=True, null=True)
+    total_modul = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.nama_kelas
+
+
+class Episode(models.Model):
+    id = models.AutoField(primary_key=True)
+    id_kelas = models.ForeignKey('Kelas', on_delete=models.CASCADE, related_name='episodes')
+    judul_episode = models.CharField(max_length=100)
+    deskripsi_episode = models.TextField(blank=True, null=True)
+    upload_video = models.FileField(upload_to='uploads/videos/', blank=True, null=True)
+    link_video = models.URLField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.judul_episode} ({self.id_kelas.nama_kelas})"

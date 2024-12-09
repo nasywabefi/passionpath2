@@ -22,8 +22,8 @@
         </a>
         <hr style="border: 1px solid #ccc; margin: 10px 0;" />
         <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> <b>Homepage</b></a>
-        <a href="#"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
-        <a href="#"><i class="fa-solid fa-chalkboard-user"></i> <b>Program</b></a>
+        <a href="{% url 'dashboard_admin' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
+        <a href="{% url 'program_admin' %}"><i class="fa-solid fa-chalkboard-user"></i> <b>Program</b></a>
         <a href="{% url 'pengaturan_admin' %}"><i class="fa-solid fa-user"></i> <b>Pengaturan Admin</b></a>
         <a class="active" href="#"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
         <a href=""><i class="fa-solid fa-gear"></i> <b>Laporan & Analisis</b></a>
@@ -54,6 +54,13 @@
             <div class="container">
                 <h1>Konfirmasi Pembayaran</h1>
                 <div class="filter">
+                    <div class="search-container">
+                        <input class="form-control w-100 w-md-50" type="search" placeholder="Search"
+                            aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                    </div>
                     <label for="status-filter"><i class="fas fa-filter"></i> Filter:</label>
                     <select id="status-filter" name="status-filter" onchange="applyFilter()">
                         <option value="all">Semua</option>
@@ -67,6 +74,7 @@
                         <thead>
                             <tr>
                                 <th>ID Siswa</th>
+                                <th>Nama Siswa</th>
                                 <th>Tanggal Pembayaran</th>
                                 <th>Tanggal Approve / Tolak</th>
                                 <th>Bukti Pembayaran</th>
@@ -77,6 +85,7 @@
                         <tbody>
                             <tr>
                                 <td><a href="#">S123456789</a></td>
+                                <td>Budiono</td>
                                 <td>20/06/24</td>
                                 <td style="color: green;">20/06/24</td>
                                 <td>img34567890</td>
@@ -89,6 +98,7 @@
                             </tr>
                             <tr>
                                 <td><a href="#">S123456789</a></td>
+                                <td>MR boy</td>
                                 <td>20/06/24</td>
                                 <td style="color: red;">20/06/24</td>
                                 <td>img34567890</td>
@@ -114,7 +124,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
