@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Absensi
 import json
 from datetime import datetime
-from .models import Students, Kelas
+from .models import Students , Kelas
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.hashers import check_password
 

@@ -92,6 +92,7 @@ class Kelas(models.Model):
         return self.nama_kelas
 
 
+
 class Episode(models.Model):
     id = models.AutoField(primary_key=True)
     id_kelas = models.ForeignKey('Kelas', on_delete=models.CASCADE, related_name='episodes')

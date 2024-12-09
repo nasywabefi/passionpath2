@@ -39,8 +39,12 @@ urlpatterns = [
 
     # dashboard siswa
     path("pembayaran/", views.pembayaran, name='pembayaran'),
+    path("dashboard_siswa/", views.dashboard_siswa, name='dashboard_siswa'),
     path("detail_pembayaran/", views.detail_pembayaran, name='detail_pembayaran'),
     path("program_input/", views.program_input, name='program_input'),
+    path("profile_siswa/", views.profile_siswa, name='profile_siswa'),
+    path("belajar/", views.belajar, name='belajar'),
+    path("pengaturan_siswa/", views.pengaturan_siswa, name='pengaturan_siswa'),
 
     # admin
     path("program/<int:id_kelas>/detail/", views.program_input, name='program_input'),
