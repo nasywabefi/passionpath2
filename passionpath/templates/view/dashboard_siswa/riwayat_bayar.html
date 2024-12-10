@@ -85,16 +85,14 @@
       <div class="dashboard-content">
         <div class="header2">Pembayaran</div>
         <div class="tabs">
-          <div class="tab active">Belum dibayar</div>
           <div class="tab">
+            <a href="{% url 'pembayaran' %}">Belum Dibayar</a>
+          </div>
+          <div class="tab active">
             <a href="{% url 'riwayat_bayar' %}">Riwayat Pembayaran</a>
           </div>
         </div>
         <div class="payment-item">
-          <div class="checkbox">
-            <input type="checkbox" id="payment1" />
-            <label for="payment1"></label>
-          </div>
           <img
             alt="Person holding a chart"
             height="50"
@@ -108,10 +106,6 @@
           <div class="price">Rp 50.000</div>
         </div>
         <div class="payment-item">
-          <div class="checkbox">
-            <input type="checkbox" id="payment1" />
-            <label for="payment1"></label>
-          </div>
           <img
             alt="Person holding a chart"
             height="50"
@@ -123,15 +117,6 @@
             <div class="status"><strong>Pending</strong></div>
           </div>
           <div class="price">Rp 50.000</div>
-        </div>
-        <div class="checkout" onclick="handleCheckout()">
-          <a href="{% url 'detail_pembayaran' %}">
-            <div class="checkout-content">
-              <span>Check Out</span>
-              <div class="price">Rp 50.000</div>
-            </div>
-            <i class="fas fa-chevron-right"></i>
-          </a>
         </div>
       </div>
     </div>

@@ -588,4 +588,6 @@ def profile_siswa(request):
         'user': user,
     })
 
+def riwayat_bayar(request):
+    return render(request, 'view/dashboard_siswa/riwayat_bayar.html')
 

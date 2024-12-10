@@ -45,6 +45,8 @@ urlpatterns = [
     path("profile_siswa/", views.profile_siswa, name='profile_siswa'),
     path("belajar/", views.belajar, name='belajar'),
     path("pengaturan_siswa/", views.pengaturan_siswa, name='pengaturan_siswa'),
+    path("course_siswa/", views.course_siswa, name='course_siswa'),
+    path("riwayat_bayar/", views.riwayat_bayar, name='riwayat_bayar'),
 
     # admin
     path("program/<int:id_kelas>/detail/", views.program_input, name='program_input'),
