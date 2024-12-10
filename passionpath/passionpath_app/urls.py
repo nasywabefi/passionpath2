@@ -53,7 +53,8 @@ urlpatterns = [
     path("program_admin/", views.program_admin, name='program_admin'),
     path('profile_admin/', views.pengaturan_admin, name='pengaturan_admin'),
     path('pembayaran_admin/', views.pembayaran_admin, name='pembayaran_admin'),
-    path('dashboard_admin/', views.dashboard_admin, name='dashboard_admin'), 
+    path('dashboard_admin/', views.dashboard_admin, name='dashboard_admin'),
+    path('laporan_admin/', views.laporan_admin, name='laporan_admin'), 
 
 
     # Menambahkan endpoint absensi

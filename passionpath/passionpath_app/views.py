@@ -304,7 +304,9 @@ def program_interaktif(request):
         'programs': programs,  
     }
     return render(request, 'view/dashboard_admin/program_interaktif.html', context)
-    
+# laporan admin
+def laporan_admin(request):
+    return render(request, 'view/dashboard_admin/laporan_admin.html')   
 
 #  program detail
 def program_detail(request, id_kelas):
