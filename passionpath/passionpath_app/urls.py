@@ -45,6 +45,7 @@ urlpatterns = [
     path("profile_siswa/", views.profile_siswa, name='profile_siswa'),
     path("belajar/", views.belajar, name='belajar'),
     path("pengaturan_siswa/", views.pengaturan_siswa, name='pengaturan_siswa'),
+    path("course_siswa/", views.course_siswa, name='course_siswa'),
 
     # admin
     path("program/<int:id_kelas>/detail/", views.program_input, name='program_input'),
@@ -54,7 +55,8 @@ urlpatterns = [
     path('profile_admin/', views.pengaturan_admin, name='pengaturan_admin'),
     path('pembayaran_admin/', views.pembayaran_admin, name='pembayaran_admin'),
     path('dashboard_admin/', views.dashboard_admin, name='dashboard_admin'),
-    path('laporan_admin/', views.laporan_admin, name='laporan_admin'), 
+    path('laporan_admin/', views.laporan_admin, name='laporan_admin'),
+    path('pengaturan_admin/', views.pengaturan_admin, name='pengaturan_admin'),  
 
 
     # Menambahkan endpoint absensi

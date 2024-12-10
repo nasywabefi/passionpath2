@@ -297,6 +297,10 @@ def pembayaran_admin(request):
 def program_admin(request):
     return render(request, 'view/dashboard_admin/program_admin.html')
 
+# pengaturan admin
+def pengaturan_admin(request):
+    return render(request, 'view/dashboard_admin/pengaturan_admin.html')
+
 #  program interaktif
 def program_interaktif(request):
     programs = Kelas.objects.all()  

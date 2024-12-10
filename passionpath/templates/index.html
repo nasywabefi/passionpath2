@@ -122,10 +122,10 @@
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="{% url 'about' %}">About</a></li>
-                        <li><a href="{% url 'product' %}">Products</a></li>
-                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                        <li><a href="{% url 'index' %}">Beranda</a></li>
+                        <li><a href="{% url 'about' %}">Tentang Kami</a></li>
+                        <li><a href="{% url 'product' %}">Produk</a></li>
+                        <li><a href="{% url 'contact' %}">Kontak</a></li>
                     </ul>
                 </nav>
             </div>
@@ -139,17 +139,17 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-lg-end">
                         <li><a class="dropdown-item" href="{% url 'dashboard_admin' %}">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="{% url 'profile_redirect' %}">Profile</a></li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        <li><a class="dropdown-item" href="{% url 'profile_redirect' %}">Profil</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Keluar</a></li>
                     </ul>
                 </div>
                 {% else %}
                 <!-- Jika pengguna belum login, tampilkan tombol login dan register -->
                 <a href="{% url 'login' %}">
-                    <button class="login-btn">Login</button>
+                    <button class="login-btn">Masuk</button>
                 </a>
                 <a href="{% url 'register' %}">
-                    <button class="register-btn">Register</button>
+                    <button class="register-btn">Daftar</button>
                 </a>
                 {% endif %}
             </div>
@@ -179,7 +179,7 @@
                     <p>
                         <a href="{% url 'product' %}">
                             <button class="button-product animate__animated animate__fadeInUp
-                            animate__delay-1s">Get Started</button>
+                            animate__delay-1s">Mulai</button>
                         </a>
                     </p>
                 </div>
@@ -203,15 +203,15 @@
 
         <div class="button-container2"> <!-- Container untuk kedua button -->
             <a href="{% url 'bussines' %}"><button class="button-business"><i
-                        class="fa-solid fa-briefcase fa-2x"></i>Business</button></a>
+                        class="fa-solid fa-briefcase fa-2x"></i>Bisnis</button></a>
             <a href="{% url 'development' %}"><button class="button-development"><i
-                        class="fa-solid fa-file-code fa-2x"></i>Development</button></a>
+                        class="fa-solid fa-file-code fa-2x"></i>Pengembangan</button></a>
             <a href="{% url 'language' %}"><button class="button-language"><i
-                        class="fa-solid fa-language fa-2x"></i>Language</button></a>
+                        class="fa-solid fa-language fa-2x"></i>Bahasa</button></a>
             <a href="{% url 'design' %}"><button class="button-design"><i
-                        class="fa-solid fa-pen-ruler fa-2x"></i>Design</button></a>
+                        class="fa-solid fa-pen-ruler fa-2x"></i>Desain</button></a>
             <a href="{% url 'accounting' %}"><button class="button-office"><i
-                        class="fa-solid fa-calculator fa-2x"></i></i>Accounting</button></a>
+                        class="fa-solid fa-calculator fa-2x"></i></i>Akuntansi</button></a>
         </div>
 
         <div class="mbakudung" style="display: flex; justify-content: center; align-items: center;">
@@ -461,7 +461,7 @@
             <div class="kekanan">
                 <div class="contact-us">
                     <!-- <div class="footer-links"> -->
-                    <h3>Contact Us</h3>
+                    <h3>Hubungi Kami</h3>
                     <ul>
                         <li><a href="#"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a></li>
                         <li><a href="#courses"><i class="fa-solid fa-envelope"></i> Email</a></li>
@@ -471,7 +471,7 @@
 
                 <div class="information">
                     <!-- <div class="footer-contact"> -->
-                    <h3>information</h3>
+                    <h3>Informasi</h3>
                     <ul>
                         <li><a href="#"><i class="fa-solid fa-hand-holding-dollar"></i> Jumlah Donasi</a></li>
                         <li><a href="#"><i class="fa-solid fa-images"></i> Dokumentasi</a></li>

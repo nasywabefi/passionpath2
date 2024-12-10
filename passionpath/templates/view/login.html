@@ -28,19 +28,19 @@
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="{% url 'about' %}">About</a></li>
-                        <li><a href="{% url 'product' %}">Products</a></li>
-                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                        <li><a href="{% url 'index' %}">Beranda</a></li>
+                        <li><a href="{% url 'about' %}">Tentang Kami</a></li>
+                        <li><a href="{% url 'product' %}">Produk</a></li>
+                        <li><a href="{% url 'contact' %}">Kontak</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="auth-buttons">
                 <a href="{% url 'login' %}">
-                    <button class="login-btn">Login</button>
+                    <button class="login-btn">Masuk</button>
                   </a>
                   <a href="{% url 'register' %}">
-                    <button class="register-btn">Register</button>
+                    <button class="register-btn">Daftar</button>
                 </a>
             </div>
             <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card-body">
-                        <h4 class="text-center mb-4">LOGIN</h4>
+                        <h4 class="text-center mb-4">MASUK</h4>
                         
                         <!-- alert -->
                         {% if messages %}
@@ -84,12 +84,12 @@
                                 </span>
                             </div>
                             <button class="btn btn-primary w-100" type="submit">
-                                Login
+                                Masuk
                             </button>
                         </form>
                         
                         <div class="text-center login-link mt-3">
-                            Do you have an account?
+                            Apakah Anda memiliki akun?
                             <a href="{% url 'register' %}">Daftar!</a>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
             </div>
             <div class="kekanan">
                 <div class="contact-us">
-                    <h3>Contact Us</h3>
+                    <h3>Hubungi Kami</h3>
                     <ul>
                         <li>
                             <a href="#"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a>
@@ -125,7 +125,7 @@
                     </ul>
                 </div>
                 <div class="information">
-                    <h3>Information</h3>
+                    <h3>Informasi</h3>
                     <ul>
                         <li>
                             <a href="#"><i class="fa-solid fa-hand-holding-dollar"></i> Jumlah
