@@ -37,10 +37,10 @@
             <img alt="Logo" height="50" src="{% static 'img/logo_long_passionpath.png'%}" width="80%" />
         </a>
         <hr style="border: 1px solid #ccc; margin: 10px 0;" />
-        <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> <b>Homepage</b></a>
+        <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> <b>Beranda</b></a>
         <a href="{% url  'dashboard_siswa' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
         <a href="{% url 'belajar' %}"><i class="fa-solid fa-chalkboard-user"></i> <b>Belajar</b></a>
-        <a class="active" href="#"><i class="fa-solid fa-user"></i> <b>Profile</b></a>
+        <a class="active" href="#"><i class="fa-solid fa-user"></i> <b>Profil</b></a>
         <a href="{% url 'pembayaran' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
         <a href="{% url 'pengaturan_siswa' %}"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
         <div class="logout-line"></div>
@@ -65,7 +65,7 @@
             </div>
         </div>
         <div class="dashboard-content">
-            <h2>Profile</h2>
+            <h2>Profil</h2>
             <form id="profileForm" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -88,13 +88,13 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="first_name" class="form-label">First Name</label>
+                    <label for="first_name" class="form-label">Nama Depan</label>
                     <input type="text" class="form-control" id="first_name" name="first_name"
                         value="{{ user.first_name }}">
                 </div>
 
                 <div class="mb-3">
-                    <label for="last_name" class="form-label">Last Name</label>
+                    <label for="last_name" class="form-label">Nama Belakang</label>
                     <input type="text" class="form-control" id="last_name" name="last_name"
                         value="{{ user.last_name }}">
                 </div>
@@ -140,7 +140,7 @@
                         value="{{ profile.school|default:'' }}">
                 </div>
 
-                <button type="submit" class="save-button btn btn-success">Save</button>
+                <button type="submit" class="save-button btn btn-success">Simpan</button>
             </form>
 
 

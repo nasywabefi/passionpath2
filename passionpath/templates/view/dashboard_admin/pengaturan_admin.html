@@ -21,12 +21,12 @@
             <img alt="Logo" height="50" src="{% static 'img/logo_long_passionpath.png'%}" width="80%" />
         </a>
         <hr style="border: 1px solid #ccc; margin: 10px 0;" />
-        <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> <b>Homepage</b></a>
+        <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> <b>Beranda</b></a>
         <a href="{% url 'dashboard_admin' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
         <a href="{% url 'program_admin' %}"><i class="fa-solid fa-chalkboard-user"></i> <b>Program</b></a>
         <a class="active" href=""><i class="fa-solid fa-user"></i> <b>Pengaturan Admin</b></a>
         <a href="{% url 'pembayaran_admin' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
-        <a href=""><i class="fa-solid fa-gear"></i> <b>Laporan & Analisis</b></a>
+        <a href="{% url 'laporan_admin' %}"><i class="fa-solid fa-gear"></i> <b>Laporan</b></a>
         <div class="logout-line"></div>
         <a class="logout" href="{% url 'logout' %}">Keluar</a>
     </div>
@@ -110,7 +110,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="save-button btn btn-success">Save</button>
+                <button type="submit" class="save-button btn btn-success">Simpan</button>
             </form>
 
 

@@ -27,10 +27,10 @@
         </div>
         <nav>
           <ul>
-            <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'product' %}">Product</a></li>
-            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li><a href="{% url 'index' %}">Beranda</a></li>
+            <li><a href="{% url 'about' %}">Tentang Kami</a></li>
+            <li><a href="{% url 'product' %}">Produk</a></li>
+            <li><a href="{% url 'contact' %}">Kontak</a></li>
           </ul>
         </nav>
       </div>
@@ -44,17 +44,17 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end">
                 <li><a class="dropdown-item" href="{% url 'dashboard_admin' %}">Dashboard</a></li>
-                <li><a class="dropdown-item" href="{% url 'profile_redirect' %}">Profile</a></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                <li><a class="dropdown-item" href="{% url 'profile_redirect' %}">Profil</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Keluar</a></li>
             </ul>
         </div>
         {% else %}
         <!-- Jika pengguna belum login, tampilkan tombol login dan register -->
         <a href="{% url 'login' %}">
-            <button class="login-btn">Login</button>
+            <button class="login-btn">Masuk</button>
         </a>
         <a href="{% url 'register' %}">
-            <button class="register-btn">Register</button>
+            <button class="register-btn">Daftar</button>
         </a>
         {% endif %}
     </div>
@@ -63,7 +63,7 @@
   </header>
 
   <section class="main-section">
-    <h2 style="margin-left: -65px; margin-right: 20px; text-align: center;">Bussines</h2>
+    <h2 style="margin-left: -65px; margin-right: 20px; text-align: center;">Bisnis</h2>
     <p style="margin-left: -65px; margin-right: 20px; text-align: justify;">Pernah nggak sih, kamu ngelihat produk baru
       yang keren banget dan kepikiran,
       "Kok bisa ya orang bikin produk sekeren ini?" Atau, pernah melihat iklan di TV,
@@ -78,13 +78,13 @@
     <!-- Program 1 -->
     <div class="program-card">
       <img src="{% static 'img/bsn12.jpeg' %}" alt="Video Interaktif" />
-      <h3 style="text-align: left">Eps 1 : Intro To Bussiness</h3>
+      <h3 style="text-align: left">Eps 1 : Intro To Business</h3>
       <p style="text-align: justify">Pada episode pertama ini kita akan belajar tentang definisi bisnis secara umum,
         fungsi, dan jenis-jenis bisnis.</p>
 
       <p class="price">
-        <strong class="free">Free</strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <strong class="free">Gratis</strong>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
     <!-- Program 2 -->
@@ -96,8 +96,8 @@
       </p>
 
       <p class="price">
-        <strong class="free">Free</strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <strong class="free">Gratis</strong>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
     <!-- Program 3 -->
@@ -108,8 +108,8 @@
         dan akan membahas juga fungsi-fungsi manajemen setra keterampilan yang dibutuhkan.</p>
 
       <p class="price">
-        <strong class="free">Free</strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <strong class="free">Gratis</strong>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
 
@@ -122,7 +122,7 @@
 
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
 
@@ -134,7 +134,7 @@
 
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
 
@@ -146,7 +146,7 @@
 
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
 
@@ -158,7 +158,7 @@
 
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
 
@@ -170,7 +170,7 @@
 
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
 
@@ -182,7 +182,7 @@
 
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
 
@@ -195,7 +195,7 @@
       </p>
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
 
@@ -209,7 +209,7 @@
       </p>
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
 
@@ -223,7 +223,7 @@
       </p>
       <p class="price">
         <strong class="free"><i class="fa-solid fa-lock"></i></strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
+        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Tonton</button></a>
       </p>
     </div>
   </section>
@@ -243,7 +243,7 @@
       <div class="kekanan">
         <div class="contact-us">
           <!-- <div class="footer-links"> -->
-          <h3>Contact Us</h3>
+          <h3>Hubungi Kami</h3>
           <ul>
             <li>
               <a href="#"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a>
@@ -259,7 +259,7 @@
 
         <div class="information">
           <!-- <div class="footer-contact"> -->
-          <h3>information</h3>
+          <h3>Informasi</h3>
           <ul>
             <li>
               <a href="#"><i class="fa-solid fa-hand-holding-dollar"></i> Jumlah

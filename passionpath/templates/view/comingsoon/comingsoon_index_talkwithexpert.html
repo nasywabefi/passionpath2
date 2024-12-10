@@ -12,7 +12,7 @@
   <!-- Import Google Fonts Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
   <!-- Link to external CSS -->
-  <link rel="stylesheet" href="{% static 'css/styles_product.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style_comingsoon_index_TWE.css' %}" />
   <link rel="stylesheet" href="{% static 'css/style_nav-footer.css'%}" />
   <!-- Link ke Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,10 +28,10 @@
         </div>
         <nav>
           <ul>
-            <li><a href="{% url 'index' %}">Beranda</a></li>
-              <li><a href="{% url 'about' %}">Tentang Kami</a></li>
-              <li><a href="{% url 'product' %}">Produk</a></li>
-              <li><a href="{% url 'contact' %}">Kontak</a></li>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'product' %}">Products</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
           </ul>
         </nav>
       </div>
@@ -45,17 +45,17 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end">
                 <li><a class="dropdown-item" href="{% url 'dashboard_admin' %}">Dashboard</a></li>
-                <li><a class="dropdown-item" href="{% url 'profile_redirect' %}">Profil</a></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">Keluar</a></li>
+                <li><a class="dropdown-item" href="{% url 'profile_siswa' %}">Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
             </ul>
         </div>
         {% else %}
         <!-- Jika pengguna belum login, tampilkan tombol login dan register -->
         <a href="{% url 'login' %}">
-            <button class="login-btn">Masuk</button>
+            <button class="login-btn">Login</button>
         </a>
         <a href="{% url 'register' %}">
-            <button class="register-btn">Daftar</button>
+            <button class="register-btn">Register</button>
         </a>
         {% endif %}
         </div>
@@ -64,86 +64,12 @@
   </header>
 
   <section class="main-section">
-    <h2>PassionPath Program</h2>
+    <h2>Talk with Expert</h2>
   </section>
 
-  <div class="kategori">
-    <a href="{% url 'bussines' %}">
-        <button class="button-business">
-            <i class="fa-solid fa-briefcase"></i>Bisnis
-        </button>
-    </a>
-    <a href="{% url 'development' %}">
-        <button class="button-development">
-            <i class="fa-solid fa-file-code"></i>Pengembangan
-        </button>
-    </a>
-    <a href="{% url 'language' %}">
-        <button class="button-language">
-            <i class="fa-solid fa-language"></i>Bahasa
-        </button>
-    </a>
-    <a href="{% url 'design' %}">
-        <button class="button-design">
-            <i class="fa-solid fa-pen-ruler"></i>Desain
-        </button>
-    </a>
-    <a href="{% url 'accounting' %}">
-        <button class="button-accounting">
-            <i class="fa-solid fa-calculator"></i>Akuntansi
-        </button>
-    </a>
-</div>
-
-
-  <section class="program-container">
-    <!-- Program 1 -->
-    <div class="program-card">
-      <img src="{% static 'img/pict_Program1_VideoInteraktif.jpg'%}" alt="Video Interaktif" class="card-image" />
-      <h3 style="text-align: left">Video Interaktif</h3>
-      <p style="text-align: left">
-        Jelajahi dunia kerja dengan cara yang seru! Video interaktif kami akan
-        membantumu mengenal lebih dekat berbagai macam jurusan dan pekerjaan.
-      </p>
-      <p class="price">
-        <strong class="free">Gratis</strong>
-        <a href="">
-        <button type="button" class="btn btn-primary">Gabung Sekarang</button>   
-      </a>
-      </p>
-    </div>
-    <!-- Program 2 -->
-    <div class="program-card">
-      <img src="{% static 'img/pict_Program2_TalkwithExpert.jpg'%}" alt="Talk with Expert" class="card-image" />
-      <h3 style="text-align: left">Talk with Expert</h3>
-      <p style="text-align: left">
-        Mau ngobrol dengan ahlinya? Yuk, join talk with expert dan dapatkan
-        jawaban atas semua pertanyaanmu dari yang profesional dalam bidangnya.
-      </p>
-      <p class="price">
-        Rp. 19.000
-        <a href="{% url 'login' %}">
-          <button type="button" class="btn btn-primary">Gabung Sekarang</button>
-        </a>
-      </p>
-    </div>
-    <!-- Program 3 -->
-    <div class="program-card">
-      <img src="{% static 'img/pict_Program3_Psikotest.jpeg'%}" alt="Psikotest" class="card-image" />
-      <h3 style="text-align: left">Psikotest</h3>
-      <p style="text-align: left">
-        Penasaran dengan potensi tersembunyimu? Temukan bakatmu yang
-        sesungguhnya dengan tes minat bakat! Unlock potensimu dan raih
-        kesuksesan yang tak terbatas.
-      </p>
-      <p class="price">
-        Rp. 19.000
-        <a href="{% url 'login' %}">
-          <button type="button" class="btn btn-primary">Gabung Sekarang</button>
-        </a>
-      </p>
-    </div>
-  </section>
+  <div class="coming-soon-container">
+    <h1 class="coming-soon-text">coming soon</h1>
+  </div>
 
   <footer>
     <div class="footer-container">
@@ -160,7 +86,7 @@
       <div class="kekanan">
         <div class="contact-us">
           <!-- <div class="footer-links"> -->
-          <h3>Hubungi Kami</h3>
+          <h3>Contact Us</h3>
           <ul>
             <li>
               <a href="#"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a>
@@ -176,7 +102,7 @@
 
         <div class="information">
           <!-- <div class="footer-contact"> -->
-          <h3>Informasi</h3>
+          <h3>information</h3>
           <ul>
             <li>
               <a href="#"><i class="fa-solid fa-hand-holding-dollar"></i> Jumlah
@@ -194,7 +120,7 @@
       </div>
     </div>
   </footer>
-
+  
   <!-- javascript -->
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     crossorigin="anonymous"></script>
@@ -206,5 +132,4 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
 </body>
-
 </html>

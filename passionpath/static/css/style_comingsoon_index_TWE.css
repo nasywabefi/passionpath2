@@ -1,0 +1,46 @@
+/* Reset basic styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Main Section */
+.main-section {
+  background-color: #DCF529;
+  text-align: left;
+  padding: 20px;
+  padding-top: 20px;
+}
+
+.main-section h2 {
+  font-size: 30px;
+  color: #333;
+  margin: 0;
+  text-align: left;
+  padding-top: 25px;
+  padding-left: 80px;
+}
+
+/* Container for centering text */
+.coming-soon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fff; /* Optional: adjust background color */
+}
+  
+/* Styling for the "coming soon" text */
+.coming-soon-text {
+  font-size: 5vw; /* Responsive font size */
+  color: rgba(0, 0, 0, 0.5); /* Black text with 50% transparency */
+  text-align: center;
+}
+  
+  
