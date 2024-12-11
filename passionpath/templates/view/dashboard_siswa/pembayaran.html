@@ -28,7 +28,6 @@
 
   <body>
     <div class="sidebar">
-<<<<<<< HEAD
       <a href="{% url 'index' %}">
         <img
           alt="Logo"
@@ -39,7 +38,7 @@
       </a>
       <hr style="border: 1px solid #ccc; margin: 10px 0" />
       <a href="{% url 'index' %}"
-        ><i class="fa-solid fa-house"></i> <b>Homepage</b></a
+        ><i class="fa-solid fa-house"></i> <b>Beranda</b></a
       >
       <a href="{% url 'dashboard_siswa' %}">
         <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a
@@ -58,20 +57,6 @@
       >
       <div class="logout-line"></div>
       <a class="logout" href="{% url 'logout' %}">Keluar</a>
-=======
-        <a href="{% url 'index' %}">
-            <img alt="Logo" height="50" src="{% static 'img/logo_long_passionpath.png'%}" width="80%" />
-        </a>
-        <hr style="border: 1px solid #ccc; margin: 10px 0;" />
-        <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> <b>Beranda</b></a>
-        <a href="{% url 'dashboard_siswa' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
-        <a href="{% url 'belajar' %}"><i class="fa-solid fa-chalkboard-user"></i> <b>Belajar</b></a>
-        <a href="{% url 'profile_siswa' %}"><i class="fa-solid fa-user"></i> <b>Profile</b></a>
-        <a class="active" href="{% url 'pembayaran' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
-        <a href="{% url 'pengaturan_siswa' %}"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
-        <div class="logout-line"></div>
-        <a class="logout" href="{% url 'logout' %}">Keluar</a>
->>>>>>> 5dddc7c1e245ef1d157a077fc8c791c36869618e
     </div>
     <div class="main-content">
       <div class="header">
@@ -84,7 +69,6 @@
             />
           </a>
         </div>
-<<<<<<< HEAD
         <div class="user-info">
           <div>
             <p>{{ request.user.username }}</p>
@@ -96,61 +80,6 @@
             src="{% if profile.foto_profil %}{{ profile.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}"
             width="40"
           />
-=======
-        <div class="dashboard-content">
-
-            <div class="header2">
-                Pembayaran
-            </div>
-            <div class="tabs">
-                <div class="tab active">
-                    Belum dibayar
-                </div>
-                <div class="tab">
-                    Riwayat Pembayaran
-                </div>
-            </div>
-            <div class="payment-item">
-                <div class="checkbox">
-                    <input type="checkbox" id="payment1" />
-                    <label for="payment1"></label>
-                </div>
-                <img alt="Person holding a chart" height="50"
-                    src="https://storage.googleapis.com/a1aa/image/HkQiX6jtkH6yORP9vamfZoeued5fxROSuf1wm2V1TklW1h8eE.jpg"
-                    width="50" />
-                <div>
-                    <div class="title">Judul</div>
-                    <div class="status"><strong>Pending</strong></div>
-                </div>
-                <div class="price">Rp 50.000</div>
-            </div>
-            <div class="payment-item">
-                <div class="checkbox">
-                    <input type="checkbox" id="payment1" />
-                    <label for="payment1"></label>
-                </div>
-                <img alt="Person holding a chart" height="50"
-                    src="https://storage.googleapis.com/a1aa/image/HkQiX6jtkH6yORP9vamfZoeued5fxROSuf1wm2V1TklW1h8eE.jpg"
-                    width="50" />
-                <div>
-                    <div class="title">Judul</div>
-                    <div class="status"><strong>Pending</strong></div>
-                </div>
-                <div class="price">Rp 50.000</div>
-            </div>
-            <div class="checkout" onclick="handleCheckout()">
-                <a href="{% url 'detail_pembayaran' %}">
-                <div class="checkout-content">
-                    <span>Check Out</span>
-                    <div class="price">Rp 50.000</div>
-                </div>
-                <i class="fas fa-chevron-right"></i>
-            </a>
-            </div>
-            
-
-            
->>>>>>> 5dddc7c1e245ef1d157a077fc8c791c36869618e
         </div>
       </div>
       <div class="dashboard-content">
