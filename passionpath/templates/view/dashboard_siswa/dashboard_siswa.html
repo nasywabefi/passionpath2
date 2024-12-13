@@ -24,7 +24,7 @@
         <a class="active" href="#"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
         <a href="{% url 'belajar' %}"><i class="fa-solid fa-chalkboard-user"></i> <b>Belajar</b></a>
         <a href="{% url 'profile_siswa' %}"><i class="fa-solid fa-user"></i> <b>Profile</b></a>
-        <a href="{% url 'pembayaran' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
+        <a href=""><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
         <a href="{% url 'pengaturan_siswa' %}"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
         <div class="logout-line"></div>
         <a class="logout" href="{% url 'logout' %}">Keluar</a>
@@ -75,7 +75,7 @@
                     </p>
                 </div>
             </div>
-            <div class="program-activities">
+            {% comment %} <div class="program-activities">
                 <h2>Aktifitas Program</h2>
                 <div class="activity-container">
                     <div class="activity">
@@ -115,36 +115,37 @@
                         <a class="continue" href="#">Lanjutkan</a>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
             <div class="recommended-programs">
-                <h2>Rekomendasi Program Lainnya</h2>
+                <h2>Rekomendasi Program</h2>
                 <div class="program-container">
                     <div class="program">
                         <img alt="Language Icon"
                             src="https://img.icons8.com/?size=100&id=30633&format=png&color=000000" />
                         <div class="info">
-                            <p class="title">Language</p>
-                            <p class="subtitle">08 Video</p>
+                            <p class="title">Bahasa</p>
+                            {% comment %} <p class="subtitle">08 Video</p> {% endcomment %}
                         </div>
-                        <a class="continue" href="#">Lanjutkan</a>
+                        <a class="continue" href="{% url 'courses' %}?id_kelas={{ bahasa.id_kelas|default:'' }}">Mulai Belajar</a>
                     </div>
+                    <a href= ""> </a>
                     <div class="program">
                         <img alt="Design Icon" src="https://img.icons8.com/?size=100&id=8184&format=png&color=000000" />
                         <div class="info">
                             <p class="title">Design</p>
-                            <p class="subtitle">06 Video</p>
+                            {% comment %} <p class="subtitle">06 Video</p> {% endcomment %}
                         </div>
-                        <a class="continue" href="#">Lanjutkan</a>
+                        <a class="continue" href="{% url 'courses' %}?id_kelas={{ desain.id_kelas|default:'' }}">Mulai Belajar</a>
                     </div>
-                    <div class="program">
+                   <div class="program">
                         <img alt="Office Icon"
                             src="https://img.icons8.com/?size=100&id=53426&format=png&color=000000" />
                         <div class="info">
-                            <p class="title">Office</p>
-                            <p class="subtitle">06 Video</p>
+                            <p class="title">Akuntansi</p>
+                            {% comment %} <p class="subtitle">06 Video</p> {% endcomment %}
                         </div>
-                        <a class="continue" href="#">Lanjutkan</a>
-                    </div>
+                        <a class="continue" href="{% url 'courses' %}?id_kelas={{ akuntansi.id_kelas|default:'' }}">Mulai Belajar</a>
+                    </div> 
                 </div>
             </div>
         </div>

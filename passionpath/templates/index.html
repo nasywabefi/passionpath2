@@ -202,15 +202,15 @@
         <br>
 
         <div class="button-container2"> <!-- Container untuk kedua button -->
-            <a href="{% url 'bussines' %}"><button class="button-business"><i
+            <a href="{% url 'courses' %}?id_kelas={{ business_kelas.id_kelas|default:'' }}"><button class="button-business"><i
                         class="fa-solid fa-briefcase fa-2x"></i>Business</button></a>
-            <a href="{% url 'development' %}"><button class="button-development"><i
+            <a href="{% url 'courses' %}?id_kelas={{ development_kelas.id_kelas|default:'' }}"><button class="button-development"><i
                         class="fa-solid fa-file-code fa-2x"></i>Development</button></a>
-            <a href="{% url 'language' %}"><button class="button-language"><i
+            <a href="{% url 'courses' %}?id_kelas={{ bahasa.id_kelas|default:'' }}"><button class="button-language"><i
                         class="fa-solid fa-language fa-2x"></i>Language</button></a>
-            <a href="{% url 'design' %}"><button class="button-design"><i
+            <a href="{% url 'courses' %}?id_kelas={{ desain.id_kelas|default:'' }}"><button class="button-design"><i
                         class="fa-solid fa-pen-ruler fa-2x"></i>Design</button></a>
-            <a href="{% url 'accounting' %}"><button class="button-office"><i
+            <a href="{% url 'courses' %}?id_kelas={{ akuntansi.id_kelas|default:'' }}"><button class="button-office"><i
                         class="fa-solid fa-calculator fa-2x"></i></i>Accounting</button></a>
         </div>
 

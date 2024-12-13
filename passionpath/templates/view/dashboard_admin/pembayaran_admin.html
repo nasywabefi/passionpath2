@@ -26,7 +26,7 @@
         <a href="{% url 'program_admin' %}"><i class="fa-solid fa-chalkboard-user"></i> <b>Program</b></a>
         <a href="{% url 'pengaturan_admin' %}"><i class="fa-solid fa-user"></i> <b>Pengaturan Admin</b></a>
         <a class="active" href="#"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
-        <a href=""><i class="fa-solid fa-gear"></i> <b>Laporan & Analisis</b></a>
+        <a href="{% url 'laporan_admin' %}"><i class="fa-solid fa-gear"></i> <b>Laporan</b></a>
         <div class="logout-line"></div>
         <a class="logout" href="{% url 'logout' %}">Keluar</a>
     </div>
@@ -55,11 +55,10 @@
                 <h1>Konfirmasi Pembayaran</h1>
                 <div class="filter">
                     <div class="search-container">
-                        <input class="form-control w-100 w-md-50" type="search" placeholder="Search"
-                            aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
+                        <input class="form-control w-100 w-md-50" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
                     </div>
                     <label for="status-filter"><i class="fas fa-filter"></i> Filter:</label>
                     <select id="status-filter" name="status-filter" onchange="applyFilter()">
@@ -68,7 +67,7 @@
                         <option value="rejected">Ditolak</option>
                     </select>
                 </div>
-                <!-- Pembungkus tabel -->
+        
                 <div class="table-wrapper">
                     <table class="table table-striped table-bordered">
                         <thead>
@@ -83,36 +82,84 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% if pembayaran_history_list %}
+                            <p>Jumlah data pembayaran: {{ pembayaran_history_list.count }}</p>
+                            {% for pembayaran in pembayaran_history_list %}
+                                <tr>
+                                    <td><a href="#">{{ pembayaran.siswa.id_siswa }}</a></td>
+                                    <td>{{ pembayaran.siswa.name }}</td>
+                                    <td>{{ pembayaran.tanggal_pembayaran|date:"d/m/Y" }}</td>
+                                    <td>
+                                        {% if pembayaran.tanggal_approve_tolak %}
+                                            {{ pembayaran.tanggal_approve_tolak|date:"d/m/Y" }}
+                                        {% else %}
+                                            Menunggu
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <img src="{{ pembayaran.bukti_pembayaran.url }}" alt="Bukti Pembayaran" height="50">
+                                    </td>
+                                    <td>
+                                        <span class="badge text-bg-
+                                            {% if pembayaran.status_pembayaran == 'success' %}
+                                                success
+                                            {% elif pembayaran.status_pembayaran == 'ditolak' %}
+                                                danger
+                                            {% else %}
+                                                secondary
+                                            {% endif %}
+                                        ">
+                                            {% if pembayaran.status_pembayaran == 'success' %}
+                                                Success
+                                            {% elif pembayaran.status_pembayaran == 'ditolak' %}
+                                                Ditolak
+                                            {% else %}
+                                                Pending
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="{% url 'approve_pembayaran' pembayaran.id %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button class="approved btn btn-success" type="submit">Disetujui</button>
+                                        </form>
+                                        <form method="POST" action="{% url 'reject_pembayaran' pembayaran.id %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button class="rejected btn btn-danger" type="submit">Ditolak</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
                             <tr>
-                                <td><a href="#">S123456789</a></td>
-                                <td>Budiono</td>
-                                <td>20/06/24</td>
-                                <td style="color: green;">20/06/24</td>
-                                <td>img34567890</td>
-                                <td><span class="badge text-bg-success">Disetujui</span></td>
-                                <td class="actions">
-                                    <button class="approved">Disetujui</button>
-                                    <button class="rejected">Ditolak</button>
-                                    <button class="details">Detail</button>
-                                </td>
+                                <td colspan="7">Tidak ada data pembayaran</td>
                             </tr>
-                            <tr>
-                                <td><a href="#">S123456789</a></td>
-                                <td>MR boy</td>
-                                <td>20/06/24</td>
-                                <td style="color: red;">20/06/24</td>
-                                <td>img34567890</td>
-                                <td><span class="badge text-bg-danger">Ditolak</span></td>
-                                <td class="actions">
-                                    <button class="approved">Disetujui</button>
-                                    <button class="rejected">Ditolak</button>
-                                    <button class="details">Detail</button>
-                                </td>
-                            </tr>
-                            <!-- Tambahkan baris lainnya di sini -->
+                        {% endif %}
+                        
                         </tbody>
                     </table>
+                    
                 </div>
+        
+                <!-- Modal Detail Pembayaran -->
+                <div class="modal fade" id="pembayaranDetailModal" tabindex="-1" aria-labelledby="pembayaranDetailModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="pembayaranDetailModalLabel">Detail Pembayaran</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>ID Siswa:</strong> <span id="detail-id-siswa"></span></p>
+                                <p><strong>Nama Siswa:</strong> <span id="detail-nama-siswa"></span></p>
+                                <p><strong>Tanggal Pembayaran:</strong> <span id="detail-tanggal-pembayaran"></span></p>
+                                <p><strong>Status:</strong> <span id="detail-status"></span></p>
+                                <p><strong>Bukti Pembayaran:</strong> <img id="detail-bukti-pembayaran" src="" alt="Bukti Pembayaran" height="150"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
                 <!-- Pagination -->
                 <div class="pagination">
                     <div class="info">Showing 10 from 400</div>
@@ -124,9 +171,37 @@
                     </div>
                 </div>
             </div>
-
         </div>
+        
+        
+        
     </div>
+
+    <script>
+        document.querySelectorAll('.details').forEach(button => {
+            button.addEventListener('click', function() {
+                var pembayaranId = this.getAttribute('data-id');
+                // You can fetch the pembayaran details using AJAX or include it in the context
+                // For this example, I will just fill in some mock details:
+    
+                // Mock data (you can replace this with actual AJAX request)
+                var pembayaranDetails = {
+                    id_siswa: 'S123456',
+                    nama_siswa: 'Budiono',
+                    tanggal_pembayaran: '20/06/2024',
+                    status: 'Disetujui',
+                    bukti_pembayaran: 'https://storage.googleapis.com/a1aa/image/wmrVvCQAGi4hGBdziAkuiA9QenPEyffWp6lGbEreObjOJTeeE.jpg'
+                };
+    
+                // Populate modal with the details
+                document.getElementById('detail-id-siswa').textContent = pembayaranDetails.id_siswa;
+                document.getElementById('detail-nama-siswa').textContent = pembayaranDetails.nama_siswa;
+                document.getElementById('detail-tanggal-pembayaran').textContent = pembayaranDetails.tanggal_pembayaran;
+                document.getElementById('detail-status').textContent = pembayaranDetails.status;
+                document.getElementById('detail-bukti-pembayaran').src = pembayaranDetails.bukti_pembayaran;
+            });
+        });
+    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

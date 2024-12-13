@@ -52,7 +52,7 @@
       <a href="{% url 'pembayaran_admin' %}"
         ><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a
       >
-      <a href=""><i class="fa-solid fa-gear"></i> <b>Laporan & Analisis</b></a>
+      <a href="{% url 'laporan_admin' %}"><i class="fa-solid fa-gear"></i> <b>Laporan</b></a>
       <div class="logout-line"></div>
       <a class="logout" href="{% url 'logout' %}">Keluar</a>
     </div>
@@ -115,7 +115,7 @@
               <button type="submit">Simpan</button>
             </form>
           </div>
-          <p>Total Episode: {{ kelas.episode_set.count }}</p>
+          <p>Total Episode: {{ kelas.episodes.count }}</p>
           <table>
             <thead>
               <tr>
@@ -123,6 +123,7 @@
                 <th>Judul episode</th>
                 <th>Deskripsi episode</th>
                 <th>Video</th>
+                <th>Gratis/Berbayar</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -143,10 +144,18 @@
                   </video>
                   {% elif episode.link_video %}
                   <a href="{{ episode.link_video }}" target="_blank"
-                    >Watch Video</a
+                    >Video</a
                   >
                   {% endif %}
                 </td>
+                <td>
+                  {% if episode.is_free %}
+                      Gratis
+                  {% else %}
+                      Berbayar
+                  {% endif %}
+              </td>
+              
                 <td class="actions">
                   <a
                     href="{% url 'edit_episode' id_kelas=kelas.id_kelas id_episode=episode.id %}"

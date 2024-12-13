@@ -64,42 +64,34 @@
 
   <section class="main-section">
     <h2 style="margin-left: -65px; margin-right: 20px; text-align: center;">Bussines</h2>
-    <p style="margin-left: -65px; margin-right: 20px; text-align: justify;">Pernah nggak sih, kamu ngelihat produk baru
-      yang keren banget dan kepikiran,
-      "Kok bisa ya orang bikin produk sekeren ini?" Atau, pernah melihat iklan di TV,
-      atau situs belanja online? Semua itu nggak lepas dari peran orang-orang yang berkecimpung di dunia bisnis.
-      Mulai dari yang bikin produknya, yang ngiklanin, sampai yang ngurus keuangannya.
-      Nah, kalau kamu tertarik jadi bagian dari dunia yang seru ini, jurusan bisnis adalah pilihan yang tepat.
-      Di video ini, kita akan bahas lebih lanjut tentang apa aja yang bisa kamu lakukan dengan gelar sarjana bisnis.
-    </p>
+    <p style="margin-left: -65px; margin-right: 20px; text-align: justify;">{{ kelas.deskripsi }}</p>
   </section>
 
   <section class="program-container">
-    <!-- Program 1 -->
-    <div class="program-card">
-      <img src="{% static 'img/bsn12.jpeg' %}" alt="Video Interaktif" />
-      <h3 style="text-align: left">Eps 1 : Intro To Bussiness</h3>
-      <p style="text-align: justify">Pada episode pertama ini kita akan belajar tentang definisi bisnis secara umum,
-        fungsi, dan jenis-jenis bisnis.</p>
-
-      <p class="price">
-        <strong class="free">Free</strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
-      </p>
-    </div>
     <!-- Program 2 -->
-    <div class="program-card">
-      <img src="{% static 'img/bsn2.jpeg' %}" alt="Video Interaktif" />
-      <h3 style="text-align: left">Eps 2 : History of Business Development</h3>
-      <p style="text-align: justify">Di episode ini kita akan mencari tau bagaimana bisnis berkembang dari zaman ke
-        zaman? Juga akan melihat sejarah singkat perkembangan dunia bisnis dan pengaruh teknologi dalam sebuah bisnis.
-      </p>
-
-      <p class="price">
-        <strong class="free">Free</strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
-      </p>
-    </div>
+    <div class="program-container">
+      <!-- Looping through episodes -->
+      {% for episode in episode_list %}
+          <div class="program-card">
+              <img src="{% static 'img/bsn12.jpeg' %}" alt="Video Interaktif" />
+              <h3>{{ episode.judul_episode }}</h3>
+              <p>{{ episode.deskripsi_episode }}</p>
+  
+              <p class="price">
+                  {% if episode.is_free %}
+                      <strong class="free">Gratis</strong>
+                  {% else %}
+                      <strong class="paid">Berbayar</strong>
+                  {% endif %}
+                  <a href="{% url 'product' %}">
+                      <button type="button" class="btn btn-primary">Watch</button>
+                  </a>
+              </p>
+          </div>
+      {% empty %}
+          <p>No episodes available.</p>
+      {% endfor %}
+  </div>
     <!-- Program 3 -->
     <div class="program-card">
       <img src="{% static 'img/bsn11.jpeg' %}" alt="Video Interaktif" />

@@ -68,29 +68,32 @@
   </section>
 
   <div class="kategori">
-    <a href="{% url 'bussines' %}">
-        <button class="button-business">
-            <i class="fa-solid fa-briefcase"></i>Business
-        </button>
-    </a>
-    <a href="{% url 'development' %}">
-        <button class="button-development">
-            <i class="fa-solid fa-file-code"></i>Development
-        </button>
-    </a>
-    <a href="{% url 'language' %}">
+    <a href="{% url 'courses' %}?id_kelas={{ business_kelas.id_kelas|default:'' }}">
+      <button class="button-business">
+          <i class="fa-solid fa-briefcase"></i>Bisnis
+      </button>
+  </a>
+  
+  <a href="{% url 'courses' %}?id_kelas={{ development_kelas.id_kelas|default:'' }}">
+      <button class="button-development">
+          <i class="fa-solid fa-file-code"></i>Pemrograman
+      </button>
+  </a>
+  
+  
+    <a href="{% url 'courses' %}?id_kelas={{ bahasa.id_kelas|default:'' }}">
         <button class="button-language">
-            <i class="fa-solid fa-language"></i>Language
+            <i class="fa-solid fa-language"></i>Bahasa
         </button>
     </a>
-    <a href="{% url 'design' %}">
+    <a href="{% url 'courses' %}?id_kelas={{ desain.id_kelas|default:'' }}">
         <button class="button-design">
-            <i class="fa-solid fa-pen-ruler"></i>Design
+            <i class="fa-solid fa-pen-ruler"></i>Desain
         </button>
     </a>
-    <a href="{% url 'accounting' %}">
+    <a href="{% url 'courses' %}?id_kelas={{ akuntansi.id_kelas|default:'' }}">
         <button class="button-accounting">
-            <i class="fa-solid fa-calculator"></i>Accounting
+            <i class="fa-solid fa-calculator"></i>Akuntansi
         </button>
     </a>
 </div>
@@ -100,14 +103,14 @@
     <!-- Program 1 -->
     <div class="program-card">
       <img src="{% static 'img/pict_Program1_VideoInteraktif.jpg'%}" alt="Video Interaktif" class="card-image" />
-      <h3 style="text-align: left">Video Interaktif</h3>
+      <h3 style="text-align: left">Quis Interaktif</h3>
       <p style="text-align: left">
-        Jelajahi dunia kerja dengan cara yang seru! Video interaktif kami akan
+        Jelajahi dunia kerja dengan cara yang seru! Quis interaktif kami akan
         membantumu mengenal lebih dekat berbagai macam jurusan dan pekerjaan.
       </p>
       <p class="price">
         <strong class="free">Free</strong>
-        <a href="">
+        <a href="{% url 'coming_soon' %}">
         <button type="button" class="btn btn-primary">Join Now</button>   
       </a>
       </p>
@@ -122,7 +125,7 @@
       </p>
       <p class="price">
         Rp. 19.000
-        <a href="{% url 'login' %}">
+        <a href="{% url 'coming_soon' %}">
           <button type="button" class="btn btn-primary">Join Now</button>
         </a>
       </p>
@@ -138,7 +141,7 @@
       </p>
       <p class="price">
         Rp. 19.000
-        <a href="{% url 'login' %}">
+        <a href="{% url 'coming_soon' %}">
           <button type="button" class="btn btn-primary">Join Now</button>
         </a>
       </p>

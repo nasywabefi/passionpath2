@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan</title>
+    <link rel="stylesheet" href="{% static 'css/style_dashboard_siswa.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_laporan_admin.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+     <!-- Link CSS DataTables -->
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="{% url 'index' %}">
+            <img alt="Logo" height="50" src="{% static 'img/logo_long_passionpath.png'%}" width="80%" />
+        </a>
+        <hr style="border: 1px solid #ccc; margin: 10px 0;" />
+        <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> <b>Beranda</b></a>
+        <a href="{% url 'dashboard_admin' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
+        <a href="{% url 'program_admin' %}"><i class="fa-solid fa-chalkboard-user"></i> <b>Program</b></a>
+        <a href="{% url 'pengaturan_admin' %}"><i class="fa-solid fa-user"></i> <b>Pengaturan Admin</b></a>
+        <a href="{% url 'pembayaran_admin' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
+        <a class="active" href="#"><i class="fa-solid fa-gear"></i> <b>Laporan</b></a>
+        <div class="logout-line"></div>
+        <a class="logout" href="{% url 'logout' %}">Keluar</a>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div>
+                <a href="#" class="menu-toggle">
+                    <img src="https://img.icons8.com/?size=100&id=8113&format=png&color=000000" width="28%"
+                        alt="Menu Icon">
+                </a>
+
+            </div>
+            <div class="user-info">
+                <div>
+                    <p>{{ request.user.username }}</p>
+                    <p class="email">{{ request.user.email }}</p>
+                </div>
+                <img alt="User  Avatar" height="40"
+                    src="https://storage.googleapis.com/a1aa/image/OQdX2I0GLWIjGV9aeMWb3CfHrisXT7P3TEySNUjkov1dvz0TA.jpg"
+                    width="40" />
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="container">
+                <h1>Laporan</h1>
+                <div class="date-filter d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex align-items-center">
+                        <label for="startDate" class="me-2">Tanggal Awal:</label>
+                        <input type="date" id="startDate" class="form-control me-3" placeholder="yyyy-mm-dd">
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <label for="endDate" class="me-2">Tanggal Akhir:</label>
+                        <input type="date" id="endDate" class="form-control me-3" placeholder="yyyy-mm-dd">
+                        <button id="applyFilter" class="btn btn-primary">Filter</button>
+                    </div>
+                </div>                
+                                
+                <!-- Pembungkus tabel -->
+                <div class="table-wrapper">
+                    <table id="myTable" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID Siswa</th>
+                                <th>Nama Siswa</th>
+                                <th>Tanggal</th>
+                                <th>Bukti Pembayaran</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#">S123456789</a></td>
+                                <td>Budiono</td>
+                                <td>20/06/24</td>
+                                <td>img34567890</td>
+                                <td><span class="badge text-bg-success">Disetujui</span></td>
+                                <td class="actions">
+                                    <button class="approved">Disetujui</button>
+                                    <button class="rejected">Ditolak</button>
+                                    <button class="details">Detail</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">S123456789</a></td>
+                                <td>MR boy</td>
+                                <td>20/06/24</td>
+                                <td>img34567890</td>
+                                <td><span class="badge text-bg-danger">Ditolak</span></td>
+                                <td class="actions">
+                                    <button class="approved">Disetujui</button>
+                                    <button class="rejected">Ditolak</button>
+                                    <button class="details">Detail</button>
+                                </td>
+                            </tr>
+                            <!-- Tambahkan baris lainnya di sini -->
+                        </tbody>
+                    </table>
+                    <div class="export-buttons"></div>
+                </div>
+                <!-- Script jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Script DataTables -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!-- Script Buttons DataTables -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <!-- Script untuk File Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+        });
+</script>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector('.sidebar');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainContent = document.querySelector('.main-content');
+            const userInfo = document.querySelector('.header .user-info');
+            const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+            function updateLayout() {
+                if (mediaQuery.matches) {
+
+                    sidebar.classList.add('closed');
+                    mainContent.style.marginLeft = '0';
+                    userInfo.style.marginRight = '40px';
+                } else {
+
+                    sidebar.classList.remove('closed');
+                    mainContent.style.marginLeft = '250px';
+                    userInfo.style.marginRight = '280px';
+                }
+            }
+
+            menuToggle.addEventListener('click', function (event) {
+                event.preventDefault();
+
+
+                sidebar.classList.toggle('closed');
+
+
+                if (sidebar.classList.contains('closed')) {
+                    mainContent.style.marginLeft = '0';
+                    userInfo.style.marginRight = '40px';
+                } else {
+                    mainContent.style.marginLeft = mediaQuery.matches ? '0' : '250px';
+                    userInfo.style.marginRight = mediaQuery.matches ? '40px' : '280px';
+                }
+            });
+
+            mediaQuery.addEventListener('change', updateLayout);
+
+            updateLayout();
+        });
+
+    </script>
+</body>
+
+</html>

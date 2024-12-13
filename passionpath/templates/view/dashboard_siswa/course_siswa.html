@@ -61,17 +61,17 @@
     </header>
 
     <section class="main-section">
-        <h2>Business</h2>
+        <h2>{{ kelas.nama_kelas }}</h2>
       </section>
 
-    <main>
+      <main>
         <div class="video-container">
             <!-- Video -->
             <iframe 
                 width="560" 
                 height="315" 
-                src="https://www.youtube.com/embed/vQ4N4ufKV2g?si=bMc-CGy61CnRk16C" 
-                title="YouTube video player" 
+                src="{{ current_episode.link_video }}" 
+                title="{{ current_episode.judul_episode }}" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 referrerpolicy="strict-origin-when-cross-origin" 
@@ -80,38 +80,41 @@
         
             <!-- Navigation buttons -->
             <div class="text-navigation">
-                <a href="#" class="prev-text">&lt; PREVIOUS</a>
-                <a href="#" class="next-text">NEXT &gt;</a>
+                {% if previous_episode %}
+                    <a href="{% url 'course_siswa' kelas.id_kelas %}?episode_id={{ previous_episode.id }}" 
+                       class="prev-text">&lt; PREVIOUS</a>
+                {% endif %}
+                {% if next_episode %}
+                    <a href="{% url 'course_siswa' kelas.id_kelas %}?episode_id={{ next_episode.id }}" 
+                       class="next-text">NEXT &gt;</a>
+                {% endif %}
             </div>
         </div>
         
-
         <div class="text-container">
+            <!-- Episode Description -->
             <div class="description">
-                <h2>Episode 1: Intro to Business</h2>
-                <p>
-                    Pernah nggak sih, kamu ngelihat produk baru yang keren banget dan kepikiran,
-                    "Kok bisa ya orang bikin produk sekeren ini?" Atau, pernah melihat iklan di TV,
-                    atau situs belanja online? Semua itu nggak lepas dari peran orang-orang yang
-                    berkecimpung di dunia bisnis. Mulai dari yang bikin produknya, yang ngiklanin,
-                    sampai yang ngurus keuangannya. Nah, kalau kamu tertarik jadi bagian dari dunia
-                    yang seru ini, jurusan bisnis adalah pilihan yang tepat. Di materi kali ini,
-                    kita akan bahas lebih lanjut tentang apa aja yang bisa kamu lakukan dengan gelar sarjana bisnis.
-                </p>
+                <h2>{{ current_episode.judul_episode }}</h2>
+                <p>{{ current_episode.deskripsi_episode }}</p>
             </div>
-
+    
+            <!-- Episode List -->
             <div class="episode-list">
                 <h2>EPISODE</h2>
                 <ul>
-                    <li><a href="#" class="episode-link active">Intro To Business</a></li>
-                    <li><a href="#" class="episode-link">History of Business Development</a></li>
-                    <li><a href="#" class="episode-link">Management: The Art and Science of Managing</a></li>
-                    <li><a href="#" class="episode-link">Company Resources</a></li>
-                    <li><a href="#" class="episode-link">Micro and Macro Environment</a></li>
+                    {% for episode in episodes %}
+                        <li>
+                            <a href="{% url 'course_siswa' kelas.id_kelas %}?episode_id={{ episode.id }}" 
+                               class="episode-link {% if episode == current_episode %}active{% endif %}">
+                                {{ episode.judul_episode }}
+                            </a>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
     </main>
+    
 
 
     <footer>

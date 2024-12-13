@@ -65,31 +65,33 @@
 
   <section class="main-section">
     <h2 style="margin-left: -65px; margin-right: 20px; text-align: center;">Development</h2>
-    <p style="margin-left: -65px; margin-right: 20px; text-align: justify;">
-      Di era digital saat ini, pengembangan perangkat lunak telah menjadi salah satu pilar utama dalam kemajuan
-      teknologi. Dari aplikasi sederhana di ponsel hingga sistem kompleks yang menggerakkan infrastruktur kritis,
-      perangkat lunak memegang peranan penting dalam setiap aspek kehidupan kita. Proses pengembangan perangkat lunak
-      bukan hanya sekadar penulisan kode, tetapi juga mencakup analisis kebutuhan, desain sistem, pengujian, dan
-      pemeliharaan. Dengan metode yang terus berkembang, seperti Agile dan DevOps, tim pengembang semakin mampu untuk
-      beradaptasi dengan perubahan kebutuhan dan menciptakan solusi yang lebih efisien dan efektif.
-    </p>
+    <p style="margin-left: -65px; margin-right: 20px; text-align: justify;">{{ kelas.deskripsi }}</p>
   </section>
 
   <section class="program-container">
     <!-- Program 1 -->
-    <div class="program-card">
-      <img src="{% static 'img/pict.development1.jpg' %}" alt="Video Interaktif" />
-      <h3 style="text-align: left">Eps 1 : Pengenalan Software Development</h3>
-      <p style="text-align: justify">
-        Peserta akan mempelajari dasar-dasar software development, termasuk definisi perangkat lunak dan berbagai
-        jenisnya. Mereka akan memahami siklus hidup pengembangan perangkat lunak (SDLC), yang mencakup analisis, desain,
-        pengembangan, pengujian, dan pemeliharaan. Pengetahuan ini menjadi fondasi penting untuk topik-topik selanjutnya
-        dalam pembelajaran.
-      </p>
-      <p class="price">
-        <strong class="free">Free</strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
-      </p>
+    <div class="program-container">
+      <!-- Looping through episodes -->
+      {% for episode in episode_list %}
+          <div class="program-card">
+              <img src="{% static 'img/bsn12.jpeg' %}" alt="Video Interaktif" />
+              <h3>{{ episode.judul_episode }}</h3>
+              <p>{{ episode.deskripsi_episode }}</p>
+  
+              <p class="price">
+                  {% if episode.is_free %}
+                      <strong class="free">Free</strong>
+                  {% else %}
+                      <strong class="paid">Paid</strong>
+                  {% endif %}
+                  <a href="{% url 'product' %}">
+                      <button type="button" class="btn btn-primary">Watch</button>
+                  </a>
+              </p>
+          </div>
+      {% empty %}
+          <p>No episodes available.</p>
+      {% endfor %}
     </div>
     <!-- Program 2 -->
     <div class="program-card">

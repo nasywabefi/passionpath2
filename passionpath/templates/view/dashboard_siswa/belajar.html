@@ -25,7 +25,7 @@
         <a href="{% url 'dashboard_siswa' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
         <a class="active" href="#"><i class="fa-solid fa-user"></i> <b>Belajar</b></a>
         <a href="{% url 'profile_siswa' %}"><i class="fa-solid fa-user"></i> <b>Profile</b></a>
-        <a href="{% url 'pembayaran' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
+        <a href=""><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
         <a href="{% url 'pengaturan_siswa' %}"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
         <div class="logout-line"></div>
         <a class="logout" href="{% url 'logout' %}">Keluar</a>
@@ -51,38 +51,36 @@
         <div class="dashboard-content">
 
             <div>
-                <h3> Program</h3>
+                <h3>Kelas Saya</h3>
             </div>
 
             <div class="grid-container">
                 <!-- Kolom Kiri -->
-                <a href="link1.html" class="box">
+                <a href="{% url 'courses' %}?id_kelas={{ business_kelas.id_kelas|default:'' }}" class="box">
                     <img alt="Business" src="{% static 'img/imgprogram1.png' %}">
                     <div class="box-text">
-                        <h4>Business</h4>
+                        <h4>Bisnis</h4>
                         <h6>VIDEO INTERAKTIF</h6>
-                        <h7>Eps 7: Become an Entrepreneur</h7>
                     </div>
                 </a>
             
-                <a href="link2.html" class="box">
+                <a href="{% url 'courses' %}?id_kelas={{ development_kelas.id_kelas|default:'' }}" class="box">
                     <img alt="Business" src="{% static 'img/imgprogram2.png' %}">
                     <div class="box-text">
-                        <h4>Business</h4>
+                        <h4>Pemrograman</h4>
                         <h6>VIDEO INTERAKTIF</h6>
-                        <h7>Eps 6: Business Etiquette</h7>
                     </div>
                 </a>
             
-                <a href="link3.html" class="box">
+                {% comment %} <a href="{% url 'courses' %}?id_kelas={{ desain.id_kelas|default:'' }}" class="box">
                     <img alt="Title" src="{% static 'img/imgprogram3.png' %}">
                     <div class="box-text">
-                        <h4>Title</h4>
-                        <h6>Description</h6>
+                        <h4>Desain</h4>
+                        <h6>VIDIO INTERAKTIF</h6>
                     </div>
-                </a>
+                </a> {% endcomment %}
             
-                <!-- Kolom Kanan -->
+                {% comment %} <!-- Kolom Kanan -->
                 <a href="link4.html" class="box">
                     <img alt="Business" src="{% static 'img/imgprogram1.png' %}">
                     <div class="box-text">
@@ -108,7 +106,7 @@
                         <h6>Description</h6>
                     </div>
                 </a>
-            </div>
+            </div> {% endcomment %}
             
         </div>
 

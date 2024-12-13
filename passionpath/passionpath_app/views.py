@@ -13,18 +13,38 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Absensi
 import json
 from datetime import datetime
-from .models import Students , Kelas
+from .models import Students , Kelas ,Pembayaran
 from django.core.files.storage import FileSystemStorage
-from django.contrib.auth.hashers import check_password
 
 from .models import Contact , ProfileAdmin , Episode
 from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.http import HttpResponseForbidden
+from django.utils.safestring import mark_safe
+import random
+from django.utils.timezone import now
+import uuid
 
 kelas = Kelas.objects.get(id_kelas=1)
 kelas.episodes.all() 
+
+def coming_soon(request):
+    return render(request, 'view/coming_soon.html')
+
+def courses(request):
+    id_kelas = request.GET.get('id_kelas')  # Ambil id_kelas dari query string
+
+    # Ambil kelas berdasarkan id_kelas
+    kelas = get_object_or_404(Kelas, id_kelas=id_kelas) if id_kelas else None
+
+    # Ambil daftar episode berdasarkan relasi id_kelas
+    episode_list = Episode.objects.filter(id_kelas=kelas) if kelas else []
+
+    return render(request, 'view/courses/courses.html', {
+        'kelas': kelas,
+        'episode_list': episode_list,
+    })
 
 # Redirect Ke Profile Siswa/admin
 @login_required
@@ -124,7 +144,7 @@ def register(request):
         student.save()
 
         messages.success(request, 'Registrasi berhasil! Silakan login.')
-        return redirect('login')  # Arahkan ke halaman login setelah registrasi sukses
+        return redirect('register')  # Arahkan ke halaman login setelah registrasi sukses
 
     return render(request, 'view/register.html')
 
@@ -167,13 +187,72 @@ def login(request):
 # ===== HOME PAGE ===== 
 # View untuk halaman utama (index)
 def index(request):
-    return render(request, 'index.html')
+    try:
+        # Ubah nama kelas menjadi "Bisnis" dan "Web Developer" sesuai data di database
+        business_kelas = Kelas.objects.get(nama_kelas='Bisnis')
+    except Kelas.DoesNotExist:
+        business_kelas = None  
+
+    try:
+        development_kelas = Kelas.objects.get(nama_kelas='Pemrograman')
+    except Kelas.DoesNotExist:
+        development_kelas = None  
+    try:
+        desain = Kelas.objects.get(nama_kelas='Desain')
+    except Kelas.DoesNotExist:
+        desain = None  
+    try:
+        bahasa = Kelas.objects.get(nama_kelas='Bahasa')
+    except Kelas.DoesNotExist:
+        bahasa = None  
+    try:
+        akuntansi = Kelas.objects.get(nama_kelas='Akuntansi')
+    except Kelas.DoesNotExist:
+        akuntansi = None  
+
+    return render(request, 'index.html', {
+        'business_kelas': business_kelas,
+        'development_kelas': development_kelas,
+        'bahasa': bahasa,
+        'desain': desain,
+        'akuntansi': akuntansi,
+    })
 # View untuk halaman about
 def about(request):
     return render(request, 'view/about.html')
 # View untuk halaman product
 def product(request):
-    return render(request, 'view/product.html')
+    try:
+        # Ubah nama kelas menjadi "Bisnis" dan "Web Developer" sesuai data di database
+        business_kelas = Kelas.objects.get(nama_kelas='Bisnis')
+    except Kelas.DoesNotExist:
+        business_kelas = None  
+
+    try:
+        development_kelas = Kelas.objects.get(nama_kelas='Pemrograman')
+    except Kelas.DoesNotExist:
+        development_kelas = None  
+    try:
+        desain = Kelas.objects.get(nama_kelas='Desain')
+    except Kelas.DoesNotExist:
+        desain = None  
+    try:
+        bahasa = Kelas.objects.get(nama_kelas='Bahasa')
+    except Kelas.DoesNotExist:
+        bahasa = None  
+    try:
+        akuntansi = Kelas.objects.get(nama_kelas='Akuntansi')
+    except Kelas.DoesNotExist:
+        akuntansi = None  
+
+    return render(request, 'view/product.html', {
+        'business_kelas': business_kelas,
+        'development_kelas': development_kelas,
+        'bahasa': bahasa,
+        'desain': desain,
+        'akuntansi': akuntansi,
+    })
+
 # View untuk halaman contact
 def contact(request):
     if request.method == "POST":
@@ -218,14 +297,36 @@ def contact(request):
 
 
 # COURSE HOME PAGE
+def riwayat_bayar(request):
+    return render(request, 'view/dashboard_siswa/riwayat_bayar.html')
+def laporan_admin(request):
+    return render(request, 'view/dashboard_admin/laporan_admin.html')
 def accounting(request):
     return render(request, 'view/courses/accounting.html')
-def bussines(request):
-    return render(request, 'view/courses/bussines.html')
+
+def bussines(request, id_kelas=None, id_episode=None):
+    # Ambil objek Kelas berdasarkan id_kelas
+    kelas = get_object_or_404(Kelas, id_kelas=id_kelas)  # Mengambil kelas berdasarkan ID
+    
+    # Ambil semua episode yang berkaitan dengan kelas bisnis
+    episode_list = Episode.objects.filter(id_kelas=kelas)  # Menampilkan episode berdasarkan kelas
+    
+    # Kirimkan kelas dan episode_list ke template
+    return render(request, 'view/courses/bussines.html', {
+        'kelas': kelas,  # Mengirim objek kelas
+        'episode_list': episode_list,  # Mengirim daftar episode
+    })
+
 def design(request):
     return render(request, 'view/courses/design.html')
-def development(request):
-    return render(request, 'view/courses/development.html')
+def development(request, id_kelas=None):
+    kelas = get_object_or_404(Kelas, id_kelas=id_kelas)  # Ambil kelas berdasarkan id_kelas
+    episode_list = Episode.objects.filter(id_kelas=kelas)  # Ambil episode terkait kelas ini
+    
+    return render(request, 'view/courses/development.html', {
+        'kelas': kelas,
+        'episode_list': episode_list,
+    })
 def language(request):
     return render(request, 'view/courses/language.html')
     
@@ -291,7 +392,21 @@ def dashboard_admin(request):
 
 # pembayaran admin
 def pembayaran_admin(request):
-    return render(request, 'view/dashboard_admin/pembayaran_admin.html')
+    # Ambil filter status dari query string, jika tidak ada gunakan 'all'
+    status_filter = request.GET.get('status-filter', 'all')
+
+    # Filter berdasarkan status
+    if status_filter == 'approved':
+        pembayaran_history_list = Pembayaran.objects.filter(status_pembayaran='success')
+    elif status_filter == 'rejected':
+        pembayaran_history_list = Pembayaran.objects.filter(status_pembayaran='ditolak')
+    else:
+        pembayaran_history_list = Pembayaran.objects.all()
+
+    return render(request, 'view/dashboard_admin/pembayaran_admin.html', {
+        'pembayaran_history_list': pembayaran_history_list
+    })
+
 
 # program admin
 def program_admin(request):
@@ -308,11 +423,8 @@ def program_interaktif(request):
 
 #  program detail
 def program_detail(request, id_kelas):
-    kelas = get_object_or_404(Kelas, id_kelas=id_kelas)  
-    context = {
-        'kelas': kelas,
-    }
-    return render(request, 'view/dashboard_admin/program_detail.html', context)
+    kelas = get_object_or_404(Kelas, id_kelas=id_kelas)
+    return render(request, 'view/dashboard_admin/program_detail.html', {'kelas': kelas})
 
 # update deskripsi kelas
 def update_kelas(request, id_kelas):
@@ -346,10 +458,15 @@ def add_episode(request, id_kelas):
         )
         episode.save()
 
+        # Perbarui total_modul pada kelas
+        kelas.total_modul = kelas.episodes.count()  
+        kelas.save()
+
         # Redirect setelah episode ditambahkan
         return redirect('program_detail', id_kelas=kelas.id_kelas)
 
     return render(request, 'view/add_episode.html', {'kelas': kelas})
+
 
 def edit_episode(request, id_kelas, id_episode):
     # Mendapatkan objek Kelas dan Episode berdasarkan ID
@@ -361,18 +478,26 @@ def edit_episode(request, id_kelas, id_episode):
         episode.judul_episode = request.POST.get('judul_episode')
         episode.deskripsi_episode = request.POST.get('deskripsi_episode')
         episode.link_video = request.POST.get('link_video')
+        episode.is_free = request.POST.get('is_free') == 'True'  # Konversi dari string ke boolean
 
+        # Mengupdate file video jika ada file baru yang diunggah
         if 'upload_video' in request.FILES:
             episode.upload_video = request.FILES['upload_video']
 
-        episode.save()  # Menyimpan perubahan ke database
-        return redirect('program_detail', id_kelas=kelas.id_kelas)  # Redirect ke halaman detail program
+        episode.save()
+
+        # Perbarui total_modul pada kelas setelah perubahan
+        kelas.total_modul = kelas.episodes.count()
+        kelas.save()
+
+        return redirect('program_detail', id_kelas=kelas.id_kelas)
 
     # Jika metode GET, tampilkan form edit dengan data yang ada
     return render(request, 'view/dashboard_admin/program_input.html', {
         'kelas': kelas,
-        'episode': episode,  # Mengirim data episode ke template
+        'episode': episode,
     })
+
 
 def delete_episode(request, id_kelas, id_episode):
     # Ambil kelas dan episode berdasarkan ID
@@ -381,36 +506,48 @@ def delete_episode(request, id_kelas, id_episode):
 
     # Hapus episode
     episode.delete()
+
+    # Perbarui total_modul pada kelas setelah penghapusan
+    kelas.total_modul = kelas.episodes.count() 
+    kelas.save()
+
     return redirect('program_detail', id_kelas=kelas.id_kelas)
 
+
 def program_input(request, id_kelas):
-    kelas = Kelas.objects.get(id_kelas=id_kelas)
-    
+    kelas = get_object_or_404(Kelas, id_kelas=id_kelas)
+
     if request.method == 'POST':
         judul_episode = request.POST.get('judul_episode')
         deskripsi_episode = request.POST.get('deskripsi_episode')
         link_video = request.POST.get('link_video')
-        
+        is_free = request.POST.get('is_free') == 'True'  # Konversi dari string ke boolean
+
         # Menangani upload file video
         upload_video = request.FILES.get('upload_video')
         video_url = None
-        
+
         if upload_video:
             fs = FileSystemStorage()
             video_url = fs.save(upload_video.name, upload_video)
-        
+
         # Menambahkan episode ke dalam database
         Episode.objects.create(
             id_kelas=kelas,
             judul_episode=judul_episode,
             deskripsi_episode=deskripsi_episode,
             upload_video=video_url,
-            link_video=link_video
+            link_video=link_video,
+            is_free=is_free,
         )
-        
+
+        # Perbarui total_modul pada kelas
+        kelas.total_modul = kelas.episodes.count()
+        kelas.save()
+
         # Redirect ke halaman detail program
         return redirect('program_detail', id_kelas=kelas.id_kelas)
-    
+
     return render(request, 'view/dashboard_admin/program_input.html', {'kelas': kelas})
 
 
@@ -449,31 +586,247 @@ def dashboard_siswa(request):
     except Students.DoesNotExist:
         profile = None 
 
+    try:
+        bahasa = Kelas.objects.get(nama_kelas='Bahasa')
+    except Kelas.DoesNotExist:
+        bahasa = None  
+    try:
+        akuntansi = Kelas.objects.get(nama_kelas='Akuntansi')
+    except Kelas.DoesNotExist:
+        akuntansi = None 
+    try:
+        desain = Kelas.objects.get(nama_kelas='Desain')
+    except Kelas.DoesNotExist:
+        desain = None 
+
     return render(request, 'view/dashboard_siswa/dashboard_siswa.html', {
         'days': days,
         'today_name': today_name,
         'total_points': total_points,
         'absen_status': absen_status,
         'profile': profile,
+        'bahasa': bahasa,
+        'akuntansi': akuntansi,
+        'desain': desain,
     })
 
 # PEMBAYARAN SISWA
-def pembayaran(request):
-    return render(request, 'view/dashboard_siswa/pembayaran.html')
-# DETAIL PEMBAYARAN SISWA
-def detail_pembayaran(request):
-    return render(request, 'view/dashboard_siswa/detail_pembayaran.html')
+def tambah_ke_keranjang(request, kelas_id):
+    kelas = get_object_or_404(Kelas, id_kelas=kelas_id)
+    
+    # Ambil keranjang dari session atau buat baru
+    keranjang = request.session.get('keranjang', [])
+    
+    # Periksa apakah kelas sudah ada di keranjang
+    if kelas_id not in keranjang:
+        keranjang.append(kelas_id)
+        request.session['keranjang'] = keranjang
+        request.session.modified = True
+        messages.success(request, mark_safe(f"Kelas <strong>{kelas.nama_kelas}</strong> berhasil ditambahkan ke keranjang."))
+    else:
+        messages.warning(request, mark_safe(f"Kelas <strong>{kelas.nama_kelas}</strong> sudah ada di keranjang."))
+
+    return redirect('pembayaran')  # Arahkan ke halaman pembayaran
+
+
+def generate_unique_code():
+    # Menghasilkan kode unik berupa angka 3 digit
+    return random.randint(100, 999) 
+
+def checkout(request, kelas_id):
+    # Ambil kelas berdasarkan kelas_id
+    kelas = get_object_or_404(Kelas, id_kelas=kelas_id)
+
+    # Hanya buat entri pembayaran sementara tanpa menyimpan ke database
+    pembayaran = Pembayaran.objects.create(
+        user=request.user,
+        kelas=kelas,
+        total_harga=kelas.harga,
+        status_pembayaran='pending',  # Status 'pending'
+    )
+
+    # Arahkan ke halaman detail pembayaran
+    return redirect('detail_pembayaran', pembayaran_id=pembayaran.id)
+
+
+@login_required
+def pembayaran(request, kelas_id):
+    # Ambil kelas berdasarkan kelas_id
+    kelas = get_object_or_404(Kelas, id_kelas=kelas_id)
+
+    # Reset keranjang menjadi hanya kelas yang dipilih
+    keranjang = [kelas_id]  # Hanya menyimpan kelas terbaru
+    request.session['keranjang'] = keranjang
+    request.session.modified = True
+
+    # Ambil kelas yang ada di keranjang
+    kelas_list = Kelas.objects.filter(id_kelas__in=keranjang)
+    total_harga = sum(k.harga for k in kelas_list)
+
+    try:
+        siswa = Students.objects.get(username=request.user.username)
+    except Students.DoesNotExist:
+        siswa = None
+
+    if request.method == 'POST':
+        # Ambil data dari request POST
+        nama_pengirim = request.POST.get('nama-pengirim')
+        metode_pembayaran = request.POST.get('metode_pembayaran')
+        bukti_pembayaran = request.FILES.get('bukti-pembayaran')
+        nomor_rekening_dan_nama = request.POST.get('nomor_rekening_dan_nama')  
+        
+      
+        if metode_pembayaran == 'Mandiri':
+            nomor_rekening_dan_nama = nomor_rekening_dan_nama or '123-456-7890 Mandiri Admin'
+        elif metode_pembayaran == 'Dana':
+            nomor_rekening_dan_nama = nomor_rekening_dan_nama or '098-765-4321 Dana Admin'
+        else:
+            nomor_rekening_dan_nama = nomor_rekening_dan_nama or '' 
+
+        # Validasi input
+        if not all([nama_pengirim, metode_pembayaran, bukti_pembayaran, nomor_rekening_dan_nama]):
+            # Jika ada data yang kosong, berikan error
+            error_message = "Semua data harus diisi!"
+            return render(request, 'view/dashboard_siswa/pembayaran.html', {
+                'kelas': kelas,
+                'kelas_list': kelas_list,
+                'total_harga': total_harga,
+                'error_message': error_message,
+            })
+
+        total_harga = sum(k.harga for k in kelas_list)
+
+        # Membuat instance Pembayaran baru
+        pembayaran = Pembayaran(
+            user=request.user,  # Set user yang melakukan pembayaran
+            kelas=kelas,  # Set kelas yang dipilih
+            nama_pengirim=nama_pengirim,
+            metode_pembayaran=metode_pembayaran,
+            nomor_rekening_dan_nama=nomor_rekening_dan_nama,  # Simpan nomor rekening dan nama penerima
+            total_harga=total_harga,
+            bukti_pembayaran=bukti_pembayaran,
+            # Generate kode pembayaran otomatis
+            kode_pembayaran=f"INV-{now().strftime('%Y%m%d')}-{uuid.uuid4().hex[:6].upper()}",
+        )
+
+        # Simpan pembayaran ke database
+        pembayaran.save()
+
+        # Redirect setelah pembayaran berhasil
+        return redirect('riwayat_bayar')  # Ganti dengan URL yang sesuai untuk pembayaran sukses
+
+    return render(request, 'view/dashboard_siswa/pembayaran.html', {
+        'kelas': kelas,
+        'kelas_list': kelas_list,
+        'total_harga': total_harga,
+        'siswa': siswa,
+    })
+
+
+
+def detail_pembayaran(request, pembayaran_id):
+    pembayaran = get_object_or_404(Pembayaran, id=pembayaran_id, user=request.user)
+
+    try:
+        siswa = Students.objects.get(username=request.user.username)
+    except Students.DoesNotExist:
+        siswa = None
+
+    if request.method == 'POST':
+        nama_pengirim = request.POST.get('nama-pengirim')
+        metode_pembayaran = request.POST.get('metode_pembayaran')
+        bukti_pembayaran = request.FILES.get('bukti-pembayaran')
+
+        if not nama_pengirim or not metode_pembayaran or not bukti_pembayaran:
+            messages.error(request, "Harap mengisi semua bidang wajib.")
+        else:
+            pembayaran.nama_pengirim = nama_pengirim
+            pembayaran.metode_pembayaran = metode_pembayaran
+            pembayaran.bukti_pembayaran = bukti_pembayaran
+            pembayaran.status_pembayaran = 'pending'  # Set ulang status pembayaran
+            pembayaran.save()
+            messages.success(request, "Pembayaran berhasil diperbarui.")
+            return redirect('dashboard_siswa')  # Ganti dengan URL dashboard siswa Anda
+
+    context = {
+        'pembayaran': pembayaran,
+        'siswa': siswa,
+    }
+
+    return render(request, 'view/dashboard_siswa/detail_pembayaran.html', context)
+
+
+
+
+
+
+@login_required
+def pembayaran_admin(request):
+
+    return render(request, 'view/dashboard_admin/pembayaran_admin.html', {
+    })
 
 # View untuk halaman belajar
 def belajar(request):
-    return render(request, 'view/dashboard_siswa/belajar.html')
+    try:
+        # Ubah nama kelas menjadi "Bisnis" dan "Web Developer" sesuai data di database
+        business_kelas = Kelas.objects.get(nama_kelas='Bisnis')
+    except Kelas.DoesNotExist:
+        business_kelas = None  
+
+    try:
+        development_kelas = Kelas.objects.get(nama_kelas='Pemrograman')
+    except Kelas.DoesNotExist:
+        development_kelas = None  
+    try:
+        desain = Kelas.objects.get(nama_kelas='Desain')
+    except Kelas.DoesNotExist:
+        desain = None  
+    try:
+        bahasa = Kelas.objects.get(nama_kelas='Bahasa')
+    except Kelas.DoesNotExist:
+        bahasa = None  
+    try:
+        akuntansi = Kelas.objects.get(nama_kelas='Akuntansi')
+    except Kelas.DoesNotExist:
+        akuntansi = None  
+
+    return render(request, 'view/dashboard_siswa/belajar.html', {
+        'business_kelas': business_kelas,
+        'development_kelas': development_kelas,
+        'bahasa': bahasa,
+        'desain': desain,
+        'akuntansi': akuntansi,
+    })
 
 
     
-# course untuk siswa
-def course_siswa(request):
-    return render(request, 'view/dashboard_siswa/course_siswa.html')
+def course_siswa(request, kelas_id):
+    # Ambil data kelas berdasarkan ID
+    kelas = get_object_or_404(Kelas, id_kelas=kelas_id)
 
+    # Ambil semua episode dari kelas ini
+    episodes = Episode.objects.filter(id_kelas=kelas).order_by('id')
+
+    # Ambil episode pertama atau berdasarkan parameter 'episode_id'
+    episode_id = request.GET.get('episode_id')
+    if episode_id:
+        current_episode = get_object_or_404(Episode, id=episode_id, id_kelas=kelas)
+    else:
+        current_episode = episodes.first()
+
+    # Temukan previous dan next episode berdasarkan urutan
+    current_index = list(episodes).index(current_episode)
+    previous_episode = episodes[current_index - 1] if current_index > 0 else None
+    next_episode = episodes[current_index + 1] if current_index < len(episodes) - 1 else None
+
+    return render(request, 'view/dashboard_siswa/course_siswa.html', {
+        'kelas': kelas,
+        'episodes': episodes,
+        'current_episode': current_episode,
+        'previous_episode': previous_episode,
+        'next_episode': next_episode,
+    })
 # pengaturan siswa / reset password
 @login_required
 def pengaturan_siswa(request):
