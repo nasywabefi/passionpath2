@@ -91,28 +91,49 @@
             </div>
         </div>
         
-        <div class="text-container">
-            <!-- Episode Description -->
-            <div class="description">
-                <h2>{{ current_episode.judul_episode }}</h2>
-                <p>{{ current_episode.deskripsi_episode }}</p>
-            </div>
+        {% if show_payment_alert %}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                title: 'Episode ini berbayar',
+                text: 'Silakan lakukan pembayaran untuk mengakses episode ini.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Bayar',
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect ke halaman pembayaran
+                    window.location.href = "{% url 'pembayaran' kelas.id_kelas %}";
+                }
+            });
+        </script>
+    {% endif %}
     
-            <!-- Episode List -->
-            <div class="episode-list">
-                <h2>EPISODE</h2>
-                <ul>
-                    {% for episode in episodes %}
-                        <li>
-                            <a href="{% url 'course_siswa' kelas.id_kelas %}?episode_id={{ episode.id }}" 
-                               class="episode-link {% if episode == current_episode %}active{% endif %}">
-                                {{ episode.judul_episode }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+    <div class="text-container">
+        <!-- Episode Description -->
+        <div class="description">
+            <h2>{{ current_episode.judul_episode }}</h2>
+            <p>{{ current_episode.deskripsi_episode }}</p>
         </div>
+    
+        <!-- Episode List -->
+        <div class="episode-list">
+            <h2>EPISODE</h2>
+            <ul>
+                {% for episode in episodes %}
+                    <li>
+                        <a href="{% url 'course_siswa' kelas.id_kelas %}?episode_id={{ episode.id }}" 
+                           class="episode-link {% if episode == current_episode %}active{% endif %}">
+                            {{ episode.judul_episode }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+
     </main>
     
 

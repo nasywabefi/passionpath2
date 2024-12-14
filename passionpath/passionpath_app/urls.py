@@ -62,6 +62,9 @@ urlpatterns = [
     path('dashboard_admin/', views.dashboard_admin, name='dashboard_admin'), 
     path('pembayaran_admin/', views.pembayaran_admin, name='pembayaran_admin'),
 
+    path('approve_pembayaran/<int:pembayaran_id>/', views.approve_pembayaran, name='approve_pembayaran'),
+    path('reject_pembayaran/<int:pembayaran_id>/', views.reject_pembayaran, name='reject_pembayaran'),
+
     # Menambahkan endpoint absensi
     path('absen/', views.absen, name='absen'), 
 ]

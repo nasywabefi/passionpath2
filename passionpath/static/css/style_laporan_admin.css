@@ -195,4 +195,12 @@ td a {
       width: 100%; /* Input melebar penuh pada layar kecil */
     }
   }
+@media print {
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block; /* Pastikan gambar terlihat */
+    }
+}
+
   

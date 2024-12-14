@@ -70,38 +70,45 @@
 
   <section class="program-container">
     <!-- Program 1 -->
-    <div class="program-container">
-        {% if episode_list %}
-            {% for episode in episode_list %}
-                <div class="program-card">
-                    <img src="{% static 'img/bsn12.jpeg' %}" alt="Video Interaktif" />
-                    <h3>{{ episode.judul_episode }}</h3>
-                    <p>{{ episode.deskripsi_episode }}</p>
-                    <p class="price">
-                      {% if kelas %}
-                          {% if episode.is_free %}
-                              <strong class="free">Gratis</strong>
-                              <a href="{% url 'course_siswa' kelas.id_kelas %}">
-                                  <button type="button" class="btn btn-primary">Tonton</button>
-                              </a>
-                          {% else %}
-                              <strong class="paid">Berbayar</strong>
-                              <a href="{% url 'pembayaran' kelas_id=kelas.id_kelas %}">
-                                  <button type="button" class="btn btn-primary">Beli Kelas</button>
-                              </a>
-                          {% endif %}
-                      {% else %}
-                          <p>Kelas tidak ditemukan.</p>
-                      {% endif %}
-                  </p>
-                  
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>No episodes available.</p>
-        {% endif %}
-     </div>
+    {% if episode_list %}
+    {% for episode in episode_list %}
+        <div class="program-card">
+            <img src="{% static 'img/bsn12.jpeg' %}" alt="Video Interaktif" />
+            <h3 style="text-align: center">{{ episode.judul_episode }}</h3>
+            <p style="text-align: justify">
+                {{ episode.deskripsi_episode }}
+            </p>
+            <p class="price">
+              {% if kelas %}
+                  {% if pembayaran_sukses %}
+                      <strong class="free">Gratis</strong>
+                      <a href="{% url 'course_siswa' kelas.id_kelas %}">
+                          <button type="button" class="btn btn-primary">Tonton</button>
+                      </a>
+                  {% elif episode.is_free %}
+                      <strong class="free">Gratis</strong>
+                      <a href="{% url 'course_siswa' kelas.id_kelas %}">
+                          <button type="button" class="btn btn-primary">Tonton</button>
+                      </a>
+                  {% else %}
+                      <strong class="paid">Berbayar</strong>
+                      <a href="{% url 'pembayaran' kelas_id=kelas.id_kelas %}">
+                          <button type="button" class="btn btn-primary">Beli Kelas</button>
+                      </a>
+                  {% endif %}
+              {% else %}
+                  <p>Class not found.</p>
+              {% endif %}
+          </p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No episodes available.</p>
+{% endif %}
+
     </section>
+
+  
 
   <footer>
     <div class="footer-container">

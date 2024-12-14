@@ -26,7 +26,7 @@
         <a href="{% url 'dashboard_siswa' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
         <a href="{% url 'belajar' %}"><i class="fa-solid fa-chalkboard-user"></i> <b>Belajar</b></a>
         <a href="{% url 'profile_siswa' %}"><i class="fa-solid fa-user"></i> <b>Profile</b></a>
-        <a class="active" href=""><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
+        <a href="{% url 'riwayat_bayar' %}"><i class="fa-solid fa-money-bill"></i> <b>Riwayat Pembayaran</b></a>
         <a href="{% url 'pengaturan_siswa' %}"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
         <div class="logout-line"></div>
         <a class="logout" href="{% url 'logout' %}">Keluar</a>
@@ -49,118 +49,141 @@
                     width="40" />
             </div>
         </div>
+
         <div class="dashboard-content">
-            {% load humanize %}
-            <div class="header2">
-                Pembayaran
+    {% load humanize %}
+    
+    <!-- Header -->
+    <div class="header2">
+        Pembayaran
+    </div>
+    <!-- Section Content -->
+    <div class="section">
+        
+        <!-- Kelas Section -->
+        <h2>Kelas</h2>
+        <div class="payment-item-list">
+            {% for kelas in kelas_list %}
+                <div class="payment-item">
+                    <img alt="Kelas {{ kelas.nama_kelas }}" height="50" 
+                         src="https://storage.googleapis.com/a1aa/image/HkQiX6jtkH6yORP9vamfZoeued5fxROSuf1wm2V1TklW1h8eE.jpg" 
+                         width="50" />
+                    <div>
+                        <div class="title">{{ kelas.nama_kelas }}</div>
+                    </div>
+                    <div class="price">Rp {{ kelas.harga|intcomma }}</div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Error Message Display -->
+        {% if error_message %}
+            <div class="alert alert-danger">
+                {{ error_message }}
             </div>
-            <div class="tabs">
-                <div class="tab active">
-                    <a href="">Pembayaran</a>
-                </div>
-                <div class="tab">
-                    <a href="{% url 'riwayat_bayar' %}">Riwayat Pembayaran</a>
-                </div>
+        {% endif %}
+
+        <!-- Data Pribadi -->
+        {% if kelas_list %}
+            <h2>Data Pribadi</h2>
+            
+            <div class="form-group">
+                <label for="nama">Nama*</label>
+                <input id="nama" name="nama" type="text" value="{{ siswa.name }}" readonly />
             </div>
             
+            <div class="form-group">
+                <label for="email">Email*</label>
+                <input id="email" name="email" type="email" value="{{ siswa.email }}" readonly />
+            </div>
+            
+            <div class="form-group">
+                <label for="nomor-handphone">Nomor Handphone*</label>
+                <input id="nomor-handphone" name="nomor-handphone" type="text" value="{{ siswa.phone }}" readonly />
+            </div>
+            
+            <div class="form-group">
+                <label for="nama-orang-tua">Nama Orang Tua*</label>
+                <input id="nama-orang-tua" name="nama-orang-tua" type="text" value="{{ siswa.name_ortu }}" readonly />
+            </div>
+            
+            <div class="form-group">
+                <label for="nomor-handphone-orang-tua">Nomor Handphone Orang Tua*</label>
+                <input id="nomor-handphone-orang-tua" name="nomor-handphone-orang-tua" type="text" value="{{ siswa.phone_ortu }}" readonly />
+            </div>
+            
+            <div class="form-group">
+                <label for="alamat">Alamat</label>
+                <textarea id="alamat" name="alamat" rows="4" readonly>{{ siswa.address }}</textarea>
+            </div>
 
-
-
-            <div class="section">
-                <h2>
-                   Kelas
-                   <div class="payment-item-list">
-                    {% for kelas in kelas_list %}
-                        <div class="payment-item">
-                            <img alt="Kelas {{ kelas.nama_kelas }}" height="50" 
-                                src="https://storage.googleapis.com/a1aa/image/HkQiX6jtkH6yORP9vamfZoeued5fxROSuf1wm2V1TklW1h8eE.jpg" 
-                                width="50" />
-                            <div>
-                                <div class="title">{{ kelas.nama_kelas }}</div>
-                            </div>
-                            <div class="price">Rp {{ kelas.harga|intcomma }}</div>
-                        </div>
-                    {% empty %}
-                        <div>Tidak ada kelas yang dipilih.</div>
-                    {% endfor %}
-                </div>
-                </h2>   
-               
-                    <h2>Data Pribadi</h2>
-                
-                    <div class="form-group">
-                        <label for="nama">Nama*</label>
-                        <input id="nama" name="nama" type="text" value="{{ siswa.name }}" readonly />
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="email">Email*</label>
-                        <input id="email" name="email" type="email" value="{{ siswa.email }}" readonly />
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="nomor-handphone">Nomor Handphone*</label>
-                        <input id="nomor-handphone" name="nomor-handphone" type="text" value="{{ siswa.phone }}" readonly />
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="nama-orang-tua">Nama Orang Tua*</label>
-                        <input id="nama-orang-tua" name="nama-orang-tua" type="text" value="{{ siswa.name_ortu }}" readonly />
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="nomor-handphone-orang-tua">Nomor Handphone Orang Tua*</label>
-                        <input id="nomor-handphone-orang-tua" name="nomor-handphone-orang-tua" type="text" value="{{ siswa.phone_ortu }}" readonly />
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="alamat">Alamat</label>
-                        <textarea id="alamat" name="alamat" rows="4" readonly>{{ siswa.address }}</textarea>
-                    </div>
-              
-                
+            {% if show_profile_alert %}
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                Swal.fire({
+                    title: 'Profil Anda belum lengkap!',
+                    text: 'Silakan lengkapi profil Anda untuk melanjutkan pembayaran.',
+                    icon: 'warning',
+                    confirmButtonText: 'Oke',
+                });
+            </script>
+            {% endif %}
+        
+            
+            <!-- Payment Form -->
+            {% if not pembayaran %}
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                 
-                        <h2>Informasi Pembayaran</h2>
-                        <div class="form-group">
-                            <label for="nama-pengirim">Nama Pengirim*</label>
-                            <input id="nama-pengirim" name="nama-pengirim" type="text" 
-                                   value="{{ pembayaran.nama_pengirim|default_if_none:'' }}" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="metode-pembayaran">Metode Pembayaran*</label>
-                            <select id="metode-pembayaran" name="metode_pembayaran" required>
-                                <option value="Mandiri" {% if pembayaran.metode_pembayaran == 'Mandiri' %}selected{% endif %}>Mandiri</option>
-                                <option value="Dana" {% if pembayaran.metode_pembayaran == 'Dana' %}selected{% endif %}>Dana</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="rekening-penerima">Rekening Penerima</label>
-                            <input id="rekening-penerima" name="rekening_penerima" readonly type="text" 
-                                   value="{{ pembayaran.rekening_penerima|default_if_none:'1234567890' }}" />
-                        </div>
-                
-                       
-                        <div class="form-group">
-                            <label for="total-harga">Total Harga</label>
-                            <input id="total-harga" name="total-harga" readonly type="text" 
-                                   value="{{ kelas.harga|intcomma }}" />
-                        </div>
+                    <h2>Informasi Pembayaran</h2>
                     
-                        <div class="form-group">
-                            <label for="bukti-pembayaran">Bukti Pembayaran*</label>
-                            <input id="bukti-pembayaran" name="bukti-pembayaran" type="file" required />
-                        </div>
+                    <div class="form-group">
+                        <label for="nama-pengirim">Nama Pengirim*</label>
+                        <input id="nama-pengirim" name="nama-pengirim" type="text" 
+                               value="{{ pembayaran.nama_pengirim|default_if_none:'' }}" required />
+                    </div>
                     
-                        <button class="btn-checkout" type="submit">
-                            Bayar
-                        </button>
-                 
+                    <div class="form-group">
+                        <label for="metode-pembayaran">Metode Pembayaran*</label>
+                        <select id="metode-pembayaran" name="metode_pembayaran" required>
+                            <option value="Mandiri" {% if pembayaran.metode_pembayaran == 'Mandiri' %}selected{% endif %}>Mandiri</option>
+                            <option value="Dana" {% if pembayaran.metode_pembayaran == 'Dana' %}selected{% endif %}>Dana</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rekening-penerima">Rekening Penerima</label>
+                        <input id="rekening-penerima" name="rekening_penerima" readonly type="text" 
+                               value="{{ pembayaran.rekening_penerima|default_if_none:'1234567890' }}" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="total-harga">Total Harga</label>
+                        <input id="total-harga" name="total-harga" readonly type="text" 
+                               value="{{ kelas.harga|intcomma }}" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bukti-pembayaran">Bukti Pembayaran*</label>
+                        <input id="bukti-pembayaran" name="bukti-pembayaran" type="file" required />
+                    </div>
+                    
+                    <button class="btn-checkout" type="submit">Bayar</button>
                 </form>
+            {% else %}
+                <div class="alert alert-warning">
+                    Anda sudah melakukan pembayaran untuk kelas ini atau status pembayaran sebelumnya belum 'Ditolak'.
+                </div>
+            {% endif %}
+
+        {% else %}
+            <div class="alert alert-danger">
+                Tidak ada kelas yang dipilih.
             </div>
+        {% endif %}
+        
     </div>
+</div>
+
 
 
     <script>

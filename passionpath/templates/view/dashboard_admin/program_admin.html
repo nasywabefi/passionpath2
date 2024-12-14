@@ -44,8 +44,8 @@
                     <p>{{ request.user.username }}</p>
                     <p class="email">{{ request.user.email }}</p>
                 </div>
-                <img alt="User  Avatar" height="40"
-                    src="https://storage.googleapis.com/a1aa/image/OQdX2I0GLWIjGV9aeMWb3CfHrisXT7P3TEySNUjkov1dvz0TA.jpg"
+                <img alt="User Avatar" height="40"
+                    src="{% if profile_admin.foto_profil %}{{ profile_admin.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}"
                     width="40" />
             </div>
         </div>

@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pembayaran</title>
+    <title>Riwayat Pembayaran</title>
     <link
       rel="stylesheet"
       href="{% static 'css/style_dashboard_siswa.css' %}"
@@ -50,7 +50,7 @@
         ><i class="fa-solid fa-user"></i> <b>Profile</b></a
       >
       <a class="active" href=""
-        ><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a
+        ><i class="fa-solid fa-money-bill"></i> <b>Riwayat Pembayaran</b></a
       >
       <a href="{% url 'pengaturan_siswa' %}"
         ><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a
@@ -74,24 +74,16 @@
             <p>{{ request.user.username }}</p>
             <p class="email">{{ request.user.email }}</p>
           </div>
-          <img
-            alt="User Avatar"
-            height="40"
-            src="{% if profile.foto_profil %}{{ profile.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}"
-            width="40"
-          />
+          <img alt="User Avatar" height="40"
+                    src="{% if profile.foto_profil %}{{ profile.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}"
+                    width="40" />
         </div>
       </div>
       <div class="dashboard-content">
-        <div class="header2">Pembayaran</div>
-        <div class="tabs">
-          <div class="tab">
-            <a href="">Belum Dibayar</a>
-          </div>
-          <div class="tab active">
-            <a href="{% url 'riwayat_bayar' %}">Riwayat Pembayaran</a>
-          </div>
-        </div>
+        <div class="header2">Riwayat Pembayaran</div>
+        <div class="tabs"></div>
+        {% load humanize %}
+        {% for pembayaran in riwayat_pembayaran %}
         <div class="payment-item">
           <img
             alt="Person holding a chart"
@@ -100,12 +92,27 @@
             width="50"
           />
           <div>
-            <div class="title">Bahasa</div>
-            <div class="status"><strong>Pending</strong></div>
+            <div class="title">{{ pembayaran.kelas.nama_kelas }}</div>
+            <div>
+              <strong> {% if pembayaran.status_pembayaran == 'success' %}
+                <span class="badge text-bg-success">Success</span>
+            {% elif pembayaran.status_pembayaran == 'ditolak' %}
+                <span class="badge text-bg-danger">Ditolak</span>
+            {% else %}
+                <span class="badge text-bg-warning">Pending</span>
+            {% endif %}</strong>
+              
+            </div>
+            
           </div>
-          <div class="price">Rp 50.000</div>
+          <div class="price">Rp {{ pembayaran.total_harga|intcomma }}</div>
         </div>
-        {% comment %} <div class="payment-item">
+        {% empty %}
+        <p>Tidak ada riwayat pembayaran.</p>
+        {% endfor %} 
+        
+        {% comment %}
+        <div class="payment-item">
           <img
             alt="Person holding a chart"
             height="50"
@@ -117,7 +124,8 @@
             <div class="status"><strong>Pending</strong></div>
           </div>
           <div class="price">Rp 50.000</div>
-        </div> {% endcomment %}
+        </div>
+        {% endcomment %}
       </div>
     </div>
 

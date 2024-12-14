@@ -66,42 +66,42 @@
   <section class="main-section">
     <h2>PassionPath Program</h2>
   </section>
-
-  <div class="kategori">
-    <a href="{% url 'courses' %}?id_kelas={{ business_kelas.id_kelas|default:'' }}">
-      <button class="button-business">
-          <i class="fa-solid fa-briefcase"></i>Bisnis
-      </button>
-  </a>
-  
-  <a href="{% url 'courses' %}?id_kelas={{ development_kelas.id_kelas|default:'' }}">
-      <button class="button-development">
-          <i class="fa-solid fa-file-code"></i>Pemrograman
-      </button>
-  </a>
-  
-  
-    <a href="{% url 'courses' %}?id_kelas={{ bahasa.id_kelas|default:'' }}">
-        <button class="button-language">
-            <i class="fa-solid fa-language"></i>Bahasa
+  <h3  style="text-align: center" >Vidio Interaktif</h3>  
+    <div class="kategori" width="auto">
+      <a href="{% url 'courses' %}?id_kelas={{ business_kelas.id_kelas|default:'' }}">
+        <button class="button-business">
+            <i class="fa-solid fa-briefcase"></i>Bisnis
         </button>
-    </a>
-    <a href="{% url 'courses' %}?id_kelas={{ desain.id_kelas|default:'' }}">
-        <button class="button-design">
-            <i class="fa-solid fa-pen-ruler"></i>Desain
-        </button>
-    </a>
-    <a href="{% url 'courses' %}?id_kelas={{ akuntansi.id_kelas|default:'' }}">
-        <button class="button-accounting">
-            <i class="fa-solid fa-calculator"></i>Akuntansi
-        </button>
-    </a>
-</div>
+      </a>
+      
+      <a href="{% url 'courses' %}?id_kelas={{ development_kelas.id_kelas|default:'' }}">
+          <button class="button-development">
+              <i class="fa-solid fa-file-code"></i>Pemrograman
+          </button>
+      </a>
+      
+      
+        <a href="{% url 'courses' %}?id_kelas={{ bahasa.id_kelas|default:'' }}">
+            <button class="button-language">
+                <i class="fa-solid fa-language"></i>Bahasa
+            </button>
+        </a>
+        <a href="{% url 'courses' %}?id_kelas={{ desain.id_kelas|default:'' }}">
+            <button class="button-design">
+                <i class="fa-solid fa-pen-ruler"></i>Desain
+            </button>
+        </a>
+        <a href="{% url 'courses' %}?id_kelas={{ akuntansi.id_kelas|default:'' }}">
+            <button class="button-accounting">
+                <i class="fa-solid fa-calculator"></i>Akuntansi
+            </button>
+        </a>
+    </div>
 
 
   <section class="program-container">
     <!-- Program 1 -->
-    <div class="program-card">
+    {% comment %} <div class="program-card">
       <img src="{% static 'img/pict_Program1_VideoInteraktif.jpg'%}" alt="Video Interaktif" class="card-image" />
       <h3 style="text-align: left">Quis Interaktif</h3>
       <p style="text-align: left">
@@ -114,7 +114,7 @@
         <button type="button" class="btn btn-primary">Join Now</button>   
       </a>
       </p>
-    </div>
+    </div> {% endcomment %}
     <!-- Program 2 -->
     <div class="program-card">
       <img src="{% static 'img/pict_Program2_TalkwithExpert.jpg'%}" alt="Talk with Expert" class="card-image" />

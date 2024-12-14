@@ -1,7 +1,7 @@
 from urllib import request
 from django.contrib.auth import authenticate, login as auth_login , logout
 from django.shortcuts import render, redirect,get_object_or_404
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User  
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import localdate
@@ -15,7 +15,7 @@ import json
 from datetime import datetime
 from .models import Students , Kelas ,Pembayaran
 from django.core.files.storage import FileSystemStorage
-
+from django.db.models import Q, Exists, OuterRef
 from .models import Contact , ProfileAdmin , Episode
 from django.conf import settings
 from django.core.mail import send_mail
@@ -32,11 +32,23 @@ kelas.episodes.all()
 def coming_soon(request):
     return render(request, 'view/coming_soon.html')
 
+# Kelas
+@login_required
 def courses(request):
-    id_kelas = request.GET.get('id_kelas')  # Ambil id_kelas dari query string
-
-    # Ambil kelas berdasarkan id_kelas
+    id_kelas = request.GET.get('id_kelas') 
+  
     kelas = get_object_or_404(Kelas, id_kelas=id_kelas) if id_kelas else None
+    
+    pembayaran_sukses = Pembayaran.objects.filter(
+        user=request.user,
+        status_pembayaran="success",
+        kelas=kelas
+    ).exists()
+
+    if pembayaran_sukses:
+        kelas.episodes.filter(is_free=False).update(is_free=True)
+    else:
+        pass 
 
     # Ambil daftar episode berdasarkan relasi id_kelas
     episode_list = Episode.objects.filter(id_kelas=kelas) if kelas else []
@@ -44,6 +56,7 @@ def courses(request):
     return render(request, 'view/courses/courses.html', {
         'kelas': kelas,
         'episode_list': episode_list,
+        'pembayaran_sukses': pembayaran_sukses,
     })
 
 # Redirect Ke Profile Siswa/admin
@@ -297,10 +310,25 @@ def contact(request):
 
 
 # COURSE HOME PAGE
-def riwayat_bayar(request):
-    return render(request, 'view/dashboard_siswa/riwayat_bayar.html')
+
 def laporan_admin(request):
-    return render(request, 'view/dashboard_admin/laporan_admin.html')
+    # Ambil profil admin
+    try:
+        profile_admin = ProfileAdmin.objects.get(username=request.user)
+    except ProfileAdmin.DoesNotExist:
+        profile_admin = None
+
+    # Ambil semua data pembayaran
+    pembayaran_list = Pembayaran.objects.all()
+
+    # Gabungkan data pembayaran dan profil admin dalam konteks
+    context = {
+        'pembayaran_list': pembayaran_list,  # Data pembayaran
+        'profile_admin': profile_admin,  # Data profil admin
+    }
+
+    return render(request, 'view/dashboard_admin/laporan_admin.html', context)
+
 def accounting(request):
     return render(request, 'view/courses/accounting.html')
 
@@ -387,11 +415,35 @@ def pengaturan_admin(request):
 @login_required
 def dashboard_admin(request):
     if not request.user.is_superuser:
-        return redirect('dashboard_siswa') 
-    return render(request, 'view/dashboard_admin/dashboard_admin.html')
+        return redirect('dashboard_siswa')  # Redirect jika bukan admin
+
+    # Mengambil profil admin berdasarkan user yang sedang login
+    try:
+        profile_admin = ProfileAdmin.objects.get(username=request.user)
+    except ProfileAdmin.DoesNotExist:
+        profile_admin = None  # Jika tidak ada, set ke None
+
+    # Hitung total data
+    total_pengguna = User.objects.count()  # Hitung semua pengguna
+    total_kelas = Kelas.objects.count()  # Hitung semua kelas
+    total_episode = Episode.objects.count()  # Hitung semua episode
+
+    # Kirim data ke template
+    context = {
+        'total_pengguna': total_pengguna,
+        'total_kelas': total_kelas,
+        'total_episode': total_episode,
+        'profile_admin': profile_admin,  # Kirim profil admin ke template
+    }
+    return render(request, 'view/dashboard_admin/dashboard_admin.html', context)
 
 # pembayaran admin
 def pembayaran_admin(request):
+
+    try:
+        profile_admin = ProfileAdmin.objects.get(username=request.user)
+    except ProfileAdmin.DoesNotExist:
+        profile_admin = None
     # Ambil filter status dari query string, jika tidak ada gunakan 'all'
     status_filter = request.GET.get('status-filter', 'all')
 
@@ -404,27 +456,59 @@ def pembayaran_admin(request):
         pembayaran_history_list = Pembayaran.objects.all()
 
     return render(request, 'view/dashboard_admin/pembayaran_admin.html', {
-        'pembayaran_history_list': pembayaran_history_list
+        'pembayaran_history_list': pembayaran_history_list,
+        'profile_admin': profile_admin,
     })
 
 
 # program admin
 def program_admin(request):
-    return render(request, 'view/dashboard_admin/program_admin.html')
+
+    try:
+        profile_admin = ProfileAdmin.objects.get(username=request.user)
+    except ProfileAdmin.DoesNotExist:
+        profile_admin = None
+
+    context = {
+        'profile_admin': profile_admin,  # Kirim profil admin ke template
+    }
+
+    return render(request, 'view/dashboard_admin/program_admin.html', context)
 
 #  program interaktif
 def program_interaktif(request):
+
+    try:
+        profile_admin = ProfileAdmin.objects.get(username=request.user)
+    except ProfileAdmin.DoesNotExist:
+        profile_admin = None
+
     programs = Kelas.objects.all()  
     context = {
         'programs': programs,  
+        'profile_admin': profile_admin, 
     }
     return render(request, 'view/dashboard_admin/program_interaktif.html', context)
     
 
 #  program detail
 def program_detail(request, id_kelas):
+    # Ambil data profil admin
+    try:
+        profile_admin = ProfileAdmin.objects.get(username=request.user)
+    except ProfileAdmin.DoesNotExist:
+        profile_admin = None
+
+    # Ambil kelas berdasarkan ID
     kelas = get_object_or_404(Kelas, id_kelas=id_kelas)
-    return render(request, 'view/dashboard_admin/program_detail.html', {'kelas': kelas})
+
+    # Gabungkan context untuk dikirim ke template
+    context = {
+        'profile_admin': profile_admin,
+        'kelas': kelas, 
+    }
+
+    return render(request, 'view/dashboard_admin/program_detail.html', context)
 
 # update deskripsi kelas
 def update_kelas(request, id_kelas):
@@ -515,9 +599,17 @@ def delete_episode(request, id_kelas, id_episode):
 
 
 def program_input(request, id_kelas):
+    # Ambil kelas berdasarkan ID
     kelas = get_object_or_404(Kelas, id_kelas=id_kelas)
 
+    # Ambil profil admin jika user adalah admin
+    try:
+        profile_admin = ProfileAdmin.objects.get(username=request.user)
+    except ProfileAdmin.DoesNotExist:
+        profile_admin = None
+
     if request.method == 'POST':
+        # Mengambil data dari form
         judul_episode = request.POST.get('judul_episode')
         deskripsi_episode = request.POST.get('deskripsi_episode')
         link_video = request.POST.get('link_video')
@@ -548,7 +640,13 @@ def program_input(request, id_kelas):
         # Redirect ke halaman detail program
         return redirect('program_detail', id_kelas=kelas.id_kelas)
 
-    return render(request, 'view/dashboard_admin/program_input.html', {'kelas': kelas})
+    # Gabungkan data profil admin dan kelas dalam konteks
+    context = {
+        'kelas': kelas,  # Data kelas
+        'profile_admin': profile_admin,  # Data profil admin
+    }
+
+    return render(request, 'view/dashboard_admin/program_input.html', context)
 
 
 # ==== DASHBOARD SISWA ====
@@ -654,8 +752,16 @@ def pembayaran(request, kelas_id):
     # Ambil kelas berdasarkan kelas_id
     kelas = get_object_or_404(Kelas, id_kelas=kelas_id)
 
+    # Periksa apakah user sudah pernah membeli kelas ini dan statusnya "Ditolak"
+    if Pembayaran.objects.filter(user=request.user, kelas=kelas).exclude(status_pembayaran='ditolak').exists():
+        error_message = "Anda sudah melakukan pembayaran untuk kelas ini. Anda hanya bisa membeli kelas lagi jika status pembayaran sebelumnya 'Ditolak'."
+        return render(request, 'view/dashboard_siswa/pembayaran.html', {
+            'kelas': kelas,
+            'error_message': error_message,
+        })
+
     # Reset keranjang menjadi hanya kelas yang dipilih
-    keranjang = [kelas_id]  # Hanya menyimpan kelas terbaru
+    keranjang = [kelas_id]
     request.session['keranjang'] = keranjang
     request.session.modified = True
 
@@ -668,14 +774,23 @@ def pembayaran(request, kelas_id):
     except Students.DoesNotExist:
         siswa = None
 
+    # Cek apakah profil siswa lengkap
+    if not all([siswa.name, siswa.email, siswa.phone, siswa.name_ortu, siswa.phone_ortu, siswa.address]):
+        return render(request, 'view/dashboard_siswa/pembayaran.html', {
+            'kelas': kelas,
+            'kelas_list': kelas_list,
+            'total_harga': total_harga,
+            'error_message': 'Profil Anda belum lengkap. Silakan lengkapi profil untuk melanjutkan pembayaran.',
+            'show_profile_alert': True,  # Flag untuk menampilkan SweetAlert
+        })
+
     if request.method == 'POST':
         # Ambil data dari request POST
         nama_pengirim = request.POST.get('nama-pengirim')
         metode_pembayaran = request.POST.get('metode_pembayaran')
         bukti_pembayaran = request.FILES.get('bukti-pembayaran')
         nomor_rekening_dan_nama = request.POST.get('nomor_rekening_dan_nama')  
-        
-      
+
         if metode_pembayaran == 'Mandiri':
             nomor_rekening_dan_nama = nomor_rekening_dan_nama or '123-456-7890 Mandiri Admin'
         elif metode_pembayaran == 'Dana':
@@ -685,7 +800,6 @@ def pembayaran(request, kelas_id):
 
         # Validasi input
         if not all([nama_pengirim, metode_pembayaran, bukti_pembayaran, nomor_rekening_dan_nama]):
-            # Jika ada data yang kosong, berikan error
             error_message = "Semua data harus diisi!"
             return render(request, 'view/dashboard_siswa/pembayaran.html', {
                 'kelas': kelas,
@@ -698,11 +812,11 @@ def pembayaran(request, kelas_id):
 
         # Membuat instance Pembayaran baru
         pembayaran = Pembayaran(
-            user=request.user,  # Set user yang melakukan pembayaran
-            kelas=kelas,  # Set kelas yang dipilih
+            user=request.user, 
+            kelas=kelas, 
             nama_pengirim=nama_pengirim,
             metode_pembayaran=metode_pembayaran,
-            nomor_rekening_dan_nama=nomor_rekening_dan_nama,  # Simpan nomor rekening dan nama penerima
+            nomor_rekening_dan_nama=nomor_rekening_dan_nama, 
             total_harga=total_harga,
             bukti_pembayaran=bukti_pembayaran,
             # Generate kode pembayaran otomatis
@@ -713,7 +827,7 @@ def pembayaran(request, kelas_id):
         pembayaran.save()
 
         # Redirect setelah pembayaran berhasil
-        return redirect('riwayat_bayar')  # Ganti dengan URL yang sesuai untuk pembayaran sukses
+        return redirect('riwayat_bayar')  
 
     return render(request, 'view/dashboard_siswa/pembayaran.html', {
         'kelas': kelas,
@@ -721,6 +835,22 @@ def pembayaran(request, kelas_id):
         'total_harga': total_harga,
         'siswa': siswa,
     })
+
+
+def riwayat_bayar(request):
+    try:
+        profile = Students.objects.get(username=request.user.username)
+    except Students.DoesNotExist:
+        profile = None
+
+    # Ambil daftar pembayaran user yang sedang login
+    riwayat_pembayaran = Pembayaran.objects.filter(user=request.user)
+
+    return render(request, 'view/dashboard_siswa/riwayat_bayar.html', {
+        'riwayat_pembayaran': riwayat_pembayaran,
+        'profile': profile,  # Kirimkan data profil ke template
+    })
+
 
 
 
@@ -757,48 +887,76 @@ def detail_pembayaran(request, pembayaran_id):
 
 
 
+def approve_pembayaran(request, pembayaran_id):
+    pembayaran = Pembayaran.objects.get(id=pembayaran_id)
+    pembayaran.status_pembayaran = 'success'  # Mengubah status menjadi success
+    pembayaran.tanggal_approve_tolak = timezone.now()  # Menambahkan waktu approve
+    pembayaran.save()
+    
+    return redirect('pembayaran_admin')  # Kembali ke halaman admin pembayaran
 
+def reject_pembayaran(request, pembayaran_id):
+    pembayaran = Pembayaran.objects.get(id=pembayaran_id)
+    pembayaran.status_pembayaran = 'ditolak'  # Mengubah status menjadi ditolak
+    pembayaran.tanggal_approve_tolak = timezone.now()  # Menambahkan waktu tolak
+    pembayaran.save()
+    
+    return redirect('pembayaran_admin')  # Kembali ke halaman admin pembayaran
 
 
 @login_required
 def pembayaran_admin(request):
+   
+    pembayaran_history_list = Pembayaran.objects.all().select_related('user')  
 
     return render(request, 'view/dashboard_admin/pembayaran_admin.html', {
+        'pembayaran_history_list': pembayaran_history_list,
     })
+
 
 # View untuk halaman belajar
 def belajar(request):
-    try:
-        # Ubah nama kelas menjadi "Bisnis" dan "Web Developer" sesuai data di database
-        business_kelas = Kelas.objects.get(nama_kelas='Bisnis')
-    except Kelas.DoesNotExist:
-        business_kelas = None  
 
     try:
-        development_kelas = Kelas.objects.get(nama_kelas='Pemrograman')
-    except Kelas.DoesNotExist:
-        development_kelas = None  
+        profile = Students.objects.get(username=request.user.username)
+    except Students.DoesNotExist:
+        profile = None
+
+    if not request.user.is_authenticated:
+        return redirect('login')  # Pastikan pengguna sudah login
+
     try:
-        desain = Kelas.objects.get(nama_kelas='Desain')
-    except Kelas.DoesNotExist:
-        desain = None  
-    try:
-        bahasa = Kelas.objects.get(nama_kelas='Bahasa')
-    except Kelas.DoesNotExist:
-        bahasa = None  
-    try:
-        akuntansi = Kelas.objects.get(nama_kelas='Akuntansi')
-    except Kelas.DoesNotExist:
-        akuntansi = None  
+        # Ambil kelas yang sudah dibeli dengan status pembayaran "Success"
+        purchased_classes = Kelas.objects.filter(
+            Exists(
+                Pembayaran.objects.filter(
+                    user=request.user,
+                    status_pembayaran="Success",
+                    kelas=OuterRef('pk')  # Relasi ke kelas
+                )
+            )
+        )
+
+        # Ambil kelas yang gratis
+        free_classes = Kelas.objects.filter(episodes__is_free=True)
+
+        # Gabungkan hasil kedua query
+        available_classes = list(purchased_classes) + list(free_classes)  # Gabungkan hasil query
+
+        # Pastikan tidak ada duplikasi kelas
+        available_classes = list({kelas.id_kelas: kelas for kelas in available_classes}.values())
+
+        # Debugging: Log kelas yang tersedia
+        for kelas in available_classes:
+            print(f"Kelas tersedia: {kelas.nama_kelas}")
+
+    except Exception as e:
+        print(f"Error: {e}")
 
     return render(request, 'view/dashboard_siswa/belajar.html', {
-        'business_kelas': business_kelas,
-        'development_kelas': development_kelas,
-        'bahasa': bahasa,
-        'desain': desain,
-        'akuntansi': akuntansi,
+        'available_classes': available_classes,
+        'profile': profile, 
     })
-
 
     
 def course_siswa(request, kelas_id):
@@ -815,6 +973,28 @@ def course_siswa(request, kelas_id):
     else:
         current_episode = episodes.first()
 
+    # Cek apakah episode yang diminta berbayar dan apakah pengguna sudah membeli kelas ini
+    pembayaran_sukses = Pembayaran.objects.filter(
+        user=request.user,
+        status_pembayaran="success",
+        kelas=kelas
+    ).exists()
+
+    # Jika episode berbayar dan pengguna belum membeli kelas
+    if current_episode.is_free == False and not pembayaran_sukses:
+        # Temukan episode sebelumnya
+        current_index = list(episodes).index(current_episode)
+        previous_episode = episodes[current_index - 1] if current_index > 0 else None
+
+        # Tampilkan SweetAlert untuk mengarahkan ke halaman pembayaran
+        return render(request, 'view/dashboard_siswa/course_siswa.html', {
+            'kelas': kelas,
+            'episodes': episodes,
+            'current_episode': previous_episode,  # Kembalikan ke episode sebelumnya
+            'error_message': 'Episode ini berbayar. Silakan lakukan pembayaran untuk mengaksesnya.',
+            'show_payment_alert': True  # Flag untuk menampilkan SweetAlert
+        })
+
     # Temukan previous dan next episode berdasarkan urutan
     current_index = list(episodes).index(current_episode)
     previous_episode = episodes[current_index - 1] if current_index > 0 else None
@@ -826,7 +1006,10 @@ def course_siswa(request, kelas_id):
         'current_episode': current_episode,
         'previous_episode': previous_episode,
         'next_episode': next_episode,
+        'error_message': None,  # Reset error message
+        'show_payment_alert': False  # Flag untuk menampilkan SweetAlert
     })
+
 # pengaturan siswa / reset password
 @login_required
 def pengaturan_siswa(request):

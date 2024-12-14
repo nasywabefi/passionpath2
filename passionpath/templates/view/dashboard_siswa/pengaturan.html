@@ -28,7 +28,7 @@
         <a href="{% url 'dashboard_siswa' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
         <a href="{% url 'belajar' %}"><i class="fa-solid fa-chalkboard-user"></i> <b>Belajar</b></a>
         <a href="{% url 'profile_siswa' %}"><i class="fa-solid fa-user"></i> <b>Profile</b></a>
-        <a href=""><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
+        <a href="{% url 'riwayat_bayar' %}"><i class="fa-solid fa-money-bill"></i> <b>Riwayat Pembayaran</b></a>
         <a class="active" href="#"><i class="fa-solid fa-gear"></i> <b>Pengaturan</b></a>
         <div class="logout-line"></div>
         <a class="logout" href="{% url 'logout' %}">Keluar</a>

@@ -46,9 +46,9 @@
                     <p>{{ request.user.username }}</p>
                     <p class="email">{{ request.user.email }}</p>
                 </div>
-                <img alt="User  Avatar" height="40"
-                    src="https://storage.googleapis.com/a1aa/image/OQdX2I0GLWIjGV9aeMWb3CfHrisXT7P3TEySNUjkov1dvz0TA.jpg"
-                    width="40" />
+                <img alt="User Avatar" height="40"
+                src="{% if profile_admin.foto_profil %}{{ profile_admin.foto_profil.url }}{% else %}https://img.icons8.com/?size=100&id=14736&format=png&color=000000{% endif %}"
+                width="40" />
             </div>
         </div>
 
@@ -65,49 +65,53 @@
                         <input type="date" id="endDate" class="form-control me-3" placeholder="yyyy-mm-dd">
                         <button id="applyFilter" class="btn btn-primary">Filter</button>
                     </div>
-                </div>                
+                </div>         
                                 
                 <!-- Pembungkus tabel -->
                 <div class="table-wrapper">
                     <table id="myTable" class="display" style="width:100%">
                         <thead>
                             <tr>
-                                <th>ID Siswa</th>
-                                <th>Nama Siswa</th>
-                                <th>Tanggal</th>
-                                <th>Bukti Pembayaran</th>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Kelas</th>
+                                <th>Tanggal Pembayaran</th>
+                                <th>Tanggal Approve/Tolak</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Kode Pembayaran</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table-body">
+                            {% for pembayaran in pembayaran_list %}
                             <tr>
-                                <td><a href="#">S123456789</a></td>
-                                <td>Budiono</td>
-                                <td>20/06/24</td>
-                                <td>img34567890</td>
-                                <td><span class="badge text-bg-success">Disetujui</span></td>
-                                <td class="actions">
-                                    <button class="approved">Disetujui</button>
-                                    <button class="rejected">Ditolak</button>
-                                    <button class="details">Detail</button>
-                                </td>
+                                <!-- ID Pembayaran -->
+                                <td>{{ pembayaran.id }}</td>
+                                
+                                <!-- Nama Pengguna -->
+                                <td>{{ pembayaran.user.username }}</td> <!-- Asumsi ada atribut name pada model user -->
+                                
+                                <!-- Kelas -->
+                                <td>{{ pembayaran.kelas.nama_kelas }}</td> <!-- Asumsi ada atribut nama_kelas pada model Kelas -->
+                                
+                                <!-- Tanggal Pembayaran -->
+                                <td>{{ pembayaran.tanggal_pembayaran|date:"d/m/Y" }}</td>
+                                
+                                <!-- Tanggal Approve/Tolak -->
+                                <td>{{ pembayaran.tanggal_approve_tolak|date:"d/m/Y" }}</td> <!-- Asumsi ada atribut tanggal_approve pada model Pembayaran -->
+                                
+                                <!-- Status Pembayaran -->
+                                <td>{{ pembayaran.status_pembayaran }}</td>
+                                
+                                <!-- Kode Pembayaran -->
+                                <td>{{ pembayaran.kode_pembayaran }}</td>
                             </tr>
-                            <tr>
-                                <td><a href="#">S123456789</a></td>
-                                <td>MR boy</td>
-                                <td>20/06/24</td>
-                                <td>img34567890</td>
-                                <td><span class="badge text-bg-danger">Ditolak</span></td>
-                                <td class="actions">
-                                    <button class="approved">Disetujui</button>
-                                    <button class="rejected">Ditolak</button>
-                                    <button class="details">Detail</button>
-                                </td>
-                            </tr>
-                            <!-- Tambahkan baris lainnya di sini -->
+                            {% endfor %}
                         </tbody>
                     </table>
+                    
+                    
+
+                    
                     <div class="export-buttons"></div>
                 </div>
                 <!-- Script jQuery -->
@@ -132,11 +136,62 @@
                 ]
             });
         });
-</script>
+    </script>
             </div>
-
         </div>
     </div>
+
+    {% comment %} filetr tanggal {% endcomment %}
+    <script>
+        document.getElementById('applyFilter').addEventListener('click', function () {
+            // Ambil nilai tanggal dari input
+            var startDate = document.getElementById('startDate').value;
+            var endDate = document.getElementById('endDate').value;
+        
+            // Konversi tanggal input ke objek Date
+            var start = startDate ? new Date(startDate) : null;
+            var end = endDate ? new Date(endDate) : null;
+        
+            // Ambil semua baris dari tabel
+            var rows = document.querySelectorAll('#table-body tr');
+        
+            rows.forEach(function (row) {
+                var tanggalPembayaran = row.querySelector('td:nth-child(3)').textContent.trim();
+        
+                // Konversi tanggal pembayaran ke objek Date
+                var pembayaranDate = parseTanggal(tanggalPembayaran);
+        
+                // Debugging: Log tanggal untuk verifikasi
+                console.log('Tanggal Pembayaran:', pembayaranDate);
+        
+                // Filter berdasarkan rentang tanggal
+                if (isInDateRange(pembayaranDate, start, end)) {
+                    row.style.display = ''; // Tampilkan baris jika sesuai
+                } else {
+                    row.style.display = 'none'; // Sembunyikan baris jika tidak sesuai
+                }
+            });
+        });
+        
+        // Fungsi untuk memparsing tanggal pembayaran (format: d/m/Y)
+        function parseTanggal(tanggalStr) {
+            var parts = tanggalStr.split('/');
+            if (parts.length === 3) {
+                return new Date(parts[2], parts[1] - 1, parts[0]); // Format: yyyy, mm-1, dd
+            }
+            return null;
+        }
+        
+        // Fungsi untuk memeriksa apakah tanggal dalam rentang
+        function isInDateRange(date, start, end) {
+            if (!date) return false; // Jika tanggal pembayaran tidak valid, abaikan
+            if (start && date < start) return false; // Sebelum rentang awal
+            if (end && date > end) return false; // Setelah rentang akhir
+            return true; // Dalam rentang
+        }
+        
+    </script>
+    
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
