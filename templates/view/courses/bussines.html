@@ -35,56 +35,63 @@
         </nav>
       </div>
 
-      <div class="auth-buttons">
+    <div class="auth-buttons">
+        {% if user.is_authenticated %}
+        <div class="btn-group">
+            <button type="button" class="btn dropdown-toggle" style="border: none;" data-bs-toggle="dropdown"
+                data-bs-display="static" aria-expanded="false">
+               <strong>Halo,{{ user.first_name }}!</strong>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-lg-end">
+                <li><a class="dropdown-item" href="{% url 'dashboard_admin' %}">Dashboard</a></li>
+                <li><a class="dropdown-item" href="{% url 'profile_redirect' %}">Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </div>
+        {% else %}
+        <!-- Jika pengguna belum login, tampilkan tombol login dan register -->
         <a href="{% url 'login' %}">
-          <button class="login-btn">Login</button>
+            <button class="login-btn">Login</button>
         </a>
         <a href="{% url 'register' %}">
-          <button class="register-btn">Register</button>
+            <button class="register-btn">Register</button>
         </a>
-      </div>
+        {% endif %}
+    </div>
       <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
     </div>
   </header>
 
   <section class="main-section">
     <h2 style="margin-left: -65px; margin-right: 20px; text-align: center;">Bussines</h2>
-    <p style="margin-left: -65px; margin-right: 20px; text-align: justify;">Pernah nggak sih, kamu ngelihat produk baru
-      yang keren banget dan kepikiran,
-      "Kok bisa ya orang bikin produk sekeren ini?" Atau, pernah melihat iklan di TV,
-      atau situs belanja online? Semua itu nggak lepas dari peran orang-orang yang berkecimpung di dunia bisnis.
-      Mulai dari yang bikin produknya, yang ngiklanin, sampai yang ngurus keuangannya.
-      Nah, kalau kamu tertarik jadi bagian dari dunia yang seru ini, jurusan bisnis adalah pilihan yang tepat.
-      Di video ini, kita akan bahas lebih lanjut tentang apa aja yang bisa kamu lakukan dengan gelar sarjana bisnis.
-    </p>
+    <p style="margin-left: -65px; margin-right: 20px; text-align: justify;">{{ kelas.deskripsi }}</p>
   </section>
 
   <section class="program-container">
-    <!-- Program 1 -->
-    <div class="program-card">
-      <img src="{% static 'img/bsn12.jpeg' %}" alt="Video Interaktif" />
-      <h3 style="text-align: left">Eps 1 : Intro To Bussiness</h3>
-      <p style="text-align: justify">Pada episode pertama ini kita akan belajar tentang definisi bisnis secara umum,
-        fungsi, dan jenis-jenis bisnis.</p>
-
-      <p class="price">
-        <strong class="free">Free</strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
-      </p>
-    </div>
     <!-- Program 2 -->
-    <div class="program-card">
-      <img src="{% static 'img/bsn2.jpeg' %}" alt="Video Interaktif" />
-      <h3 style="text-align: left">Eps 2 : History of Business Development</h3>
-      <p style="text-align: justify">Di episode ini kita akan mencari tau bagaimana bisnis berkembang dari zaman ke
-        zaman? Juga akan melihat sejarah singkat perkembangan dunia bisnis dan pengaruh teknologi dalam sebuah bisnis.
-      </p>
-
-      <p class="price">
-        <strong class="free">Free</strong>
-        <a href="{% url 'product' %}"><button type="button" class="btn btn-primary">Watch</button></a>
-      </p>
-    </div>
+    <div class="program-container">
+      <!-- Looping through episodes -->
+      {% for episode in episode_list %}
+          <div class="program-card">
+              <img src="{% static 'img/bsn12.jpeg' %}" alt="Video Interaktif" />
+              <h3>{{ episode.judul_episode }}</h3>
+              <p>{{ episode.deskripsi_episode }}</p>
+  
+              <p class="price">
+                  {% if episode.is_free %}
+                      <strong class="free">Gratis</strong>
+                  {% else %}
+                      <strong class="paid">Berbayar</strong>
+                  {% endif %}
+                  <a href="{% url 'product' %}">
+                      <button type="button" class="btn btn-primary">Watch</button>
+                  </a>
+              </p>
+          </div>
+      {% empty %}
+          <p>No episodes available.</p>
+      {% endfor %}
+  </div>
     <!-- Program 3 -->
     <div class="program-card">
       <img src="{% static 'img/bsn11.jpeg' %}" alt="Video Interaktif" />
@@ -264,9 +271,11 @@
   </footer>
 
   <!-- javascript -->
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
-  <script src="{% static 'js/navbar.js' %}"></script>
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/navbar.js' %}"></script>
 </body>
 
 </html>

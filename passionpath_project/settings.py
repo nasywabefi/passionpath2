@@ -11,11 +11,17 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = BASE_DIR.joinpath("templates")
 STATIC_DIR = BASE_DIR.joinpath("static")
+
+# Untuk media file (gambar, dll.)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -38,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'passionpath_app'
 ]
 
@@ -122,8 +129,22 @@ STATICFILES_DIRS = [
     STATIC_DIR
 ]
 
-
+LOGIN_URL = '/login/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Konfigurasi untuk Mailtrap
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'  
+EMAIL_PORT = 2525  
+EMAIL_USE_TLS = True 
+EMAIL_HOST_USER = 'd6c284b6083d76'
+EMAIL_HOST_PASSWORD = 'ba974213e2ba3b' 
+CONTACT_EMAIL = 'akhmadsahrul099@gmail.com' 
+
+
+RECAPTCHA_PUBLIC_KEY = '6Lf8GJIqAAAAAL7-UuxBfbPNE3FBAplsP3FgyDjE'
+RECAPTCHA_PRIVATE_KEY = '6Lf8GJIqAAAAAHh3P64OnBPiy1P5w3On9tx6d2C1'

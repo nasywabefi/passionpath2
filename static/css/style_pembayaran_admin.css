@@ -1,0 +1,179 @@
+
+.filter {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center; 
+    margin-bottom: 10px;
+    gap: 10px; 
+    font-family: 'Arial', sans-serif;
+}
+
+/* Label Filter */
+.filter label {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+}
+
+/* Dropdown Select */
+.filter select {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 1em;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease-in-out; 
+}
+
+/* Hover dan Fokus untuk Dropdown */
+.filter select:hover {
+    border-color: #888;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #e0e0ff;
+    color: #000;
+}
+td a {
+    color: blue;
+    text-decoration: none;
+}
+
+.actions button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.actions .approved {
+    background-color: #28a745;
+    color: #fff;
+}
+.actions .rejected {
+    background-color: #dc3545;
+    color: #fff;
+}
+.actions .details {
+    background-color: #007bff;
+    color: #fff;
+}
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.pagination .info {
+    font-size: 0.9em;
+    color: #666;
+}
+.pagination .pages {
+    display: flex;
+    align-items: center;
+}
+.pagination .pages button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 0 2px;
+    cursor: pointer;
+}
+.pagination .pages button.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Tambahkan pembungkus untuk tabel */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Tambahkan scrolling horizontal */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling untuk perangkat sentuh */
+    margin-bottom: 20px; /* Spasi bawah tabel */
+    background-color: #fff; /* Tambahkan warna latar belakang agar tabel tetap terlihat */
+    border: 1px solid #ccc; /* Tambahkan border di pembungkus tabel */
+    border-radius: 5px; /* Tambahkan radius untuk tampilan lebih rapi */
+}
+
+/* Tabel tetap menggunakan lebar penuh */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Atur gaya header dan sel tabel */
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    font-size: 1em; /* Ukuran font standar */
+}
+
+/* Warna latar belakang header tabel */
+th {
+    background-color: #e0e0ff;
+    color: #000;
+}
+
+/* Teks dan tautan */
+td a {
+    color: blue;
+    text-decoration: none;
+}
+
+/* Media Query untuk layar kecil */
+@media (max-width: 768px) {
+    /* Kurangi ukuran font di layar kecil */
+    th, td {
+        font-size: 0.9em; 
+        padding: 8px; /* Kurangi padding */
+    }
+    
+    /* Kurangi margin pembungkus tabel */
+    .table-wrapper {
+        margin-bottom: 15px;
+    }
+}
+
+/* Media Query untuk layar sangat kecil */
+@media (max-width: 480px) {
+    th, td {
+        font-size: 0.8em; 
+        padding: 5px; /* Kurangi padding lebih jauh */
+    }
+}
+
+.search-container {
+    display: flex;
+    justify-content: flex-start; /* Posisi awal */
+    align-items: center; /* Rata vertikal */
+    gap: 10px; /* Jarak antar elemen */
+    width: 100%; /* Mengisi ruang yang tersedia */
+  }
+  
+  .search-container input {
+    width: 100%; /* Melebar sesuai kontainer */
+    max-width: 300px; /* Membatasi lebar maksimum */
+  }
+  
+  /* Responsivitas untuk layar kecil */
+  @media (max-width: 576px) {
+    .search-container input {
+      width: 100%; /* Input melebar penuh pada layar kecil */
+    }
+  }
+  

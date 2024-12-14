@@ -1,5 +1,5 @@
-{% load static %}
 <html lang="id">
+  {% load static %}
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,27 +28,62 @@
       <div class="navbar-custom">
         <div class="rata-kiri">
           <div class="logo">
-            <a href="{% url 'index' %}"><img src="{% static 'img/logo_long_passionpath.png'%}" alt="PassionPath Logo" /></a>
+            <a href="{% url 'index' %}"
+              ><img
+                src="{% static 'img/logo_long_passionpath.png'%}"
+                alt="PassionPath Logo"
+            /></a>
           </div>
           <nav>
             <ul>
               <li><a href="{% url 'index' %}">Home</a></li>
-              <li><a href="{% url 'about' %}">About</a></li>
-              <li><a href="{% url 'product' %}">Products</a></li>
-              <li><a href="{% url 'contact' %}">Contact</a></li>
-             
+              <li><a href="{% url 'about' %}">Tentang Kami</a></li>
+              <li><a href="{% url 'product' %}">Produk</a></li>
+              <li><a href="{% url 'contact' %}">Hubungi Kami</a></li>
             </ul>
           </nav>
         </div>
-  
+
         <div class="auth-buttons">
+          {% if user.is_authenticated %}
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn dropdown-toggle"
+              style="border: none"
+              data-bs-toggle="dropdown"
+              data-bs-display="static"
+              aria-expanded="false"
+            >
+              <strong>Halo,{{ user.first_name }}!</strong>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-lg-end">
+              <li>
+                <a class="dropdown-item" href="{% url 'dashboard_admin' %}"
+                  >Dashboard</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'profile_redirect' %}"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+              </li>
+            </ul>
+          </div>
+          {% else %}
+          <!-- Jika pengguna belum login, tampilkan tombol login dan register -->
           <a href="{% url 'login' %}">
             <button class="login-btn">Login</button>
           </a>
           <a href="{% url 'register' %}">
             <button class="register-btn">Register</button>
           </a>
+          {% endif %}
         </div>
+
         <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
       </div>
     </header>
@@ -59,21 +94,25 @@
           <h1>Mengapa Harus PassionPath?</h1>
         </div>
 
-        <div class="d-flex flex-column-reverse flex-md-row flex-column flex-md-row align-items-center">
+        <div
+          class="d-flex flex-column-reverse flex-md-row flex-column flex-md-row align-items-center"
+        >
           <div class="flex-fill">
             <h4 class="highlight">Taukah kamu?</h4>
             <blockquote>
-              “87% mahasiswa di Indonesia merasa salah jurusan dengan berbagai alasan”
+              “87% mahasiswa di Indonesia merasa salah jurusan dengan berbagai
+              alasan”
             </blockquote>
-            <h4 clas ="isi">
+            <h4 clas="isi">
               Dengan fenomena tersebut, PassionPath hadir untuk meminimalisir
-              permasalahan tersebut. PassionPath merupakan platform belajar untuk
-              mencari minat bakat pada siswa SMP dan SMA untuk ke jenjang lebih lanjut.
+              permasalahan tersebut. PassionPath merupakan platform belajar
+              untuk mencari minat bakat pada siswa SMP dan SMA untuk ke jenjang
+              lebih lanjut.
             </h4>
             <blockquote>
               <span>
-                Ahli Educational Psychologist dari Integrity Development Flexibility
-                (IDF), Irene Guntur.
+                Ahli Educational Psychologist dari Integrity Development
+                Flexibility (IDF), Irene Guntur.
               </span>
             </blockquote>
           </div>
@@ -85,13 +124,16 @@
               class="img-fluid"
               width="1300"
             />
-            
           </div>
         </div>
 
         <div class="d-flex flex-column flex-md-row align-items-center mt-4">
-          <div class="flex-fill">
-            <img src="{% static 'img/ideaFit.png'%}" alt="Idea" class="img-fluid"/>
+          <div class="flex-fill" style="text-align: right">
+            <img
+              src="{% static 'img/ideaFit-bg.png'%}"
+              alt="Idea"
+              class="img-fluid"
+            />
           </div>
           <div class="benefits flex-fill">
             <h2>Dengan PassionPath kamu akan...</h2>
@@ -104,7 +146,8 @@
         </div>
 
         <h4 class="penutup">
-          Tentukan dan jelajahi jalur karir yang kamu minati bersama PassionPath!
+          Tentukan dan jelajahi jalur karir yang kamu minati bersama
+          PassionPath!
         </h4>
         <div class="text-center">
           <a href="{% url 'product' %}">
@@ -146,7 +189,6 @@
             </ul>
           </div>
           <div class="information">
-
             <h3>information</h3>
             <ul>
               <li>
@@ -170,16 +212,14 @@
       </div>
     </footer>
 
-    
-
     <!-- jQuery untuk Interaksi -->
     <script>
       // Smooth scrolling untuk anchor link
-      $('a').click(function (event) {
-        if (this.hash !== '') {
+      $("a").click(function (event) {
+        if (this.hash !== "") {
           event.preventDefault();
           const hash = this.hash;
-          $('html, body').animate(
+          $("html, body").animate(
             {
               scrollTop: $(hash).offset().top,
             },
@@ -191,19 +231,19 @@
       // Fade in pada konten footer saat halaman di-scroll
       $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
-          $('footer').fadeIn();
+          $("footer").fadeIn();
         } else {
-          $('footer').fadeOut();
+          $("footer").fadeOut();
         }
       });
 
       // Hover effect pada tombol Join Now
-      $('.join-btn').hover(
+      $(".join-btn").hover(
         function () {
-          $(this).css('background-color', '#5a5a5a');
+          $(this).css("background-color", "#5a5a5a");
         },
         function () {
-          $(this).css('background-color', '#8968F6');
+          $(this).css("background-color", "#8968F6");
         }
       );
     </script>

@@ -1,0 +1,54 @@
+
+/* Form container */
+.form-container {
+    position: relative;
+    z-index: 1; 
+    margin-left: 0; 
+}
+
+/* Container untuk input dan ikon mata */
+.input-with-eye {
+    position: relative;
+}
+
+/* Membuat ruang pada input agar ikon tidak menutupi teks */
+.input-with-eye input {
+    padding-right: 35px; 
+}
+
+/* Penataan posisi dan efek pada ikon mata */
+.input-with-eye i {
+    position: absolute;
+    top: 50%; 
+    right: 10px;
+    transform: translateY(-50%); 
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+    transition: color 0.3s, transform 0.3s; 
+}
+
+/* Efek ketika di hover */
+.input-with-eye i:hover {
+    color: #007bff; 
+    transform: translateY(-50%) scale(1.1); 
+}
+
+/* Responsif untuk tampilan mobile */
+@media (max-width: 768px) {
+    .form-container {
+        width: 100%; 
+    }
+
+    .sidebar {
+        z-index: 10; 
+    }
+
+    .header{
+        z-index: 10;
+    }
+
+    .form-container {
+        z-index: 1; 
+    }
+}

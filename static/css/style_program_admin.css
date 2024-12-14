@@ -1,0 +1,72 @@
+.container {
+  width: 80%;
+  max-width: 1200px;
+  position: relative;
+}
+h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.programs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.program {
+  background-color: #f0f0f0;
+  width: 30%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  margin-top: 20px;
+}
+.program:hover {
+  transform: scale(1.05);
+}
+.program p {
+  margin: 10px 0 0 0;
+  font-size: 1.2em;
+  font-weight: normal;
+}
+.program i {
+  font-size: 2em;
+  color: #3b3b98;
+}
+.add-program {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3b3b98;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
+.add-program i {
+  margin-right: 10px;
+}
+@media (max-width: 768px) {
+  .programs {
+      flex-direction: column;
+      align-items: center;
+  }
+  .program {
+      width: 80%;
+      margin-bottom: 20px;
+  }
+  .add-program {
+      position: static;
+      margin-top: 20px;
+  }
+}

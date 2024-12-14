@@ -1,0 +1,141 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* Container untuk grid layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Default 2 kolom */
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Styling untuk setiap box */
+.box {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: auto; /* Ubah menjadi auto untuk menyesuaikan konten */
+    gap: 15px;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.box:hover {
+    transform: scale(1.05);
+}
+
+.box img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+}
+
+.box-text {
+    display: flex;
+    flex-direction: column; /* Menyusun teks secara vertikal */
+    gap: 5px;
+}
+
+.box h4 {
+    font-size: 18px;
+    margin: 0; /* Menghilangkan margin default */
+}
+
+.box h6 {
+    font-size: 14px;
+    color: grey;
+    margin: 0;
+}
+
+.box h7 {
+    font-size: 12px;
+    color: #555;
+    margin: 0;
+}
+
+a.box {
+    text-decoration: none; /* Menghapus garis bawah */
+    color: inherit; /* Menggunakan warna teks bawaan */
+}
+
+a.box:hover {
+    text-decoration: none;
+    transform: scale(1.05); /* Efek zoom */
+}
+
+a.box:hover h4, 
+a.box:hover h6, 
+a.box:hover h7 {
+    color: #6c63ff; /* Warna teks saat hover */
+    transition: color 0.3s ease-in-out;
+}
+
+
+/* Membuat layout responsif */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 1 kolom untuk layar kecil */
+    }
+
+    .box {
+        flex-direction: row; /* Tetap horizontal untuk box */
+        gap: 10px;
+    }
+
+    .box img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .box h4 {
+        font-size: 16px;
+    }
+
+    .box h6, .box h7 {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Tetap 1 kolom untuk layar kecil */
+        gap: 15px;
+    }
+
+    .box {
+        flex-direction: column; /* Ubah menjadi vertikal untuk layar sangat kecil */
+        align-items: center;
+        text-align: center;
+    }
+
+    .box img {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 10px;
+    }
+
+    .box-text {
+        align-items: center; /* Teks di tengah */
+        gap: 8px;
+    }
+
+    .box h4 {
+        font-size: 16px;
+    }
+
+    .box h6, .box h7 {
+        font-size: 12px;
+    }
+}

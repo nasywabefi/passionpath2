@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style_dashboard_siswa.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_program_admin.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="sidebar">
+        <a href="{% url 'index' %}">
+            <img alt="Logo" height="50" src="{% static 'img/logo_long_passionpath.png'%}" width="80%" />
+        </a>
+        <hr style="border: 1px solid #ccc; margin: 10px 0;" />
+        <a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> <b>Homepage</b></a>
+        <a href="{% url 'dashboard_admin' %}"> <i class="fa-solid fa-gauge-high"></i> <b>Dashboard</b></a>
+        <a class="active" href="#"><i class="fa-solid fa-chalkboard-user"></i> <b>Program</b></a>
+        <a href="{% url 'pengaturan_admin' %}"><i class="fa-solid fa-user"></i> <b>Pengaturan Admin</b></a>
+        <a href="{% url 'pembayaran_admin' %}"><i class="fa-solid fa-money-bill"></i> <b>Pembayaran</b></a>
+        <a href="{% url 'laporan_admin' %}"><i class="fa-solid fa-gear"></i> <b>Laporan</b></a>
+        <div class="logout-line"></div>
+        <a class="logout" href="{% url 'logout' %}">Keluar</a>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div>
+                <a href="#" class="menu-toggle">
+                    <img src="https://img.icons8.com/?size=100&id=8113&format=png&color=000000" width="28%"
+                        alt="Menu Icon">
+                </a>
+
+            </div>
+            <div class="user-info">
+                <div>
+                    <p>{{ request.user.username }}</p>
+                    <p class="email">{{ request.user.email }}</p>
+                </div>
+                <img alt="User  Avatar" height="40"
+                    src="https://storage.googleapis.com/a1aa/image/OQdX2I0GLWIjGV9aeMWb3CfHrisXT7P3TEySNUjkov1dvz0TA.jpg"
+                    width="40" />
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="container">
+                <h1><a href="{% url 'program_admin' %}" style="text-decoration: none; color: inherit;">Program</a> > Video Interaktif</h1>
+                <div class="programs">
+                    {% for program in programs %}
+                    <div class="program" onclick="location.href='{% url 'program_detail' program.id_kelas %}';">
+                        <i class="fas fa-video"></i>
+                        <p>{{ program.nama_kelas }}</p>
+                    </div>
+                    {% empty %}
+                    <p>No programs available.</p>  
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector('.sidebar');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainContent = document.querySelector('.main-content');
+            const userInfo = document.querySelector('.header .user-info');
+            const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+            function updateLayout() {
+                if (mediaQuery.matches) {
+
+                    sidebar.classList.add('closed');
+                    mainContent.style.marginLeft = '0';
+                    userInfo.style.marginRight = '40px';
+                } else {
+
+                    sidebar.classList.remove('closed');
+                    mainContent.style.marginLeft = '250px';
+                    userInfo.style.marginRight = '280px';
+                }
+            }
+
+            menuToggle.addEventListener('click', function (event) {
+                event.preventDefault();
+
+
+                sidebar.classList.toggle('closed');
+
+
+                if (sidebar.classList.contains('closed')) {
+                    mainContent.style.marginLeft = '0';
+                    userInfo.style.marginRight = '40px';
+                } else {
+                    mainContent.style.marginLeft = mediaQuery.matches ? '0' : '250px';
+                    userInfo.style.marginRight = mediaQuery.matches ? '40px' : '280px';
+                }
+            });
+
+            mediaQuery.addEventListener('change', updateLayout);
+
+            updateLayout();
+        });
+
+    </script>
+</body>
+
+</html>

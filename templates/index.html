@@ -114,7 +114,7 @@
     </section>
 
     <header class="ilang" id="ilang1">
-        <div class="navbar-custom animate_animated animate_fadeInDown">
+        <div class="navbar-custom animate__animated animate__fadeInDown">
             <div class="rata-kiri">
                 <div class="logo">
                     <a href=""><img src="{% static 'img/logo_long_passionpath.png'%}" alt="PassionPath Logo" /></a>
@@ -123,9 +123,9 @@
                 <nav>
                     <ul>
                         <li><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="{% url 'about' %}">About</a></li>
-                        <li><a href="{% url 'product' %}">Products</a></li>
-                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                        <li><a href="{% url 'about' %}">Tentang Kami</a></li>
+                        <li><a href="{% url 'product' %}">Produk</a></li>
+                        <li><a href="{% url 'contact' %}">Hubungi Kami</a></li>
                     </ul>
                 </nav>
             </div>
@@ -135,11 +135,11 @@
                 <div class="btn-group">
                     <button type="button" class="btn dropdown-toggle" style="border: none;" data-bs-toggle="dropdown"
                         data-bs-display="static" aria-expanded="false">
-                       <strong>Halo,{{ user.first_name }}!</strong>
+                       <strong>Halo,  {{ user.first_name }}!</strong>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-lg-end">
                         <li><a class="dropdown-item" href="{% url 'dashboard_admin' %}">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'profile_redirect' %}">Profile</a></li>
                         <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                     </ul>
                 </div>
@@ -164,21 +164,21 @@
                 <img src="{% static 'img/pict_jumbotron.png' %}" alt="Gambar" class="jumbotron-image" />
 
                 <div class="jumbotron-text">
-                    <h2 class="animate_animated animate_fadeInUp
+                    <h2 class="animate__animated animate__fadeInUp
                         animate__delay-1s">
                         Passion Path
                         <br>
                         Education Platform
                     </h2>
-                    <p class="animate_animated animate_fadeInUp
+                    <p class="animate__animated animate__fadeInUp
                     animate__delay-1s">
                         Pembelajaran minat bakat pada siswa
                         <br>
                         SMP/MTS/MA/SMA/SMK Sederajat
                     </p>
                     <p>
-                        <a href="view/product.html">
-                            <button class="button-product animate_animated animate_fadeInUp
+                        <a href="{% url 'product' %}">
+                            <button class="button-product animate__animated animate__fadeInUp
                             animate__delay-1s">Get Started</button>
                         </a>
                     </p>
@@ -188,7 +188,7 @@
             <div class="button-container">
                 <!-- Container untuk kedua button -->
                 <button class="button-class">
-                    <h3><i class="fa-solid fa-chalkboard-user"></i>110 Class</h3>
+                    <h3><i class="fa-solid fa-chalkboard-user"></i>110 Kelas</h3>
                 </button>
                 <button class="button-class button-siswa">
                     <h3><i class="fa-solid fa-graduation-cap"></i>200 Siswa</h3>
@@ -202,33 +202,44 @@
         <br>
 
         <div class="button-container2"> <!-- Container untuk kedua button -->
-            <a href="{% url 'bussines' %}"><button class="button-business"><i
-                        class="fa-solid fa-briefcase fa-2x"></i>Business</button></a>
-            <a href="{% url 'development' %}"><button class="button-development"><i
-                        class="fa-solid fa-file-code fa-2x"></i>Development</button></a>
-            <a href="{% url 'language' %}"><button class="button-language"><i
-                        class="fa-solid fa-language fa-2x"></i>Language</button></a>
-            <a href="{% url 'design' %}"><button class="button-design"><i
-                        class="fa-solid fa-pen-ruler fa-2x"></i>Design</button></a>
-            <a href="{% url 'accounting' %}"><button class="button-office"><i
-                        class="fa-solid fa-calculator fa-2x"></i></i>Accounting</button></a>
+            <a href="{% url 'courses' %}?id_kelas={{ business_kelas.id_kelas|default:'' }}"><button class="button-business"><i
+                        class="fa-solid fa-briefcase fa-2x"></i>Bisnis</button></a>
+            <a href="{% url 'courses' %}?id_kelas={{ development_kelas.id_kelas|default:'' }}"><button class="button-development"><i
+                        class="fa-solid fa-file-code fa-2x"></i>Pemrograman</button></a>
+            <a href="{% url 'courses' %}?id_kelas={{ bahasa.id_kelas|default:'' }}"><button class="button-language"><i
+                        class="fa-solid fa-language fa-2x"></i>Bahasa</button></a>
+            <a href="{% url 'courses' %}?id_kelas={{ desain.id_kelas|default:'' }}"><button class="button-design"><i
+                        class="fa-solid fa-pen-ruler fa-2x"></i>Desain</button></a>
+            <a href="{% url 'courses' %}?id_kelas={{ akuntansi.id_kelas|default:'' }}"><button class="button-office"><i
+                        class="fa-solid fa-calculator fa-2x"></i></i>Akuntasi</button></a>
         </div>
 
         <div class="mbakudung" style="display: flex; justify-content: center; align-items: center;">
             <div class="text-benefit">
-                <h2 class="animate_animated animate_fadeInUp
+                <h2 class="animate__animated animate__fadeInUp
                     animate__delay-1s">
-                    Kamu Harus Mengikuti Kelas di PassionPath?</h2>
-                <p class="animate_animated animatebounceIn animate_delay-5s"><i class="fa-regular fa-circle-check"
-                        style="color: #4480FA;"></i>Mempermudah menuju jurusan impian</p>
-                <p class="animate_animated animatebounceIn animate_delay-5s"><i class="fa-regular fa-circle-check"
-                        style="color: #4480FA;"></i>Prospek karir yang sesuai</p>
-                <p class="animate_animated animatebounceIn animate_delay-5s"><i class="fa-regular fa-circle-check"
-                        style="color: #4480FA;"></i>Memaksimalkan Potensi Diri</p>
-                <p class="animate_animated animatebounceIn animate_delay-5s"><i class="fa-regular fa-circle-check"
-                        style="color: #4480FA;"></i>Menambah Wawasan</p>
-                <p class="animate_animated animatebounceIn animate_delay-5s"><i class="fa-regular fa-circle-check"
-                        style="color: #4480FA;"></i>Koneksi dan Networking yang luas </p>
+                    Kenapa Kamu Harus Mengikuti Kelas di PassionPath?</h2>
+                    <p class="animate__animated animate__bounceIn animate__delay-5s">
+                        <i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>
+                        Mempermudah menuju jurusan impian
+                    </p>
+                    <p class="animate__animated animate__bounceIn animate__delay-5s">
+                        <i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>
+                        Prospek karir yang sesuai
+                    </p>
+                    <p class="animate__animated animate__bounceIn animate__delay-5s">
+                        <i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>
+                        Memaksimalkan Potensi Diri
+                    </p>
+                    <p class="animate__animated animate__bounceIn animate__delay-5s">
+                        <i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>
+                        Menambah Wawasan
+                    </p>
+                    <p class="animate__animated animate__bounceIn animate__delay-5s">
+                        <i class="fa-regular fa-circle-check" style="color: #4480FA;"></i>
+                        Koneksi dan Networking yang luas
+                    </p>
+                    
             </div>
             <div class="pict_mbakudung">
                 <img src="{% static 'img/pict_mbamba_kudung.png' %}" alt="Gambar" class="image-mba">
@@ -236,11 +247,11 @@
         </div>
 
         <div class="faq">
-            <h1> Frequently asked Questions </h1>
+            <h1> Frequently asked Questions</h1>
             <div class="card-faq" id="bulet1">
                 <div class="question1">
                     <h3>Bagaimana cara mendaftar di PassionPath?</h3>
-                    <p class="kaga-ada">Silahkan untuk klik daftar disini <a href="{% url 'register' %}">Disini!</a>
+                    <p class="kaga-ada">Silahkan untuk klik daftar<a href="{% url 'register' %}">Disini!</a>
                 </div>
 
                 <div>

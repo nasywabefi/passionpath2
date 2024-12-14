@@ -1,0 +1,99 @@
+.header2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
+}
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #666;
+}
+.tab.active {
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+.payment-item {
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.payment-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+.payment-item .checkbox {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.payment-item .title {
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.payment-item .status {
+    background-color: red;
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+.payment-item .price {
+    margin-left: auto;
+    font-weight: 700;
+}
+.payment-item .checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: green; /* Warna centang */
+}
+.checkout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #3b3b98;
+    color: #fff;
+    padding: 15px 20px; /* Tambahkan padding agar terlihat lebih rapi */
+    border-radius: 10px;
+    position: fixed;
+    bottom: 20px; /* Posisi lebih baik pada layar */
+    right: 20px;
+    width: calc(100% - 40px);
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan */
+    cursor: pointer; /* Menunjukkan elemen bisa diklik */
+    transition: background-color 0.3s ease;
+}
+
+.checkout:hover {
+    background-color: #292a66; /* Ubah warna saat hover */
+}
+
+.checkout .checkout-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.checkout .price {
+    font-weight: 700;
+    font-size: 16px; /* Perbesar teks harga */
+}
+
+.checkout i {
+    margin-left: 10px;
+    font-size: 18px; /* Perbesar ikon panah */
+}
+

@@ -1,190 +1,335 @@
 body {
     font-family: 'Poppins', sans-serif;
-}
-
-/* Reset */
-* {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    background-color: #f5f5f5;
 }
 
-/* Sidebar */
 .sidebar {
     width: 250px;
-    background-color: #f0f0f0;
     height: 100vh;
+    background-color: #ffffff;
     position: fixed;
-    left: 0;
     top: 0;
-    padding: 20px;
+    left: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.logo img {
-    width: 180px;
-    margin-right: 50px;
-    margin-top: -15px;
-}
-
-.logo h2 {
-    font-size: 16px;
-    font-weight: normal;
-}
-
-.logo span {
-    font-size: 12px;
-    color: #777;
-}
-
-.divider {
-    height: 1px;
-    background-color: #ddd;
-    margin: -25px 0;
-    margin-bottom: 15px;
-}
-
-.menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    flex-grow: 1;
-}
-
-.menu li {
-    padding: 15px 0;
-    cursor: pointer;
-    color: #333;
-}
-
-.menu li:hover {
-    color: #1d72b8;
-}
-
-.menu-bottom {
-    list-style: none;
     padding-top: 20px;
-    cursor: pointer;
-    color: #333;
-}
-
-.menu-bottom:hover {
-    color: #1d72b8;
-}
-
-.divider-bottom {
-    margin-top: 20px; 
-    margin-bottom: 1px;}
-
-/* Main Content */
-.main-content {
-    margin-left: 250px;
-    padding: 0px 20px 20px;
-    background-color: #f9f9f9;
-    min-height: 100vh;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #DCF529;
-    padding: 15px;
-    color: #333;
-    margin-left: -20px;
-    width: calc(100% + 20px);
-}
-
-.header-title {
-    font-size: 20px;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.user-info-text {
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-}
-
-.user-info span:first-child {
-    font-weight: bold; 
-}
-
-.user-icon {
-    font-size: 24px;
-    margin-left: 10px;
-    color: #333;
-}
-
-/* Dashboard Overview */
-.dashboard h1 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 24px;
-}
-
-.dashboard p {
-    margin-bottom: 20px;
-    color: #555;
-}
-
-.overview {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-}
-
-/* Cards */
-.card {
-    padding: 20px;
-    border-radius: 8px;
-    color: black;
-    text-align: center;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #e0e0e0;
     transition: transform 0.3s ease;
 }
 
-.red { background-color: #FFB5AF; }
-.blue { background-color: #BCBFFF; }
-.green { background-color: #B2F79F; }
-.pink { background-color: #FCA9C7; }
-.yellow { background-color: #EFDD86; color: #333; }
-.purple { background-color: #E3AFFF; }
-
-.card h2 {
-    font-size: 32px;
-    margin-bottom: 5px;
-}
-
-.card p {
+.sidebar a {
+    color: black;
+    padding: 15px 20px;
+    text-decoration: none;
     font-size: 16px;
 }
 
-/* Tambahkan efek zoom pada kartu saat di-hover */
-.card {
-    padding: 20px;
-    border-radius: 8px;
-    color: black;
-    text-align: center;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease; /* Smooth transition */
+.sidebar a:hover {
+    background-color: #f0f0f0;
 }
 
-.card:hover {
-    transform: scale(1.05); /* Zoom effect */
+.sidebar a.active {
+    background-color: #DCF529;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.sidebar .logout-line {
+    border-top: 1px solid #e0e0e0;
+    margin-top: 250px; 
+    margin-bottom: 2px;
+}
+
+.sidebar a.logout {
+    color: red;
+    margin-top: auto; 
+    margin-bottom: 20px; 
+}
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    background-color: #DCF529;
+    padding: 20px 30px;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    height: 70px;
+  
+    width: 100%; 
+    transition: width 0.3s ease, left 0.3s ease; 
+}
+
+/* Saat sidebar terbuka */
+.header .user-info {
+    display: flex;
+    align-items: center;
+    text-align: right;
+    margin-left: auto;
+    margin-right: 280px;
+    transition: margin-right 0.3s ease;
+}
+
+/* Saat sidebar tertutup */
+.header .user-info.sidebar-closed {
+    display: flex;
+    align-items: center;
+    text-align: right;
+    margin-left: auto;
+    margin-right: 40px;
+    transition: margin-right 0.3s ease;
+}
+
+
+.header .user-info div {
+    margin-right: 10px;
+}
+
+.header .user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.header .user-info p {
+    margin: 0;
+}
+
+.header .user-info .email {
+    margin-top: 5px;
+}
+
+.dashboard-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 80px;
+}
+
+.dashboard-content h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.dashboard-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.activity-tracker {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.activity-tracker h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.activity-tracker .tracker-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.activity-tracker .circles {
+    display: flex;
+    gap: 10px;
+}
+
+.activity-tracker .circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;  
+}
+
+.activity-tracker .circle.active {
+    background-color: #a3d977;
+}
+
+.activity-tracker .score {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 24px;
+}
+
+.activity-tracker .score i {
+    color: red;
+    font-size: 32px;
+}
+
+.program-activities, .recommended-programs {
+    background-color: #e6e0f8;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.program-activities h2, .recommended-programs h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.program-activities .activity-container, .recommended-programs .program-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.program-activities .activity, .recommended-programs .program {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    height: 150px;
+}
+
+.program-activities .activity img, .recommended-programs .program img {
+    width: 50px;
+    height: 50px;
+}
+
+.program-activities .activity .info, .recommended-program 
+.program-activities .activity .info, .recommended-programs .program .info {
+    text-align: center;
+}
+
+.program-activities .activity .info p, .recommended-programs .program .info p {
+    margin: 0;
+}
+
+.program-activities .activity .info p.title, .recommended-programs .program .info p.title {
+    font-weight: bold;
+}
+
+.program-activities .activity .info p.subtitle, .recommended-programs .program .info p.subtitle {
+    color: #888;
+}
+
+.program-activities .activity .continue, .recommended-programs .program .continue {
+    color: blue;
+    text-decoration: none;
+    align-self: flex-end;
+    margin-top: auto;
+}
+
+/* Sidebar tertutup (dengan transformasi) */
+.sidebar.closed {
+    transform: translateX(-100%);
+}
+
+/* Tombol menu untuk membuka/menutup sidebar */
+.menu-toggle {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+/* Responsivitas untuk mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 250px;
+    }
+
+    .sidebar.closed {
+        transform: translateX(-250px);
+    }
+
+    .header {
+        width: 100%;
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .dashboard-content {
+        margin-top: 70px; 
+    }
+
+    .sidebar a.logout {
+        font-size: 14px; 
+        margin-bottom: 10px; 
+    }
+
+    /* Garis pemisah logout */
+    .sidebar .logout-line {
+        margin-top: 100px; 
+    }
+}
+
+/* Container untuk aktivitas program dan rekomendasi program */
+.program-activities .activity-container, .recommended-programs .program-container {
+    display: flex;
+    flex-wrap: nowrap; 
+    gap: 10px;
+    overflow-x: auto;
+    scrollbar-width: thin; 
+    padding-bottom: 10px;
+}
+
+/* Tampilan card untuk desktop, 3 card per baris */
+.program-activities .activity, .recommended-programs .program {
+    min-width: calc(33.33% - 10px); 
+    flex: 0 0 auto; 
+    max-width: calc(33.33% - 10px);
+}
+
+/* Style scrollbar (untuk browser modern) */
+.program-activities .activity-container::-webkit-scrollbar,
+.recommended-programs .program-container::-webkit-scrollbar {
+    height: 6px; 
+}
+
+.program-activities .activity-container::-webkit-scrollbar-thumb,
+.recommended-programs .program-container::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.program-activities .activity-container::-webkit-scrollbar-track,
+.recommended-programs .program-container::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+}
+
+/* Responsivitas untuk perangkat lebih kecil (tablet dan sejenisnya) */
+@media (max-width: 768px) {
+    .program-activities .activity, .recommended-programs .program {
+        min-width: calc(50% - 10px); 
+    }
+}
+
+/* Responsivitas untuk perangkat ponsel (lebih kecil dari 480px) */
+@media (max-width: 480px) {
+    .program-activities .activity, .recommended-programs .program {
+        min-width: calc(50% - 10px); 
+    }
+
+    .dashboard-content {
+        padding: 10px;
+    }
 }

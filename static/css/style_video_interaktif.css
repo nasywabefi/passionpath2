@@ -1,0 +1,148 @@
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.form-group label {
+    font-weight: bold;
+    margin-right: 10px;
+    min-width: 150px;
+}
+.form-group input, .form-group textarea {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.form-group textarea {
+    height: 100px;
+}
+.form-group .mentor-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.form-group .mentor-tags span {
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+}
+.form-group .mentor-tags span i {
+    margin-left: 5px;
+    cursor: pointer;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+table th {
+    background-color: #D4CBF2;
+}
+.add-module-btn {
+    display: flex;
+    align-items: center;
+    background-color: #373177;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    margin-top: 10px;
+    width: fit-content;
+}
+.add-module-btn i {
+    margin-right: 5px;
+}
+.save-btn {
+    display: block;
+    background-color: #373177;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+    margin-top: 10px; /* Added margin to give some space */
+}
+.table-container {
+    position: relative;
+}
+.add-module-btn-container {
+    position: absolute;
+    right: 0;
+    top: -50px; /* Adjusted to give more space */
+}
+
+/* Input with tags container */
+.input-with-tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    padding-right: 10px; /* Space for input */
+    position: relative;
+}
+
+/* Input field */
+.input-with-tags input {
+    flex: 1;
+    border: none;
+    padding: 5px;
+    min-width: 100px; /* Adjust as needed */
+}
+
+.input-with-tags input:focus {
+    outline: none;
+}
+
+/* Tags container */
+.input-with-tags .mentor-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    max-width: 100%; /* Make sure it doesn't overflow */
+}
+
+/* Individual tags */
+.input-with-tags .mentor-tags span {
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+
+.input-with-tags .mentor-tags span i {
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Ensure container doesn't grow too much */
+.input-with-tags {
+    max-height: 100px;
+    overflow-y: auto; /* Allow scrolling if too many tags */
+}
+
+/* Add some spacing for the input */
+.input-with-tags input {
+    margin-left: 5px;
+}
+
+/* Hide scrollbars for aesthetics */
+.input-with-tags::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
