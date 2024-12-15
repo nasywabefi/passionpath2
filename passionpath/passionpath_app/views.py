@@ -200,6 +200,10 @@ def login(request):
 # ===== HOME PAGE ===== 
 # View untuk halaman utama (index)
 def index(request):
+
+    total_pengguna = User.objects.count()  # Hitung semua pengguna
+    total_kelas = Kelas.objects.count()
+
     try:
         # Ubah nama kelas menjadi "Bisnis" dan "Web Developer" sesuai data di database
         business_kelas = Kelas.objects.get(nama_kelas='Bisnis')
@@ -229,6 +233,10 @@ def index(request):
         'bahasa': bahasa,
         'desain': desain,
         'akuntansi': akuntansi,
+        'total_pengguna': total_pengguna,
+        'total_kelas': total_kelas,
+
+        
     })
 # View untuk halaman about
 def about(request):

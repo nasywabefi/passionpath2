@@ -28,18 +28,18 @@
         <nav>
           <ul>
             <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'product' %}">Products</a></li>
-            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li><a href="{% url 'about' %}">Kontak Kami</a></li>
+            <li><a href="{% url 'product' %}">Program</a></li>
+            <li><a href="{% url 'contact' %}">Kontak Kami</a></li>
           </ul>
         </nav>
       </div>
       <div class="auth-buttons">
         <a href="{% url 'login' %}">
-          <button class="login-btn">Login</button>
+          <button class="login-btn">Masuk</button>
         </a>
         <a href="{% url 'register' %}">
-          <button class="register-btn">Register</button>
+          <button class="register-btn">Daftar</button>
         </a>
       </div>
       <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
@@ -83,26 +83,26 @@
               {% csrf_token %}
               <div class="row">
                 <div class="col-md-6">
-                  <input class="form-control mb-3" placeholder="First name" name="first_name" type="text" required />
+                  <input class="form-control mb-3" placeholder="Nama Depan" name="first_name" type="text" required />
                 </div>
                 <div class="col-md-6">
-                  <input class="form-control mb-3" placeholder="Last name" name="last_name" type="text" required />
+                  <input class="form-control mb-3" placeholder="Nama Belakang" name="last_name" type="text" required />
                 </div>
               </div>
-              <input class="form-control mb-3" placeholder="username" name="username" type="text" required />
+              <input class="form-control mb-3" placeholder="Username" name="username" type="text" required />
               <input class="form-control mb-3" placeholder="E-Mail" name="email" type="email" required />
               <div class="input-group mb-3">
-                <input id="password" class="form-control" placeholder="Enter your password" name="password"
+                <input id="password" class="form-control" placeholder="Password" name="password"
                   type="password" required />
                 <span class="input-group-text" id="toggle-password">
                   <i class="fas fa-eye"></i>
                 </span>
               </div>
-              <button class="btn btn-primary w-100" type="submit">Register</button>
+              <button class="btn btn-primary w-100" type="submit">Daftar</button>
             </form>
 
             <div class="text-center login-link mt-3">
-              Already have an Account? <a href="{% url 'login' %}">Login!</a>
+              Sudah punya akun? <a href="{% url 'login' %}">Masuk!</a>
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@
       <div class="kekanan">
         <div class="contact-us">
           <!-- <div class="footer-links"> -->
-          <h3>Contact Us</h3>
+          <h3>Hubungi Kami</h3>
           <ul>
             <li>
               <a href="#"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a>
@@ -141,7 +141,7 @@
 
         <div class="information">
           <!-- <div class="footer-contact"> -->
-          <h3>information</h3>
+          <h3>Informasi</h3>
           <ul>
             <li>
               <a href="#"><i class="fa-solid fa-hand-holding-dollar"></i> Jumlah

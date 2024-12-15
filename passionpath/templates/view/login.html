@@ -1,156 +1,204 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PassionPath Login</title>
 
     <!-- Import Google Fonts Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Link to external CSS -->
     <link rel="stylesheet" href="{% static 'css/style_nav-footer.css'%}" />
     <link rel="stylesheet" href="{% static 'css/style_register_login.css' %}" />
-    <link href="{% static '/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link
+      href="{% static '/bootstrap/css/bootstrap.min.css' %}"
+      rel="stylesheet"
+    />
     <!-- Link ke Bootstrap 5 dari CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ3Q7n4Jg6l4r9A4TYi8zL7qz85q/ZYyDsqJwH7FvqzZ7DQ2IKqZ6yK7V0w0" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEJ3Q7n4Jg6l4r9A4TYi8zL7qz85q/ZYyDsqJwH7FvqzZ7DQ2IKqZ6yK7V0w0"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <header>
-        <div class="navbar-custom">
-            <div class="rata-kiri">
-                <div class="logo">
-                    <a href="{% url 'index' %}" img><img src="{% static 'img/logo_long_passionpath.png'%}" alt="PassionPath Logo" /></a>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="{% url 'index' %}">Home</a></li>
-                        <li><a href="{% url 'about' %}">About</a></li>
-                        <li><a href="{% url 'product' %}">Products</a></li>
-                        <li><a href="{% url 'contact' %}">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="auth-buttons">
-                <a href="{% url 'login' %}">
-                    <button class="login-btn">Login</button>
-                  </a>
-                  <a href="{% url 'register' %}">
-                    <button class="register-btn">Register</button>
-                </a>
-            </div>
-            <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
+      <div class="navbar-custom">
+        <div class="rata-kiri">
+          <div class="logo">
+            <a href="{% url 'index' %}" img
+              ><img
+                src="{% static 'img/logo_long_passionpath.png'%}"
+                alt="PassionPath Logo"
+            /></a>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="{% url 'index' %}">Home</a></li>
+              <li><a href="{% url 'about' %}">Tentang Kami</a></li>
+              <li><a href="{% url 'product' %}">Program</a></li>
+              <li><a href="{% url 'contact' %}">Kontak Kami</a></li>
+            </ul>
+          </nav>
         </div>
+        <div class="auth-buttons">
+          <a href="{% url 'login' %}">
+            <button class="login-btn">Masuk</button>
+          </a>
+          <a href="{% url 'register' %}">
+            <button class="register-btn">Daftar</button>
+          </a>
+        </div>
+        <i class="fa fa-bars" aria-hidden="true" id="menu-icon"></i>
+      </div>
     </header>
-    
-    
 
     <div class="container">
-        <div class="card">
-            <div class="row g-0">
-                <div class="col-md-6">
-                    <img alt="" class="img-fluid" height="600" src="{% static 'img/bglogin.png'%}" />
-                </div>
-                <div class="col-md-6">
-                    <div class="card-body">
-                        <h4 class="text-center mb-4">LOGIN</h4>
-                        
-                        <!-- alert -->
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="alert 
+      <div class="card">
+        <div class="row g-0">
+          <div class="col-md-6">
+            <img
+              alt=""
+              class="img-fluid"
+              height="600"
+              src="{% static 'img/bglogin.png'%}"
+            />
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h4 class="text-center mb-4">MASUK</h4>
+
+              <!-- alert -->
+              {% if messages %} {% for message in messages %}
+              <div
+                class="alert 
                                     {% if message.tags == 'error' %}alert-danger
                                     {% else %}alert-{{ message.tags|default:'info' }}
                                     {% endif %} 
-                                    alert-dismissible fade show" role="alert">
-                                    <strong>Error</strong> {{ message }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+                                    alert-dismissible fade show"
+                role="alert"
+              >
+                <strong>Error</strong> {{ message }}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+              {% endfor %} {% endif %}
 
-                        <!-- form -->
-                        <form method="post" action="{% url 'login' %}">
-                            {% csrf_token %}
-                            <input class="form-control" placeholder="username" name="username" type="text" required />
-                            <div class="input-group">
-                                <input id="password" class="form-control" name="password" placeholder="Enter your password" type="password" required />
-                                <span class="input-group-text" id="toggle-password">
-                                    <i class="fas fa-eye"></i>
-                                </span>
-                            </div>
-                            <button class="btn btn-primary w-100" type="submit">
-                                Login
-                            </button>
-                        </form>
-                        
-                        <div class="text-center login-link mt-3">
-                            Do you have an account?
-                            <a href="{% url 'register' %}">Daftar!</a>
-                        </div>
-                    </div>
+              <!-- form -->
+              <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <input
+                  class="form-control"
+                  placeholder="Username"
+                  name="username"
+                  type="text"
+                  required
+                />
+                <div class="input-group">
+                  <input
+                    id="password"
+                    class="form-control"
+                    name="password"
+                    placeholder="Masukkan Password"
+                    type="password"
+                    required
+                  />
+                  <span class="input-group-text" id="toggle-password">
+                    <i class="fas fa-eye"></i>
+                  </span>
                 </div>
+                <button class="btn btn-primary w-100" type="submit">
+                  Masuk
+                </button>
+              </form>
+
+              <div class="text-center login-link mt-3">
+                Belum punya akun?
+                <a href="{% url 'register' %}">Daftar!</a>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <footer>
-        <div class="footer-container">
-            <div class="footer-about">
-                <h3>Tentang Kami</h3>
-                <p>
-                    PassionPath membantu pengguna mengenali potensi dan minat melalui
-                    tes psikologis ilmiah. Platform ini memberikan rekomendasi karir dan
-                    pendidikan yang sesuai, serta laporan hasil tes untuk pengembangan
-                    diri dan perencanaan masa depan.
-                </p>
-            </div>
-            <div class="kekanan">
-                <div class="contact-us">
-                    <h3>Contact Us</h3>
-                    <ul>
-                        <li>
-                            <a href="#"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a>
-                        </li>
-                        <li>
-                            <a href="#courses"><i class="fa-solid fa-envelope"></i> Email</a>
-                        </li>
-                        <li>
-                            <a href="#about"><i class="fa-solid fa-location-dot"></i> Cawang PGC, Lt.4</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="information">
-                    <h3>Information</h3>
-                    <ul>
-                        <li>
-                            <a href="#"><i class="fa-solid fa-hand-holding-dollar"></i> Jumlah
-                                Donasi</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa-solid fa-images"></i> Dokumentasi</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa-solid fa-pen-to-square"></i> Program &
-                                Rencana</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+      <div class="footer-container">
+        <div class="footer-about">
+          <h3>Tentang Kami</h3>
+          <p>
+            PassionPath membantu pengguna mengenali potensi dan minat melalui
+            tes psikologis ilmiah. Platform ini memberikan rekomendasi karir dan
+            pendidikan yang sesuai, serta laporan hasil tes untuk pengembangan
+            diri dan perencanaan masa depan.
+          </p>
         </div>
+        <div class="kekanan">
+          <div class="contact-us">
+            <h3>Hubungi Kami</h3>
+            <ul>
+              <li>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a>
+              </li>
+              <li>
+                <a href="#courses"
+                  ><i class="fa-solid fa-envelope"></i> Email</a
+                >
+              </li>
+              <li>
+                <a href="#about"
+                  ><i class="fa-solid fa-location-dot"></i> Cawang PGC, Lt.4</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="information">
+            <h3>Informasi</h3>
+            <ul>
+              <li>
+                <a href="#"
+                  ><i class="fa-solid fa-hand-holding-dollar"></i> Jumlah
+                  Donasi</a
+                >
+              </li>
+              <li>
+                <a href="#"><i class="fa-solid fa-images"></i> Dokumentasi</a>
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fa-solid fa-pen-to-square"></i> Program &
+                  Rencana</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </footer>
 
     <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
     <script src="{% static 'js/app.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
-</body>
-
+  </body>
 </html>
